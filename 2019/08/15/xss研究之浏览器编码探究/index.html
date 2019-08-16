@@ -15,20 +15,20 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
+  <meta name="description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树 的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xss研究之浏览器编码探究">
 <meta property="og:url" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
+<meta property="og:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树 的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935108396.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935142519.png">
-<meta property="og:updated_time" content="2019-08-16T06:00:08.886Z">
+<meta property="og:updated_time" content="2019-08-16T07:22:26.367Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss研究之浏览器编码探究">
-<meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
+<meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树 的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 
   
@@ -221,7 +221,8 @@ ga('send', 'pageview');
       <p><strong>以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&lt;__&gt;有错你也打不到我</strong></p>
 <h1 id="浏览器解码规则"><a href="#浏览器解码规则" class="headerlink" title="浏览器解码规则"></a>浏览器解码规则</h1><p><img src="/2019/08/15/xss研究之浏览器编码探究/1565924892380.png" alt="图1"></p>
 <p>说到浏览器规则便用这一张图来简单阐述。</p>
-<p>首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接<a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">html渲染</a>。</p>
+<p>首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树</p>
+<p>的创建。了解浏览器渲染流程可以参考链接<a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">html渲染</a>。</p>
 <h1 id="html解析器"><a href="#html解析器" class="headerlink" title="html解析器"></a>html解析器</h1><p>html渲染生成DOM树时&lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状态”，“前属性名状态(before attribute name state)”……最后进入“数据状态(Data state)”并释放当前标签的token。当解析器处于“数据状态(Data state)”时，它会继续解析，每当发现一个完整的标签也就是匹配到“&gt;”，就会释放出一个token。</p>
 <p>也就是说我们是不能使用<code>&amp;#60;&amp;#62;</code>(&lt;&gt;)这样的实体来标识一个html标签这是不会被执行的，因为解析<code>&amp;#60;&amp;#62;</code>并不会进入标签开始状态，我们无法使用标签名的实体来绕过过滤，实际上标签名不能进行任何编码。</p>
 <h1 id="js解析器"><a href="#js解析器" class="headerlink" title="js解析器"></a>js解析器</h1><p>js编码是使用<code>\uXXXX</code>这种写法为<code>Unicode</code>转义序列。js触发有<code>script</code>、on*时间和伪协议。</p>
@@ -231,7 +232,7 @@ ga('send', 'pageview');
 <h2 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h2><p><img src="/2019/08/15/xss研究之浏览器编码探究/1565935108396.png" alt="1565935108396"></p>
 <p>上面的代码放到浏览器能弹框，为什么对javascript进行实体还能弹框呢？首先浏览器对代码进行html解码</p>
 <p><img src="/2019/08/15/xss研究之浏览器编码探究/1565935142519.png" alt="1565935142519"></p>
-<p>之后这里多了一层调用url解析器,url解析器去识别了javascript伪协议，<strong>注意url解析不能识别任何编码后的协议类型</strong>这里是由于html解码发生在url解析前。最后url解析器解析了</p>
+<p>之后这里多了一层调用url解析器,url解析器去识别了javascript伪协议，<strong>注意url解析不能识别任何编码后的协议类型</strong>这里是由于html解码发生在url解析前所以才能解析。最后url解析器解析了</p>
 <p>%5c%75%30%30%36%31%5c%75%30%30%36%63%5c%75%30%30%36%35%5c%75%30</p>
 <p>%30%37%32%5c%75%30%30%37%34</p>
 <p>再由js解析器解析。</p>
