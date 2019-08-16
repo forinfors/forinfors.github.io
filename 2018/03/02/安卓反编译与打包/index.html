@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>安卓反编译与打包 | Hexo</title>
+  <title>安卓基础检测 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,17 +15,17 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="工具、环境准备1.java环境安装2.apktool start使用apktool将apk再反编译成文件java -jar apktool.jar d -f package&amp;#39;name.apk -o folder&amp;#39;name">
+  <meta name="description" content="工具、环境准备1.java环境安装2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk 再生">
 <meta property="og:type" content="article">
-<meta property="og:title" content="安卓反编译与打包">
+<meta property="og:title" content="安卓基础检测">
 <meta property="og:url" content="http://yoursite.com/2018/03/02/安卓反编译与打包/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="工具、环境准备1.java环境安装2.apktool start使用apktool将apk再反编译成文件java -jar apktool.jar d -f package&amp;#39;name.apk -o folder&amp;#39;name">
+<meta property="og:description" content="工具、环境准备1.java环境安装2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk 再生">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-14T07:47:43.958Z">
+<meta property="og:updated_time" content="2019-08-16T14:44:30.862Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="安卓反编译与打包">
-<meta name="twitter:description" content="工具、环境准备1.java环境安装2.apktool start使用apktool将apk再反编译成文件java -jar apktool.jar d -f package&amp;#39;name.apk -o folder&amp;#39;name">
+<meta name="twitter:title" content="安卓基础检测">
+<meta name="twitter:description" content="工具、环境准备1.java环境安装2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk 再生">
 
   
 
@@ -184,7 +184,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具、环境准备"><span class="toc-text">工具、环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#start"><span class="toc-text">start</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#工具、环境准备"><span class="toc-text">工具、环境准备</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反编译与打包"><span class="toc-text">反编译与打包</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#组件测试"><span class="toc-text">组件测试</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Activity"><span class="toc-text">Activity</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#service"><span class="toc-text">service</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#broadcast"><span class="toc-text">broadcast</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Content"><span class="toc-text">Content</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#WebView组件"><span class="toc-text">WebView组件</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#WebView代码执行检测"><span class="toc-text">WebView代码执行检测</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-4-2版本之后"><span class="toc-text">Android 4.2版本之后</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#Android-4-2版本之前"><span class="toc-text">Android 4.2版本之前</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#WebView不校验证书检测"><span class="toc-text">WebView不校验证书检测</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域控制不严格漏洞"><span class="toc-text">域控制不严格漏洞</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a>
   </div>
 
 
@@ -192,7 +192,7 @@ ga('send', 'pageview');
 <div class="content content-post CENTER">
    <article id="post-安卓反编译与打包" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">安卓反编译与打包</h1>
+    <h1 class="post-title">安卓基础检测</h1>
 
     <div class="article-meta">
       <span>
@@ -226,7 +226,44 @@ ga('send', 'pageview');
   <div class="article-content">
     
       <h2 id="工具、环境准备"><a href="#工具、环境准备" class="headerlink" title="工具、环境准备"></a>工具、环境准备</h2><p>1.java环境安装<br>2.apktool</p>
-<h2 id="start"><a href="#start" class="headerlink" title="start"></a>start</h2><p>使用apktool将apk再反编译成文件<br><code>java -jar apktool.jar d -f package&#39;name.apk -o folder&#39;name</code></p>
+<p>3.drozer安装，<a href="https://www.cnblogs.com/lsdb/p/9441813.html" target="_blank" rel="noopener">安装教程</a></p>
+<h2 id="反编译与打包"><a href="#反编译与打包" class="headerlink" title="反编译与打包"></a>反编译与打包</h2><p>使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)<br><code>java -jar apktool.jar d -f forinfor.apk -o forinfor</code></p>
+<p>再将文件夹重新编译为apk文件</p>
+<p><code>apktool b forinfor -o newforinfor.apk</code></p>
+<p>再生成对应的签名文件</p>
+<p><code>keytool -genkeypair -v -keystore xample.keystore -alias test(这里是签名的别名) -keyalg RSA</code></p>
+<p><code>-keysize2048 -validity 10000</code></p>
+<p>完成签名文件的信息填写之后再用签名文件打包(这里如果出现乱码输入chcp 936)</p>
+<p><code>jarsigner -keystore xample.keystore -digestalg SHA1 -sigalg SHA1withRSA newforinfor.apk</code></p>
+<p><code>test(别名)</code></p>
+<h1 id="组件测试"><a href="#组件测试" class="headerlink" title="组件测试"></a>组件测试</h1><p>安卓有四大组件activity,service,broadcast receiver,content provider。activity组件就是我们常规看到的页面，app的每个页面都可以看作一个activity组件。service就是没有页面的服务，提供运算支持。broadcast receiver是对系统的广播，content provider是处理手机数据库的组件，用于存取数据。</p>
+<p>安装完drozer之后,在Android启动drozer的app，打开端口监听。</p>
+<p><code>adb forward tcp:31415 tcp:31415</code>端口转发。</p>
+<p><code>drozer.bat console connect</code>启动drozer,<strong>注意这里需要在drozer安装目录中启动drozer不然在运行一些命令会报错。</strong></p>
+<p><code>run app.package.list</code>查看模拟器安装的app名。这里看不见的话可以使用adb shell到Android安装目录/data/app查看,/data/data里也能看到包名，这是程序的数据存放目录。</p>
+<p>注:以下组件调用可能存在本地拒绝服务攻击。</p>
+<h2 id="Activity"><a href="#Activity" class="headerlink" title="Activity"></a>Activity</h2><p><code>run app.activity.info -a 包名</code>这里就会显示出所有可调用的包名。</p>
+<p><code>run app.activity.start --component 包名 组件名</code>这里主要是看通过调用组件能否调用一些敏感信息功能页面。</p>
+<h2 id="service"><a href="#service" class="headerlink" title="service"></a>service</h2><p><code>run app.service.info -a 包名</code>这里是可以查看可调用的服务名。</p>
+<p><code>run app.service.start --action 服务名 --component 包名 服务名</code>调用服务组件</p>
+<h2 id="broadcast"><a href="#broadcast" class="headerlink" title="broadcast"></a>broadcast</h2><p><code>run app.broadcast.info -a 包名</code>这里是可以查看可调用的广播名。</p>
+<p><code>run app.broadcast.send --component 包名 广播名 --extra string phoneNumber 222</code>查看恶意广播</p>
+<p><code>run app.broadcast.send --component 包名 广播名</code>本地DOS检测</p>
+<h2 id="Content"><a href="#Content" class="headerlink" title="Content"></a>Content</h2><p><code>run scanner.provider.injection -a 包名</code>检测sql注入</p>
+<p><code>run scanner.provider.traversal -a 包名</code>检测目录遍历漏洞</p>
+<p><code>run app.provider.read Content泄露组件名 文件目录</code>查看本机中的文件</p>
+<p><code>run app.provider.read Content组件名 /etc/hosts</code>查看本机的域名配置文件</p>
+<h1 id="WebView组件"><a href="#WebView组件" class="headerlink" title="WebView组件"></a>WebView组件</h1><h2 id="WebView代码执行检测"><a href="#WebView代码执行检测" class="headerlink" title="WebView代码执行检测"></a>WebView代码执行检测</h2><p>webview代码执行主要是由于低版本安卓上addJavascriptInterface功能无限制，当JS拿到Android这个对象后，就可以调用这个Android对象中所有的方法，包括系统类（java.lang.Runtime 类），从而进行任意代码执行。</p>
+<h4 id="Android-4-2版本之后"><a href="#Android-4-2版本之后" class="headerlink" title="Android 4.2版本之后"></a>Android 4.2版本之后</h4><p>Google 在Android 4.2 版本中规定对被调用的函数以 <code>@JavascriptInterface</code>进行注解从而避免漏洞攻击。</p>
+<h4 id="Android-4-2版本之前"><a href="#Android-4-2版本之前" class="headerlink" title="Android 4.2版本之前"></a>Android 4.2版本之前</h4><p>重写JavascriptInterface方法</p>
+<p><strong>searchBoxJavaBridge_、accessibility和 accessibilityTraversal组件在低版本也存在任意代码执行。</strong></p>
+<h2 id="WebView不校验证书检测"><a href="#WebView不校验证书检测" class="headerlink" title="WebView不校验证书检测"></a>WebView不校验证书检测</h2><p>搜索onReceivedSslError，调用了process()方法的话就会忽略掉证书的错误继续执行。</p>
+<h2 id="域控制不严格漏洞"><a href="#域控制不严格漏洞" class="headerlink" title="域控制不严格漏洞"></a>域控制不严格漏洞</h2><p>通过使用恶意代码来读取本地文件。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">setAllowFileAccess(false); //禁用file协议读取</span><br><span class="line">setAllowFileAccessFromFileURLs(false);</span><br><span class="line">setAllowUniversalAccessFromFileURLs(false);</span><br></pre></td></tr></table></figure>
+
+<p>即使禁用依旧可以通过<strong>符号链接跨源攻击</strong>，<strong>通过 javascript 的延时执行和将当前文件替换成指向其它文件的软链接就可以读取到被符号链接所指的文件</strong></p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://www.jianshu.com/p/3a345d27cd42" target="_blank" rel="noopener">https://www.jianshu.com/p/3a345d27cd42</a></p>
+<p><a href="https://www.cnblogs.com/laughingQing/p/6392455.html" target="_blank" rel="noopener">https://www.cnblogs.com/laughingQing/p/6392455.html</a></p>
 
     
   </div>
