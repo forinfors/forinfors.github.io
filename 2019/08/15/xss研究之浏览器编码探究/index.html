@@ -15,20 +15,20 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树 的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名">
+  <meta name="description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xss研究之浏览器编码探究">
 <meta property="og:url" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树 的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名">
+<meta property="og:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935108396.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935142519.png">
-<meta property="og:updated_time" content="2019-08-16T07:22:26.367Z">
+<meta property="og:updated_time" content="2019-08-16T09:00:23.446Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss研究之浏览器编码探究">
-<meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树 的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名">
+<meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 
   
@@ -221,12 +221,11 @@ ga('send', 'pageview');
       <p><strong>以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&lt;__&gt;有错你也打不到我</strong></p>
 <h1 id="浏览器解码规则"><a href="#浏览器解码规则" class="headerlink" title="浏览器解码规则"></a>浏览器解码规则</h1><p><img src="/2019/08/15/xss研究之浏览器编码探究/1565924892380.png" alt="图1"></p>
 <p>说到浏览器规则便用这一张图来简单阐述。</p>
-<p>首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树</p>
-<p>的创建。了解浏览器渲染流程可以参考链接<a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">html渲染</a>。</p>
+<p>首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接<a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">html渲染</a>。</p>
 <h1 id="html解析器"><a href="#html解析器" class="headerlink" title="html解析器"></a>html解析器</h1><p>html渲染生成DOM树时&lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状态”，“前属性名状态(before attribute name state)”……最后进入“数据状态(Data state)”并释放当前标签的token。当解析器处于“数据状态(Data state)”时，它会继续解析，每当发现一个完整的标签也就是匹配到“&gt;”，就会释放出一个token。</p>
 <p>也就是说我们是不能使用<code>&amp;#60;&amp;#62;</code>(&lt;&gt;)这样的实体来标识一个html标签这是不会被执行的，因为解析<code>&amp;#60;&amp;#62;</code>并不会进入标签开始状态，我们无法使用标签名的实体来绕过过滤，实际上标签名不能进行任何编码。</p>
 <h1 id="js解析器"><a href="#js解析器" class="headerlink" title="js解析器"></a>js解析器</h1><p>js编码是使用<code>\uXXXX</code>这种写法为<code>Unicode</code>转义序列。js触发有<code>script</code>、on*时间和伪协议。</p>
-<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><p><strong>script有个有趣的属性在块中的字符引用实体不会被解析和解码</strong>，也就是说<code>script</code>标签中不能使用实体编码来编码函数等。但能处理js编码但js编码不能编码引号等字符。</p>
+<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><p><strong>script有个有趣的属性在块中的字符引用实体不会被解析和解码</strong>，也就是说<code>script</code>标签中不能使用实体编码来编码函数等。但能处理js编码但js编码不能编码引号等字符因为这样便无法执行xss。</p>
 <h2 id="on-事件"><a href="#on-事件" class="headerlink" title="on*事件"></a>on*事件</h2><p>思考两行代码<code>&lt;img src=1 onerror=ale\u0072t(1)&gt;</code>和<code>&lt;img src=1 oner\u0072or=alert(1)&gt;</code>两行代码</p>
 <p>会发现第一个代码弹框第二个代码未弹框,这是因为浏览器在处理到<code>onerror</code>时便调用js解析器但对于<code>oner\u0072or</code>浏览器并不会调用js解析器，浏览器在调用on事件时其实调用的对应on函数,具体处理可以看大佬调试ie的<a href="https://xz.aliyun.com/t/1556" target="_blank" rel="noopener">文章</a></p>
 <h2 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h2><p><img src="/2019/08/15/xss研究之浏览器编码探究/1565935108396.png" alt="1565935108396"></p>
