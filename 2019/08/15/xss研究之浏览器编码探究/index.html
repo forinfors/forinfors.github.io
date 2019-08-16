@@ -12,10 +12,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
   
-    <meta name="keywords" content="web安全，app安全，咸鱼">
+    <meta name="keywords" content="xss,编码,">
   
 
   <meta name="description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
+<meta name="keywords" content="xss,编码">
 <meta property="og:type" content="article">
 <meta property="og:title" content="xss研究之浏览器编码探究">
 <meta property="og:url" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/index.html">
@@ -25,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935108396.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935142519.png">
-<meta property="og:updated_time" content="2019-08-16T09:00:23.446Z">
+<meta property="og:updated_time" content="2019-08-16T09:08:50.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss研究之浏览器编码探究">
 <meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
@@ -132,6 +133,17 @@ ga('send', 'pageview');
             target="_self"
             >
             分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
           </a>
         </li>
       
@@ -299,6 +311,17 @@ ga('send', 'pageview');
               target="_self"
               >
               分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
             </a>
           </li>
         
