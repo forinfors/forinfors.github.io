@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>xss研究之浏览器编码探究 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="web安全，app安全，咸鱼">
+  
+
+  <meta name="description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
+<meta property="og:type" content="article">
+<meta property="og:title" content="xss研究之浏览器编码探究">
+<meta property="og:url" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935108396.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935142519.png">
+<meta property="og:updated_time" content="2019-08-16T06:00:08.886Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="xss研究之浏览器编码探究">
+<meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#浏览器解码规则"><span class="toc-text">浏览器解码规则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html解析器"><span class="toc-text">html解析器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js解析器"><span class="toc-text">js解析器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#script"><span class="toc-text">script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#on-事件"><span class="toc-text">on*事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪协议"><span class="toc-text">伪协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-xss研究之浏览器编码探究" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">xss研究之浏览器编码探究</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.08.15</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <p><strong>以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&lt;__&gt;有错你也打不到我</strong></p>
+<h1 id="浏览器解码规则"><a href="#浏览器解码规则" class="headerlink" title="浏览器解码规则"></a>浏览器解码规则</h1><p><img src="/2019/08/15/xss研究之浏览器编码探究/1565924892380.png" alt="图1"></p>
+<p>说到浏览器规则便用这一张图来简单阐述。</p>
+<p>首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接<a href="http://bobao.360.cn/learning/detail/292.html" target="_blank" rel="noopener">html渲染</a>。</p>
+<h1 id="html解析器"><a href="#html解析器" class="headerlink" title="html解析器"></a>html解析器</h1><p>html渲染生成DOM树时&lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状态”，“前属性名状态(before attribute name state)”……最后进入“数据状态(Data state)”并释放当前标签的token。当解析器处于“数据状态(Data state)”时，它会继续解析，每当发现一个完整的标签也就是匹配到“&gt;”，就会释放出一个token。</p>
+<p>也就是说我们是不能使用<code>&amp;#60;&amp;#62;</code>(&lt;&gt;)这样的实体来标识一个html标签这是不会被执行的，因为解析<code>&amp;#60;&amp;#62;</code>并不会进入标签开始状态，我们无法使用标签名的实体来绕过过滤，实际上标签名不能进行任何编码。</p>
+<h1 id="js解析器"><a href="#js解析器" class="headerlink" title="js解析器"></a>js解析器</h1><p>js编码是使用<code>\uXXXX</code>这种写法为<code>Unicode</code>转义序列。js触发有<code>script</code>、on*时间和伪协议。</p>
+<h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><p><strong>script有个有趣的属性在块中的字符引用实体不会被解析和解码</strong>，也就是说<code>script</code>标签中不能使用实体编码来编码函数等。但能处理js编码但js编码不能编码引号等字符。</p>
+<h2 id="on-事件"><a href="#on-事件" class="headerlink" title="on*事件"></a>on*事件</h2><p>思考两行代码<code>&lt;img src=1 onerror=ale\u0072t(1)&gt;</code>和<code>&lt;img src=1 oner\u0072or=alert(1)&gt;</code>两行代码</p>
+<p>会发现第一个代码弹框第二个代码未弹框,这是因为浏览器在处理到<code>onerror</code>时便调用js解析器但对于<code>oner\u0072or</code>浏览器并不会调用js解析器，浏览器在调用on事件时其实调用的对应on函数,具体处理可以看大佬调试ie的<a href="https://xz.aliyun.com/t/1556" target="_blank" rel="noopener">文章</a></p>
+<h2 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h2><p><img src="/2019/08/15/xss研究之浏览器编码探究/1565935108396.png" alt="1565935108396"></p>
+<p>上面的代码放到浏览器能弹框，为什么对javascript进行实体还能弹框呢？首先浏览器对代码进行html解码</p>
+<p><img src="/2019/08/15/xss研究之浏览器编码探究/1565935142519.png" alt="1565935142519"></p>
+<p>之后这里多了一层调用url解析器,url解析器去识别了javascript伪协议，<strong>注意url解析不能识别任何编码后的协议类型</strong>这里是由于html解码发生在url解析前。最后url解析器解析了</p>
+<p>%5c%75%30%30%36%31%5c%75%30%30%36%63%5c%75%30%30%36%35%5c%75%30</p>
+<p>%30%37%32%5c%75%30%30%37%34</p>
+<p>再由js解析器解析。</p>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://security.yirendai.com/news/share/26" target="_blank" rel="noopener">https://security.yirendai.com/news/share/26</a></p>
+<p><a href="https://xz.aliyun.com/t/1556" target="_blank" rel="noopener">https://xz.aliyun.com/t/1556</a></p>
+<p><a href="https://www.yuque.com/kkdlong/eiwne5/fpl8ob?language=en-us" target="_blank" rel="noopener">https://www.yuque.com/kkdlong/eiwne5/fpl8ob?language=en-us</a></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2018/03/02/安卓反编译与打包/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
