@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 
 
-  <html class="light page-archives2019">
+  <html class="light page-post">
 
 
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>Archives: 2019 | Hexo</title>
+  <title>数据库软件学习 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,13 +15,20 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/2019/index.html">
+  <meta name="description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
+<meta property="og:type" content="article">
+<meta property="og:title" content="数据库软件学习">
+<meta property="og:url" content="http://yoursite.com/2019/08/23/数据库软件学习/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
 <meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/数据库软件学习/1566551486661.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/23/数据库软件学习/1566551630561.png">
+<meta property="og:updated_time" content="2019-08-23T09:32:01.847Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="数据库软件学习">
+<meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/23/数据库软件学习/1566551486661.png">
 
   
 
@@ -95,17 +102,8 @@ ga('send', 'pageview');
     <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
   
 
-  <div class="content content-archive">
-  <div class="page-header">
-
-  
-    <div class="breadcrumb">
-      <div class="location">Blog</div>
-      <i class="icon-location"></i>
-    </div>
-  
-
-  
+  <div class="post-header CENTER">
+   
   <div class="toolbox">
     <a class="toolbox-entry" href="/">
       <span class="toolbox-entry-text">盒子</span>
@@ -184,59 +182,97 @@ ga('send', 'pageview');
   </div>
 
 
-
-  <div class="box-blog-info">
-    <a class="avatar" href="/">
-      <img src="/images/timg.jpg" alt="" />
-    </a>
-    <div class="info">
-      <h3 class="name" style="font-family: calligraffittiregular">
-        forinfor&#39;s blog
-      </h3>
-      <div class="slogan">
-        或许我不是最咸的咸鱼，但我一定是非常咸的咸鱼。
-      </div>
-    </div>
-  </div>
-
 </div>
 
 
-  <div class="post-list-box archive-body">
-    <ul class="list-post">  <li class="item-year item item-title item-title-4">
-    <a href="/archives/2019" class="text-year">
-      2019
-      <i class="icon-zhu"></i>
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-数据库软件学习" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">数据库软件学习</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.08.23</span>
+      </span>
+
       
-    </a>
-  </li>
-<li class="item-post item">
-  <span class="post-date">08-23</span>
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
 
-  
-  <a class="post-title" href="/2019/08/23/数据库软件学习/">数据库软件学习</a>
-
-
-</li>
-<li class="item-post item">
-  <span class="post-date">08-15</span>
-
-  
-  <a class="post-title" href="/2019/08/15/xss研究之浏览器编码探究/">xss研究之浏览器编码探究</a>
+      
 
 
-</li>
-</ul>
-  </div>
+      
 
-  <div class="archive-footer">
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
     
+      <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。</p>
+<h1 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h1><h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。</p>
+<p>表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘References’, ‘Index’, ‘Alter’;</p>
+<p>列权限:’Select’, ‘Insert’, ‘Update’, ‘References’;</p>
+<p>过程权限:’Execute’, ‘Alter Routine’, ‘Grant’;</p>
+<p>表和列权限不用多说，过程权限指的是存储过程的权限，存储过程可以理解为编程语言的函数。</p>
+<h2 id="getshell方法总结"><a href="#getshell方法总结" class="headerlink" title="getshell方法总结"></a>getshell方法总结</h2><h3 id="select-…-into-outfile方法"><a href="#select-…-into-outfile方法" class="headerlink" title="select … into outfile方法"></a>select … into outfile方法</h3><p><strong>条件</strong></p>
+<p>数据库对对web目录有写权限。</p>
+<p>GPC关闭。</p>
+<p>有绝对路径。</p>
+<p>没有配置secure-file-priv。</p>
+<p>数据库是一个软件，软件的权限决定于启动者，启动者的系统权限高数据库的权限就高(这也不一定，oracle有自己创建的系统账号我暂时没研究过oracle这种执行一个命令使用的是什么账号的权限)，以下做一个验证。</p>
+<p><img src="/2019/08/23/数据库软件学习/1566551486661.png" alt="1566551486661"></p>
+<p>上图是我使用非root运行数据库后使用apt-get，下图是我使用root启动再使用apt-get。</p>
+<p><img src="/2019/08/23/数据库软件学习/1566551630561.png" alt="1566551630561"></p>
+<p>可以验证刚才的说法。</p>
+<p>secure-file-priv是mysql的一个</p>
 
+    
   </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/08/15/xss研究之浏览器编码探究/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
 </div>
 
 
-
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
 
 
 
@@ -324,6 +360,24 @@ ga('send', 'pageview');
 </div>
 
 
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
 
   
 
