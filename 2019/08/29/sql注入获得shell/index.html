@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>数据库软件学习 | Hexo</title>
+  <title>sql注入获得shell | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -17,18 +17,18 @@
 
   <meta name="description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据库软件学习">
-<meta property="og:url" content="http://yoursite.com/2019/08/23/数据库软件学习/index.html">
+<meta property="og:title" content="sql注入获得shell">
+<meta property="og:url" content="http://yoursite.com/2019/08/29/sql注入获得shell/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
 <meta property="og:locale" content="en">
-<meta property="og:image" content="http://yoursite.com/2019/08/23/数据库软件学习/1566551486661.png">
-<meta property="og:image" content="http://yoursite.com/2019/08/23/数据库软件学习/1566551630561.png">
-<meta property="og:updated_time" content="2019-08-23T09:32:01.847Z">
+<meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
+<meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151261135.png">
+<meta property="og:updated_time" content="2019-08-30T07:55:50.507Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据库软件学习">
+<meta name="twitter:title" content="sql注入获得shell">
 <meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
-<meta name="twitter:image" content="http://yoursite.com/2019/08/23/数据库软件学习/1566551486661.png">
+<meta name="twitter:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 
   
 
@@ -187,20 +187,20 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#general-log"><span class="toc-text">general_log</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-数据库软件学习" class="article article-type-post" itemprop="blogPost">
+   <article id="post-sql注入获得shell" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">数据库软件学习</h1>
+    <h1 class="post-title">sql注入获得shell</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2019.08.23</span>
+        <span>2019.08.29</span>
       </span>
 
       
@@ -239,12 +239,30 @@ ga('send', 'pageview');
 <p>GPC关闭。</p>
 <p>有绝对路径。</p>
 <p>没有配置secure-file-priv。</p>
+<p><strong>实现步骤及原理</strong></p>
 <p>数据库是一个软件，软件的权限决定于启动者，启动者的系统权限高数据库的权限就高(这也不一定，oracle有自己创建的系统账号我暂时没研究过oracle这种执行一个命令使用的是什么账号的权限)，以下做一个验证。</p>
-<p><img src="/2019/08/23/数据库软件学习/1566551486661.png" alt="1566551486661"></p>
+<p><img src="/2019/08/29/sql注入获得shell/1567151247852.png" alt="1567151247852"></p>
 <p>上图是我使用非root运行数据库后使用apt-get，下图是我使用root启动再使用apt-get。</p>
-<p><img src="/2019/08/23/数据库软件学习/1566551630561.png" alt="1566551630561"></p>
+<p><img src="/2019/08/29/sql注入获得shell/1567151261135.png" alt="1567151261135"></p>
 <p>可以验证刚才的说法。</p>
-<p>secure-file-priv是mysql的一个</p>
+<p>secure-file-priv是mysql的一个限制导入导出的参数为NULL禁止导入、导出，值为目录为导入导出的路径，为空则不限制导入导出。</p>
+<p>union或者堆查询</p>
+<p><code>select &#39;内容&#39; into outfile &#39;路径&#39;;</code></p>
+<p>如果不能union可以使用</p>
+<p><code>into outfile &#39;路径&#39; fields terminated by &#39;代码&#39;;</code>terminated by是将后面的代码当分隔符插入进去</p>
+<h3 id="general-log"><a href="#general-log" class="headerlink" title="general_log"></a>general_log</h3><p>这是一个实时查询记录的方式的方式。</p>
+<p><strong>条件</strong></p>
+<p>对web目录有写权限</p>
+<p>GPC关闭(GPC:是否对单引号转义)</p>
+<p>有绝对路径(读文件可以不用，写文件需要)</p>
+<p>需要能执行多行SQL语句</p>
+<p><strong>实现步骤及原理</strong></p>
+<p>show global variables like “%genera%”;查看开启的情况。</p>
+<p>set global general_log = on;打开general_log功能。</p>
+<p>set global general_log_file = ‘路径’;设置记录存储路径。</p>
+<p>select ‘代码’;写入代码。</p>
+<h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>secure_file_prive = null。</p>
+<p>正确设置 web 目录权限，除 log、upload 等目录外不授予写权限，upload 目录不授予执行权限。</p>
 
     
   </div>
