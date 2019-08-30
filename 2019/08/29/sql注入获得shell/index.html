@@ -15,19 +15,19 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
+  <meta name="description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql注入获得shell">
 <meta property="og:url" content="http://yoursite.com/2019/08/29/sql注入获得shell/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
+<meta property="og:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151261135.png">
-<meta property="og:updated_time" content="2019-08-30T07:55:50.507Z">
+<meta property="og:updated_time" content="2019-08-30T09:33:43.947Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql注入获得shell">
-<meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘Ref">
+<meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 
   
@@ -187,7 +187,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#general-log"><span class="toc-text">general_log</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志获得shell"><span class="toc-text">日志获得shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SqlServer"><span class="toc-text">SqlServer</span></a></li></ol>
   </div>
 
 
@@ -229,6 +229,7 @@ ga('send', 'pageview');
   <div class="article-content">
     
       <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。</p>
+<p>当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。</p>
 <h1 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h1><h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。</p>
 <p>表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘References’, ‘Index’, ‘Alter’;</p>
 <p>列权限:’Select’, ‘Insert’, ‘Update’, ‘References’;</p>
@@ -250,7 +251,7 @@ ga('send', 'pageview');
 <p><code>select &#39;内容&#39; into outfile &#39;路径&#39;;</code></p>
 <p>如果不能union可以使用</p>
 <p><code>into outfile &#39;路径&#39; fields terminated by &#39;代码&#39;;</code>terminated by是将后面的代码当分隔符插入进去</p>
-<h3 id="general-log"><a href="#general-log" class="headerlink" title="general_log"></a>general_log</h3><p>这是一个实时查询记录的方式的方式。</p>
+<h3 id="日志获得shell"><a href="#日志获得shell" class="headerlink" title="日志获得shell"></a>日志获得shell</h3><p>以general_log为例子。</p>
 <p><strong>条件</strong></p>
 <p>对web目录有写权限</p>
 <p>GPC关闭(GPC:是否对单引号转义)</p>
@@ -261,8 +262,10 @@ ga('send', 'pageview');
 <p>set global general_log = on;打开general_log功能。</p>
 <p>set global general_log_file = ‘路径’;设置记录存储路径。</p>
 <p>select ‘代码’;写入代码。</p>
+<p><strong>mysql中慢查询日志也可以使用此方法来写入shell，错误日志与二进制日志目录都是需要修改mysql配置文件实现意义较低</strong></p>
 <h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>secure_file_prive = null。</p>
 <p>正确设置 web 目录权限，除 log、upload 等目录外不授予写权限，upload 目录不授予执行权限。</p>
+<h1 id="SqlServer"><a href="#SqlServer" class="headerlink" title="SqlServer"></a>SqlServer</h1><p>····未完待续</p>
 
     
   </div>
