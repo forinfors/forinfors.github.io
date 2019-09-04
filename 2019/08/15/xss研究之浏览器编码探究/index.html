@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935108396.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935142519.png">
-<meta property="og:updated_time" content="2019-08-16T09:08:50.947Z">
+<meta property="og:updated_time" content="2019-09-04T05:17:49.943Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss研究之浏览器编码探究">
 <meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
@@ -189,7 +189,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#浏览器解码规则"><span class="toc-text">浏览器解码规则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html解析器"><span class="toc-text">html解析器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js解析器"><span class="toc-text">js解析器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#script"><span class="toc-text">script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#on-事件"><span class="toc-text">on*事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪协议"><span class="toc-text">伪协议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#浏览器解码规则"><span class="toc-text">浏览器解码规则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html解析器"><span class="toc-text">html解析器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js解析器"><span class="toc-text">js解析器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#script"><span class="toc-text">script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#on-事件"><span class="toc-text">on*事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪协议"><span class="toc-text">伪协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol></li></ol>
   </div>
 
 
@@ -247,6 +247,10 @@ ga('send', 'pageview');
 <p>%5c%75%30%30%36%31%5c%75%30%30%36%63%5c%75%30%30%36%35%5c%75%30</p>
 <p>%30%37%32%5c%75%30%30%37%34</p>
 <p>再由js解析器解析。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于html标签属性进行了编码便不会被识别。</p>
+<p>&#60;script&#62;标签不能使用js编码外的其他编码。</p>
+<p>on*事件是调用的js函数，他能对html编码处理</p>
+<p>伪协议能对url和html解析</p>
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://security.yirendai.com/news/share/26" target="_blank" rel="noopener">https://security.yirendai.com/news/share/26</a></p>
 <p><a href="https://xz.aliyun.com/t/1556" target="_blank" rel="noopener">https://xz.aliyun.com/t/1556</a></p>
 <p><a href="https://www.yuque.com/kkdlong/eiwne5/fpl8ob?language=en-us" target="_blank" rel="noopener">https://www.yuque.com/kkdlong/eiwne5/fpl8ob?language=en-us</a></p>
