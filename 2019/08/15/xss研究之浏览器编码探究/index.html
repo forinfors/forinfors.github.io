@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935108396.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935142519.png">
-<meta property="og:updated_time" content="2019-09-04T05:17:49.943Z">
+<meta property="og:updated_time" content="2019-09-20T07:55:09.752Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss研究之浏览器编码探究">
 <meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
@@ -239,7 +239,7 @@ ga('send', 'pageview');
 <h1 id="js解析器"><a href="#js解析器" class="headerlink" title="js解析器"></a>js解析器</h1><p>js编码是使用<code>\uXXXX</code>这种写法为<code>Unicode</code>转义序列。js触发有<code>script</code>、on*时间和伪协议。</p>
 <h2 id="script"><a href="#script" class="headerlink" title="script"></a>script</h2><p><strong>script有个有趣的属性在块中的字符引用实体不会被解析和解码</strong>，也就是说<code>script</code>标签中不能使用实体编码来编码函数等。但能处理js编码但js编码不能编码引号等字符因为这样便无法执行xss。</p>
 <h2 id="on-事件"><a href="#on-事件" class="headerlink" title="on*事件"></a>on*事件</h2><p>思考两行代码<code>&lt;img src=1 onerror=ale\u0072t(1)&gt;</code>和<code>&lt;img src=1 oner\u0072or=alert(1)&gt;</code>两行代码</p>
-<p>会发现第一个代码弹框第二个代码未弹框,这是因为浏览器在处理到<code>onerror</code>时便调用js解析器但对于<code>oner\u0072or</code>浏览器并不会调用js解析器，浏览器在调用on事件时其实调用的对应on函数,具体处理可以看大佬调试ie的<a href="https://xz.aliyun.com/t/1556" target="_blank" rel="noopener">文章</a></p>
+<p>会发现第一个代码弹框第二个代码未弹框,这是因为浏览器在处理到<code>onerror</code>时便调用js解析器但对于<code>oner\u0072or</code>浏览器并不会调用js解析器，我们无法对onerror事件编码，因为这样html解析器不认识这个onerror事件就不会将他交给js解析器，浏览器在调用on事件时其实调用的对应on函数,具体处理可以看大佬调试ie的<a href="https://xz.aliyun.com/t/1556" target="_blank" rel="noopener">文章</a></p>
 <h2 id="伪协议"><a href="#伪协议" class="headerlink" title="伪协议"></a>伪协议</h2><p><img src="/2019/08/15/xss研究之浏览器编码探究/1565935108396.png" alt="1565935108396"></p>
 <p>上面的代码放到浏览器能弹框，为什么对javascript进行实体还能弹框呢？首先浏览器对代码进行html解码</p>
 <p><img src="/2019/08/15/xss研究之浏览器编码探究/1565935142519.png" alt="1565935142519"></p>
@@ -248,9 +248,9 @@ ga('send', 'pageview');
 <p>%30%37%32%5c%75%30%30%37%34</p>
 <p>再由js解析器解析。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于html标签属性进行了编码便不会被识别。</p>
-<p>&#60;script&#62;标签不能使用js编码外的其他编码。</p>
-<p>on*事件是调用的js函数，他能对html编码处理</p>
-<p>伪协议能对url和html解析</p>
+<p>&#60;script&#62;标签不能使用js编码外的其他js解释器不识别的编码，script标签中的内容会原封不动的给js去执行。</p>
+<p>on*事件是调用的js函数，html编码处理发生在给JS解析器之前。</p>
+<p>伪协议能对url和html解析，实体和URL编码的处理发生在交给js解析器之前。</p>
 <h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h2><p><a href="https://security.yirendai.com/news/share/26" target="_blank" rel="noopener">https://security.yirendai.com/news/share/26</a></p>
 <p><a href="https://xz.aliyun.com/t/1556" target="_blank" rel="noopener">https://xz.aliyun.com/t/1556</a></p>
 <p><a href="https://www.yuque.com/kkdlong/eiwne5/fpl8ob?language=en-us" target="_blank" rel="noopener">https://www.yuque.com/kkdlong/eiwne5/fpl8ob?language=en-us</a></p>

