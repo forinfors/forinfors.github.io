@@ -15,17 +15,17 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="工具、环境准备1.java环境安装2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk 再生">
+  <meta name="description" content="工具、环境准备1.java环境安装   2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk">
 <meta property="og:type" content="article">
 <meta property="og:title" content="安卓基础检测">
 <meta property="og:url" content="http://yoursite.com/2018/03/02/安卓反编译与打包/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="工具、环境准备1.java环境安装2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk 再生">
+<meta property="og:description" content="工具、环境准备1.java环境安装   2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-08-16T14:44:30.862Z">
+<meta property="og:updated_time" content="2019-09-04T12:10:42.955Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="安卓基础检测">
-<meta name="twitter:description" content="工具、环境准备1.java环境安装2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk 再生">
+<meta name="twitter:description" content="工具、环境准备1.java环境安装   2.apktool 3.drozer安装，安装教程 反编译与打包使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)java -jar apktool.jar d -f forinfor.apk -o forinfor 再将文件夹重新编译为apk文件 apktool b forinfor -o newforinfor.apk">
 
   
 
@@ -225,7 +225,8 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h2 id="工具、环境准备"><a href="#工具、环境准备" class="headerlink" title="工具、环境准备"></a>工具、环境准备</h2><p>1.java环境安装<br>2.apktool</p>
+      <h2 id="工具、环境准备"><a href="#工具、环境准备" class="headerlink" title="工具、环境准备"></a>工具、环境准备</h2><p>1.java环境安装  </p>
+<p>2.apktool</p>
 <p>3.drozer安装，<a href="https://www.cnblogs.com/lsdb/p/9441813.html" target="_blank" rel="noopener">安装教程</a></p>
 <h2 id="反编译与打包"><a href="#反编译与打包" class="headerlink" title="反编译与打包"></a>反编译与打包</h2><p>使用apktool将apk再反编译成文件(以下app名字为forinfor.apk,)<br><code>java -jar apktool.jar d -f forinfor.apk -o forinfor</code></p>
 <p>再将文件夹重新编译为apk文件</p>
@@ -233,7 +234,7 @@ ga('send', 'pageview');
 <p>再生成对应的签名文件</p>
 <p><code>keytool -genkeypair -v -keystore xample.keystore -alias test(这里是签名的别名) -keyalg RSA</code></p>
 <p><code>-keysize2048 -validity 10000</code></p>
-<p>完成签名文件的信息填写之后再用签名文件打包(这里如果出现乱码输入chcp 936)</p>
+<p>完成签名文件的信息填写之后再用签名文件打包(这里如果出现乱码输入<strong>chcp 936</strong>)</p>
 <p><code>jarsigner -keystore xample.keystore -digestalg SHA1 -sigalg SHA1withRSA newforinfor.apk</code></p>
 <p><code>test(别名)</code></p>
 <h1 id="组件测试"><a href="#组件测试" class="headerlink" title="组件测试"></a>组件测试</h1><p>安卓有四大组件activity,service,broadcast receiver,content provider。activity组件就是我们常规看到的页面，app的每个页面都可以看作一个activity组件。service就是没有页面的服务，提供运算支持。broadcast receiver是对系统的广播，content provider是处理手机数据库的组件，用于存取数据。</p>
