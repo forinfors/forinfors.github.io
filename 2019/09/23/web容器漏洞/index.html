@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>web容器漏洞 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="web安全，app安全，咸鱼">
+  
+
+  <meta name="description" content="常见容器的区别与介绍我们经常听说web服务器，http服务器，应用服务器。Web服务器是指在Internet上的计算机程序，因为Web服务器主要支持的协议就是HTTP协议，通常情况下我们说的WEB服务器和HTTP服务器说的是同一回事，应用服务器是用于处理一些动态数据，处理脚本文件的。Apache和Nginx是纯粹的Web服务器，而IIS和Tomcat因为具有了解释和执行服务器端代码的能力，可以称作">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web容器漏洞">
+<meta property="og:url" content="http://yoursite.com/2019/09/23/web容器漏洞/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="常见容器的区别与介绍我们经常听说web服务器，http服务器，应用服务器。Web服务器是指在Internet上的计算机程序，因为Web服务器主要支持的协议就是HTTP协议，通常情况下我们说的WEB服务器和HTTP服务器说的是同一回事，应用服务器是用于处理一些动态数据，处理脚本文件的。Apache和Nginx是纯粹的Web服务器，而IIS和Tomcat因为具有了解释和执行服务器端代码的能力，可以称作">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/09/23/web容器漏洞/1569228467146.png">
+<meta property="og:updated_time" content="2019-09-25T06:45:43.325Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="web容器漏洞">
+<meta name="twitter:description" content="常见容器的区别与介绍我们经常听说web服务器，http服务器，应用服务器。Web服务器是指在Internet上的计算机程序，因为Web服务器主要支持的协议就是HTTP协议，通常情况下我们说的WEB服务器和HTTP服务器说的是同一回事，应用服务器是用于处理一些动态数据，处理脚本文件的。Apache和Nginx是纯粹的Web服务器，而IIS和Tomcat因为具有了解释和执行服务器端代码的能力，可以称作">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/23/web容器漏洞/1569228467146.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常见容器的区别与介绍"><span class="toc-text">常见容器的区别与介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache服务器"><span class="toc-text">Apache服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解析漏洞"><span class="toc-text">解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#换行解析漏洞"><span class="toc-text">换行解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#htaccess文件上传"><span class="toc-text">.htaccess文件上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx服务器"><span class="toc-text">Nginx服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户配置错误解析漏洞"><span class="toc-text">用户配置错误解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析漏洞-CVE-2013-4547"><span class="toc-text">解析漏洞(CVE-2013-4547)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空字节解析漏洞"><span class="toc-text">空字节解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx越界读取缓存漏洞CVE-2017-7529"><span class="toc-text">nginx越界读取缓存漏洞CVE-2017-7529</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录穿越漏洞"><span class="toc-text">目录穿越漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRLF注入"><span class="toc-text">CRLF注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS"><span class="toc-text">IIS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件名解析漏洞"><span class="toc-text">文件名解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IIS-7-0-IIS-7-5用户配置错误解析漏洞"><span class="toc-text">IIS 7.0/IIS 7.5用户配置错误解析漏洞</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-web容器漏洞" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">web容器漏洞</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.09.23</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="常见容器的区别与介绍"><a href="#常见容器的区别与介绍" class="headerlink" title="常见容器的区别与介绍"></a>常见容器的区别与介绍</h1><p>我们经常听说<strong>web服务器</strong>，<strong>http服务器</strong>，<strong>应用服务器</strong>。<strong>Web服务器</strong>是指在Internet上的计算机程序，因为Web服务器主要支持的协议就是HTTP协议，通常情况下我们说的WEB服务器和HTTP服务器说的是同一回事，<strong>应用服务器</strong>是用于处理一些动态数据，处理脚本文件的。<strong>Apache</strong>和<strong>Nginx</strong>是纯粹的<strong>Web服务器</strong>，而<strong>IIS</strong>和<strong>Tomcat</strong>因为具有了解释和执行服务器端代码的能力，可以称作为<strong>轻量级应用服务器</strong>。</p>
+<h2 id="Apache服务器"><a href="#Apache服务器" class="headerlink" title="Apache服务器"></a>Apache服务器</h2><h3 id="解析漏洞"><a href="#解析漏洞" class="headerlink" title="解析漏洞"></a>解析漏洞</h3><p>解析漏洞老生长谈了，无非是Apache遇到无法识别的1.php.aa的后缀会向前解析。</p>
+<p>看了一篇文章<a href="http://www.cnblogs.com/milantgh/p/5116955.html他这里描述了，使用module模式与php结合的所有版本" target="_blank" rel="noopener">http://www.cnblogs.com/milantgh/p/5116955.html他这里描述了，使用module模式与php结合的所有版本</a> apache存在未知扩展名解析漏洞，使用fastcgi模式与php结合的所有版本apache不存在此漏洞。</p>
+<p>module、cgi、fastcgi的区别可以参考<a href="https://blog.csdn.net/lamp_yang_3533/article/details/53002731" target="_blank" rel="noopener">文章</a>。</p>
+<h3 id="换行解析漏洞"><a href="#换行解析漏洞" class="headerlink" title="换行解析漏洞"></a>换行解析漏洞</h3><p><strong>影响版本：</strong>Apache2.4.0~2.4.29</p>
+<p>参考cve-2017-15715</p>
+<p>在Apache2.4.0~2.4.29上传1.php%0a会存在解析漏洞。</p>
+<p><img src="/2019/09/23/web容器漏洞/1569228467146.png" alt="1569228467146"></p>
+<p>获取文件名时不能用<code>$_FILES[&#39;file&#39;][&#39;name&#39;]</code>，因为他会自动把换行去掉。</p>
+<p>php后缀php、php3、php4、php5、phpt、phtml，phtml是ZendFramework模板的，正常情况不会解析。</p>
+<h3 id="htaccess文件上传"><a href="#htaccess文件上传" class="headerlink" title=".htaccess文件上传"></a>.htaccess文件上传</h3><p><strong>影响版本：</strong>所有</p>
+<p>自己实验一直没成功，</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;FilesMatch &quot;shell&quot;&gt;</span><br><span class="line">SetHandler application/x-httpd-php</span><br><span class="line">&lt;/FilesMatch&gt;</span><br></pre></td></tr></table></figure>
+
+<p>然后配置了shell.php都不能解析。</p>
+<h2 id="Nginx服务器"><a href="#Nginx服务器" class="headerlink" title="Nginx服务器"></a>Nginx服务器</h2><h3 id="用户配置错误解析漏洞"><a href="#用户配置错误解析漏洞" class="headerlink" title="用户配置错误解析漏洞"></a>用户配置错误解析漏洞</h3><p><strong>影响版本：</strong>所有</p>
+<p>这是php的配置问题cgi.fix_pathinfo默认为1导致存在解析漏洞，nginx看到1.jpg/.php结尾就发给就发给了php，php没有找到该文件就会进行补全删掉该后缀解析了1.jpg中的内容。这漏洞存在于所有版本。</p>
+<h3 id="解析漏洞-CVE-2013-4547"><a href="#解析漏洞-CVE-2013-4547" class="headerlink" title="解析漏洞(CVE-2013-4547)"></a>解析漏洞(CVE-2013-4547)</h3><p><strong>影响版本：</strong>Nginx 0.8.41<del>1.4.3 / 1.5.0</del>1.5.7</p>
+<p><a href="https://www.cnblogs.com/bmjoker/p/9838600.html" target="_blank" rel="noopener">文章</a>可以参考，1.gif[0x20]的文件，然后访问1.gif[0x20][0x00].php的文件gif会被当做php解析</p>
+<h3 id="空字节解析漏洞"><a href="#空字节解析漏洞" class="headerlink" title="空字节解析漏洞"></a>空字节解析漏洞</h3><p><strong>版本:</strong>0.5.<em>,0.6.</em>, 0.7 &lt;= 0.7.65, 0.8 &lt;= 0.8.37</p>
+<p>Nginx在图片中嵌入PHP代码然后通过访问</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">xxx.jpg%00.php</span><br></pre></td></tr></table></figure>
+
+<h3 id="nginx越界读取缓存漏洞CVE-2017-7529"><a href="#nginx越界读取缓存漏洞CVE-2017-7529" class="headerlink" title="nginx越界读取缓存漏洞CVE-2017-7529"></a>nginx越界读取缓存漏洞CVE-2017-7529</h3><p><strong>影响版本：</strong>Nginx version 0.5.6 - 1.13.2</p>
+<p><a href="https://github.com/vulhub/vulhub/blob/master/nginx/CVE-2017-7529/poc.py" target="_blank" rel="noopener">poc</a>这个漏洞就是整数溢出漏洞的利用，能够从Cache文件中获取Cache头的信息。在某些配置的情况下Cache头中会存在IP地址信息，造成信息泄露绕过waf等。</p>
+<h3 id="目录穿越漏洞"><a href="#目录穿越漏洞" class="headerlink" title="目录穿越漏洞"></a>目录穿越漏洞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /files &#123;</span><br><span class="line">    alias /home/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这样的配置形式会导致任意文件读取，<a href="https://ip/files../../etc/password，修复files后加上/。" target="_blank" rel="noopener">https://ip/files../../etc/password，修复files后加上/。</a></p>
+<h3 id="CRLF注入"><a href="#CRLF注入" class="headerlink" title="CRLF注入"></a>CRLF注入</h3><p>当url/test%0a%0dSet-Cookie：hello被设置在http返回包时CRLF将会换行设置cookie，这样可以用来钓鱼之类的攻击</p>
+<h2 id="IIS"><a href="#IIS" class="headerlink" title="IIS"></a>IIS</h2><h3 id="文件名解析漏洞"><a href="#文件名解析漏洞" class="headerlink" title="文件名解析漏洞"></a>文件名解析漏洞</h3><p><strong>版本:</strong>IIS6.0/5.*</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">目录解析:/xx.asp/xx.jpg</span><br><span class="line">文件解析:sp.asp;.jpg</span><br></pre></td></tr></table></figure>
+
+<p>在IIS6.0下，分号后面的不被解析，也就是说1.asp;.jpg=1.asp</p>
+<h3 id="IIS-7-0-IIS-7-5用户配置错误解析漏洞"><a href="#IIS-7-0-IIS-7-5用户配置错误解析漏洞" class="headerlink" title="IIS 7.0/IIS 7.5用户配置错误解析漏洞"></a>IIS 7.0/IIS 7.5用户配置错误解析漏洞</h3><p>同nginx一样</p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/08/29/sql注入获得shell/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
