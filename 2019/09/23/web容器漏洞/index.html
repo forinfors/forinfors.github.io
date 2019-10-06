@@ -23,7 +23,7 @@
 <meta property="og:description" content="常见容器的区别与介绍我们经常听说web服务器，http服务器，应用服务器。Web服务器是指在Internet上的计算机程序，因为Web服务器主要支持的协议就是HTTP协议，通常情况下我们说的WEB服务器和HTTP服务器说的是同一回事，应用服务器是用于处理一些动态数据，处理脚本文件的。Apache和Nginx是纯粹的Web服务器，而IIS和Tomcat因为具有了解释和执行服务器端代码的能力，可以称作">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/09/23/web容器漏洞/1569228467146.png">
-<meta property="og:updated_time" content="2019-09-25T06:45:43.325Z">
+<meta property="og:updated_time" content="2019-09-26T03:08:26.048Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web容器漏洞">
 <meta name="twitter:description" content="常见容器的区别与介绍我们经常听说web服务器，http服务器，应用服务器。Web服务器是指在Internet上的计算机程序，因为Web服务器主要支持的协议就是HTTP协议，通常情况下我们说的WEB服务器和HTTP服务器说的是同一回事，应用服务器是用于处理一些动态数据，处理脚本文件的。Apache和Nginx是纯粹的Web服务器，而IIS和Tomcat因为具有了解释和执行服务器端代码的能力，可以称作">
@@ -186,7 +186,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常见容器的区别与介绍"><span class="toc-text">常见容器的区别与介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache服务器"><span class="toc-text">Apache服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解析漏洞"><span class="toc-text">解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#换行解析漏洞"><span class="toc-text">换行解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#htaccess文件上传"><span class="toc-text">.htaccess文件上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx服务器"><span class="toc-text">Nginx服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户配置错误解析漏洞"><span class="toc-text">用户配置错误解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析漏洞-CVE-2013-4547"><span class="toc-text">解析漏洞(CVE-2013-4547)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空字节解析漏洞"><span class="toc-text">空字节解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx越界读取缓存漏洞CVE-2017-7529"><span class="toc-text">nginx越界读取缓存漏洞CVE-2017-7529</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录穿越漏洞"><span class="toc-text">目录穿越漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRLF注入"><span class="toc-text">CRLF注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS"><span class="toc-text">IIS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件名解析漏洞"><span class="toc-text">文件名解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IIS-7-0-IIS-7-5用户配置错误解析漏洞"><span class="toc-text">IIS 7.0/IIS 7.5用户配置错误解析漏洞</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#常见容器的区别与介绍"><span class="toc-text">常见容器的区别与介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Apache服务器"><span class="toc-text">Apache服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#解析漏洞"><span class="toc-text">解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#换行解析漏洞"><span class="toc-text">换行解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#htaccess文件上传"><span class="toc-text">.htaccess文件上传</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Nginx服务器"><span class="toc-text">Nginx服务器</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#用户配置错误解析漏洞"><span class="toc-text">用户配置错误解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#解析漏洞-CVE-2013-4547"><span class="toc-text">解析漏洞(CVE-2013-4547)</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空字节解析漏洞"><span class="toc-text">空字节解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#nginx越界读取缓存漏洞CVE-2017-7529"><span class="toc-text">nginx越界读取缓存漏洞CVE-2017-7529</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#目录穿越漏洞"><span class="toc-text">目录穿越漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CRLF注入"><span class="toc-text">CRLF注入</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#IIS"><span class="toc-text">IIS</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件名解析漏洞"><span class="toc-text">文件名解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#IIS-7-0-IIS-7-5用户配置错误解析漏洞"><span class="toc-text">IIS 7.0/IIS 7.5用户配置错误解析漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PUT方法上传"><span class="toc-text">PUT方法上传</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#短文件名漏洞"><span class="toc-text">短文件名漏洞</span></a></li></ol></li></ol></li></ol>
   </div>
 
 
@@ -261,6 +261,17 @@ ga('send', 'pageview');
 
 <p>在IIS6.0下，分号后面的不被解析，也就是说1.asp;.jpg=1.asp</p>
 <h3 id="IIS-7-0-IIS-7-5用户配置错误解析漏洞"><a href="#IIS-7-0-IIS-7-5用户配置错误解析漏洞" class="headerlink" title="IIS 7.0/IIS 7.5用户配置错误解析漏洞"></a>IIS 7.0/IIS 7.5用户配置错误解析漏洞</h3><p>同nginx一样</p>
+<h3 id="PUT方法上传"><a href="#PUT方法上传" class="headerlink" title="PUT方法上传"></a>PUT方法上传</h3><p>IIS Server 在 Web 服务扩展中开启了 WebDAV ，配置了可以写入的权限，造成任意文件上传。</p>
+<h3 id="短文件名漏洞"><a href="#短文件名漏洞" class="headerlink" title="短文件名漏洞"></a>短文件名漏洞</h3><p><strong>版本:</strong></p>
+<blockquote>
+<p>IIS 1.0，Windows NT 3.51<br>IIS 3.0，Windows NT 4.0 Service Pack 2<br>IIS 4.0，Windows NT 4.0选项包<br>IIS 5.0，Windows 2000<br>IIS 5.1，Windows XP Professional和Windows XP Media Center Edition<br>IIS 6.0，Windows Server 2003和Windows XP Professional x64 Edition<br>IIS 7.0，Windows Server 2008和Windows Vista<br>IIS 7.5，Windows 7（远程启用<customerrors>或没有web.config）</customerrors></p>
+<p>IIS 8.0、IIS 8.5和IIS 10.0的短文件名称均可以通过OPTIONS和TRACE方法被猜测成功。</p>
+<p>IIS 7.5，Windows 2008（经典管道模式）        </p>
+<p>注意：IIS使用.Net Framework 4时不受影响</p>
+</blockquote>
+<p><u><a href="http://ip/a*~1****/a.aspx" target="_blank" rel="noopener">http://ip/a*~1****/a.aspx</a></u>文件名首字母为a的文件存在返回400</p>
+<p><u><a href="http://ip/ab*~1****/a.aspx" target="_blank" rel="noopener">http://ip/ab*~1****/a.aspx</a></u>文件名首字母为ab的文件存在返回400</p>
+<p>依次猜解获得短文件名。<a href="http://www.lijiejie.com/iis-win8-3-shortname-brute/" target="_blank" rel="noopener">教程</a></p>
 
     
   </div>
@@ -275,7 +286,7 @@ ga('send', 'pageview');
     <a class="show pull-left" href="/2019/08/29/sql注入获得shell/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2019/09/29/windows应急/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
