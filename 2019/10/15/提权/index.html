@@ -23,7 +23,7 @@
 <meta property="og:description" content="提权信息收集查看主机名 hostname 查看用户名 whoami 查看用户名对应属组 window:net user 用户名 linux:groups 用户名 添加用户 window:net user username password /add linux:useradd -m -s  用户名 passwd 用户名 将用户加入管理组 window:net localgroup administ">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/10/15/提权/1571234782646.png">
-<meta property="og:updated_time" content="2019-10-17T03:50:19.425Z">
+<meta property="og:updated_time" content="2019-10-22T06:05:17.352Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="提权">
 <meta name="twitter:description" content="提权信息收集查看主机名 hostname 查看用户名 whoami 查看用户名对应属组 window:net user 用户名 linux:groups 用户名 添加用户 window:net user username password /add linux:useradd -m -s  用户名 passwd 用户名 将用户加入管理组 window:net localgroup administ">
@@ -186,7 +186,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#提权"><span class="toc-text">提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#信息收集"><span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提权分类"><span class="toc-text">提权分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#window"><span class="toc-text">window</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不带引号的服务路径"><span class="toc-text">不带引号的服务路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误的服务权限"><span class="toc-text">错误的服务权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#密钥凭证窃取"><span class="toc-text">密钥凭证窃取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件系统权限配置不当提权"><span class="toc-text">文件系统权限配置不当提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统漏洞提权"><span class="toc-text">系统漏洞提权</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#提权"><span class="toc-text">提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#信息收集"><span class="toc-text">信息收集</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#提权分类"><span class="toc-text">提权分类</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#window"><span class="toc-text">window</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不带引号的服务路径"><span class="toc-text">不带引号的服务路径</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误的服务权限"><span class="toc-text">错误的服务权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#注册表权限错误"><span class="toc-text">注册表权限错误</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#不安全的文件系统权限"><span class="toc-text">不安全的文件系统权限</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#AlwaysInstallElevated"><span class="toc-text">AlwaysInstallElevated</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#密钥凭证窃取"><span class="toc-text">密钥凭证窃取</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件系统权限配置不当提权"><span class="toc-text">文件系统权限配置不当提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#系统漏洞提权"><span class="toc-text">系统漏洞提权</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考链接"><span class="toc-text">参考链接</span></a></li></ol>
   </div>
 
 
@@ -243,6 +243,9 @@ ga('send', 'pageview');
 <p>系统信息</p>
 <p>window: systeminfo(详细补丁信息wmic qfe list)</p>
 <p>linxu: uname -a查看内核版本</p>
+<p>查看域中计算机列表</p>
+<p>net view</p>
+<p><strong><a href="https://mp.weixin.qq.com/s?__biz=MzI5MDQ2NjExOQ==&mid=2247484666&idx=1&sn=4ce455c0144c7b1474625f541a868876&chksm=ec1e34d2db69bdc49bb4cd22b47e1f1dbb02e95dfaab7d0aa63f8e44838f00fd53af0b215cb9&scene=21#wechat_redirect" target="_blank" rel="noopener">window下主机信息收集命令</a></strong></p>
 <h2 id="提权分类"><a href="#提权分类" class="headerlink" title="提权分类"></a>提权分类</h2><h3 id="window"><a href="#window" class="headerlink" title="window"></a>window</h3><h3 id="不带引号的服务路径"><a href="#不带引号的服务路径" class="headerlink" title="不带引号的服务路径"></a>不带引号的服务路径</h3><p>使用c:\a n\1.exe来执行程序时是执行的c:\a。</p>
 <p><img src="/2019/10/15/提权/1571234782646.png" alt="1571234782646"></p>
 <p>也就是说我们只要对这种目录具有w权限便能上传恶意exe让系统服务来执行提权,这是一种劫持型的攻击。</p>
@@ -250,9 +253,19 @@ ga('send', 'pageview');
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wmic service get name,displayname,pathname,startmode |findstr /i &quot;Auto&quot; |findstr /i /v &quot;C:\Windows\\&quot; |findstr /i /v &quot;&quot;&quot;</span><br></pre></td></tr></table></figure>
 
 <h3 id="错误的服务权限"><a href="#错误的服务权限" class="headerlink" title="错误的服务权限"></a>错误的服务权限</h3><p>由于用户可能对某些服务拥有过高权限导致的提权，如升级程序等，用户对升级程序存在写权限就可以替换该程序提权。和服务路径提权一样，也是一种劫持型攻击。可以使用微软官方程序accesschk.exe检查</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">accesschk.exe -uwcqv &quot;用户名 * /accepteula//列出可被用户名修改的服务</span><br></pre></td></tr></table></figure>
+
+<h3 id="注册表权限错误"><a href="#注册表权限错误" class="headerlink" title="注册表权限错误"></a>注册表权限错误</h3><p>通过修改注册表改变服务执行路径导致系统以system执行我们上传的exe文件，下载<a href="https://www.microsoft.com/en-us/download/details.aspx?id=23510" target="_blank" rel="noopener">subinacl工具</a>。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">查找易受攻击服务列表</span><br><span class="line">subinacl.exe /keyreg &quot;HKEY_LOCAL_MACHINE\SYSTEM\CurrentControlSet\Services\Service&quot; /display</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">执行攻击代码</span><br><span class="line">reg add &quot;服务注册表路径&quot; /t REG_EXPAND_SZ /v ImagePath /d &quot;攻击程序&quot; /f</span><br></pre></td></tr></table></figure>
+
+<h3 id="不安全的文件系统权限"><a href="#不安全的文件系统权限" class="headerlink" title="不安全的文件系统权限"></a>不安全的文件系统权限</h3><p>管理员可能配置某个服务的目录为所有人完全控制之类的，通过替换exe文件来提权。</p>
+<h3 id="AlwaysInstallElevated"><a href="#AlwaysInstallElevated" class="headerlink" title="AlwaysInstallElevated"></a>AlwaysInstallElevated</h3><p>AlwaysInstallElevated是一个策略设置，允许任意用户以system权限运行MSI文件，可导致提权。默认关闭。</p>
 <h3 id="密钥凭证窃取"><a href="#密钥凭证窃取" class="headerlink" title="密钥凭证窃取"></a>密钥凭证窃取</h3><p>当服务器的安全配置做的很好的时候就尝试在服务器中翻找password等关键字段。</p>
 <h3 id="文件系统权限配置不当提权"><a href="#文件系统权限配置不当提权" class="headerlink" title="文件系统权限配置不当提权"></a>文件系统权限配置不当提权</h3><p>suid和sgid是当执行文件时使用文件属主和属组的权限，目录的S属性使得在该目录下创建的任何文件及目录属于该目录所拥有的组。错误的配置文件目录可以通过这样的配置来提高权限</p>
 <h2 id="系统漏洞提权"><a href="#系统漏洞提权" class="headerlink" title="系统漏洞提权"></a>系统漏洞提权</h2><p>系统漏洞检测脚本：<a href="https://github.com/mzet-/linux-exploit-suggester" target="_blank" rel="noopener">linux</a>和<a href="https://github.com/AonCyberLabs/Windows-Exploit-Suggester" target="_blank" rel="noopener">window</a>通过工具、人工寻找可能存在的漏洞使用exp提权</p>
+<h1 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h1><p><a href="https://blog.csdn.net/Fly_hps/article/details/80301264" target="_blank" rel="noopener">window提权教程</a></p>
 
     
   </div>

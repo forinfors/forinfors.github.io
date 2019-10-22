@@ -15,14 +15,17 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta property="og:type" content="article">
+  <meta name="description" content="区块链之智能合约solidity代码特点漏洞风险重入攻击重入攻击是由于call.value()可以消耗所有的gas和回退函数之间的配合引起的，如果受害者合约使用call.value()来发送货币到攻击者合约，合约接收到ether时会使用回退函数，这时回退函数再调用攻击者合约的发送ether的模块，如果更新余额等操作发生在发送ether之前那么代码就将会在发送ether和回退函数之间迭代运行，这样合">
+<meta property="og:type" content="article">
 <meta property="og:title" content="区块链之智能合约">
 <meta property="og:url" content="http://yoursite.com/2019/10/21/区块链之智能合约/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="区块链之智能合约solidity代码特点漏洞风险重入攻击重入攻击是由于call.value()可以消耗所有的gas和回退函数之间的配合引起的，如果受害者合约使用call.value()来发送货币到攻击者合约，合约接收到ether时会使用回退函数，这时回退函数再调用攻击者合约的发送ether的模块，如果更新余额等操作发生在发送ether之前那么代码就将会在发送ether和回退函数之间迭代运行，这样合">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-21T09:02:42.188Z">
+<meta property="og:updated_time" content="2019-10-21T10:51:45.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="区块链之智能合约">
+<meta name="twitter:description" content="区块链之智能合约solidity代码特点漏洞风险重入攻击重入攻击是由于call.value()可以消耗所有的gas和回退函数之间的配合引起的，如果受害者合约使用call.value()来发送货币到攻击者合约，合约接收到ether时会使用回退函数，这时回退函数再调用攻击者合约的发送ether的模块，如果更新余额等操作发生在发送ether之前那么代码就将会在发送ether和回退函数之间迭代运行，这样合">
 
   
 
@@ -179,6 +182,11 @@ ga('send', 'pageview');
 </div>
 
 
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#区块链之智能合约"><span class="toc-text">区块链之智能合约</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#solidity代码特点"><span class="toc-text">solidity代码特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#漏洞风险"><span class="toc-text">漏洞风险</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#重入攻击"><span class="toc-text">重入攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数值溢出检测"><span class="toc-text">数值溢出检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#访问控制检测"><span class="toc-text">访问控制检测</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#返回值调用验证"><span class="toc-text">返回值调用验证</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误使用随机数"><span class="toc-text">错误使用随机数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#事务顺序依赖"><span class="toc-text">事务顺序依赖</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#拒绝服务攻击"><span class="toc-text">拒绝服务攻击</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#逻辑设计缺陷"><span class="toc-text">逻辑设计缺陷</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#假充值漏洞"><span class="toc-text">假充值漏洞</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#增发代币漏洞"><span class="toc-text">增发代币漏洞</span></a></li></ol></li></ol></li></ol>
+  </div>
+
 
 
 <div class="content content-post CENTER">
@@ -217,7 +225,38 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      
+      <h1 id="区块链之智能合约"><a href="#区块链之智能合约" class="headerlink" title="区块链之智能合约"></a>区块链之智能合约</h1><h2 id="solidity代码特点"><a href="#solidity代码特点" class="headerlink" title="solidity代码特点"></a>solidity代码特点</h2><h2 id="漏洞风险"><a href="#漏洞风险" class="headerlink" title="漏洞风险"></a>漏洞风险</h2><h3 id="重入攻击"><a href="#重入攻击" class="headerlink" title="重入攻击"></a>重入攻击</h3><p>重入攻击是由于call.value()可以消耗所有的gas和回退函数之间的配合引起的，如果受害者合约使用call.value()来发送货币到攻击者合约，合约接收到ether时会使用回退函数，这时回退函数再调用攻击者合约的发送ether的模块，如果更新余额等操作发生在发送ether之前那么代码就将会在发送ether和回退函数之间迭代运行，这样合约账户的钱就会被全部转走。</p>
+<p><strong>预防</strong></p>
+<p>1.使用Call.value()先修改后转账，但失败不会自动回滚，需要手动处理。</p>
+<p>2.使用send ,transfer 转账时只有2300个gas，不足以支撑第二次交易，send一样失败不会回滚。</p>
+<h3 id="数值溢出检测"><a href="#数值溢出检测" class="headerlink" title="数值溢出检测"></a>数值溢出检测</h3><p>智能合约中的算数问题是指整数溢出和整数下溢。Solidity最多能处理256位的数字，超过会出现异常问题。</p>
+<p><strong>预防</strong></p>
+<p>1.使用SafeMath库</p>
+<h3 id="访问控制检测"><a href="#访问控制检测" class="headerlink" title="访问控制检测"></a>访问控制检测</h3><p>访问控制缺陷是所有程序中都可能存在的安全风险，智能合约也同样会存在类似问题，著名的Parity Wallet智能合约就受到过该问题的影响。</p>
+<p><strong>预防</strong></p>
+<p>1.人工检测程序逻辑</p>
+<h3 id="返回值调用验证"><a href="#返回值调用验证" class="headerlink" title="返回值调用验证"></a>返回值调用验证</h3><p>send和call.value失败返回为false，transfer失败抛出异常，如果不检测返回值继续执行代码可能出现问题。</p>
+<p><strong>预防</strong></p>
+<p>1.使用require抛出异常或者if处理失败send和call.value失败</p>
+<h3 id="错误使用随机数"><a href="#错误使用随机数" class="headerlink" title="错误使用随机数"></a>错误使用随机数</h3><p>区块链由于不存在真正的随机数，所以使用过去、现在、未来某个量作为随机数是可能存在问题的，区块链的随机数最好来自外部。</p>
+<p><strong>预防</strong></p>
+<p>1.使用不可预测的数字作为随机源</p>
+<h3 id="事务顺序依赖"><a href="#事务顺序依赖" class="headerlink" title="事务顺序依赖"></a>事务顺序依赖</h3><p>由于区块链的透明性，当一个用户做出一个请求如回答问题的到赏金，攻击者可以发送更高的gas以更早执行从而获取赏金等。</p>
+<p><strong>预防</strong></p>
+<p>1.通过代码逻辑防止该类攻击，比如说先提交MD5码，等处理完后再提交答案，以MD5码的时间为准等。</p>
+<h3 id="拒绝服务攻击"><a href="#拒绝服务攻击" class="headerlink" title="拒绝服务攻击"></a>拒绝服务攻击</h3><p>通过攻击手段导致程序不能执行。</p>
+<p><strong>预防</strong></p>
+<p>1.人工检测程序逻辑</p>
+<h3 id="逻辑设计缺陷"><a href="#逻辑设计缺陷" class="headerlink" title="逻辑设计缺陷"></a>逻辑设计缺陷</h3><p>合约设计逻辑存在漏洞</p>
+<p><strong>预防</strong></p>
+<p>1.人工检测程序逻辑</p>
+<h3 id="假充值漏洞"><a href="#假充值漏洞" class="headerlink" title="假充值漏洞"></a>假充值漏洞</h3><p>如充值处程序设计错误，仅判断是否余额足够但却继续执行了充值代码。</p>
+<p><strong>预防</strong></p>
+<p>1.人工检测程序逻辑，使用require来处理程序。</p>
+<h3 id="增发代币漏洞"><a href="#增发代币漏洞" class="headerlink" title="增发代币漏洞"></a>增发代币漏洞</h3><p>检测在初始化代币总量后，代币合约中存在可能使代币总量增加的函数。</p>
+<p><strong>预防</strong></p>
+<p>1.人工检测是否存在非正常的可增加代币。</p>
+
     
   </div>
 
