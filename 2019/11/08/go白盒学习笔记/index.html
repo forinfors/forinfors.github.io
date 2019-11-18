@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>go白盒学习笔记 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="web安全，app安全，咸鱼">
+  
+
+  <meta name="description" content="go白盒学习笔记go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i := 1 //也可以如此声明变量  for1234567for a=0; a&amp;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go白盒学习笔记">
+<meta property="og:url" content="http://yoursite.com/2019/11/08/go白盒学习笔记/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="go白盒学习笔记go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i := 1 //也可以如此声明变量  for1234567for a=0; a&amp;">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573461963781.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573462077405.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573964734466.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573566161368.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573566856666.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573570109467.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573615725461.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573480752093.png">
+<meta property="og:updated_time" content="2019-11-17T05:09:08.490Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="go白盒学习笔记">
+<meta name="twitter:description" content="go白盒学习笔记go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i := 1 //也可以如此声明变量  for1234567for a=0; a&amp;">
+<meta name="twitter:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573461963781.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#go白盒学习笔记"><span class="toc-text">go白盒学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#go语言语法特征"><span class="toc-text">go语言语法特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量声明"><span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for"><span class="toc-text">for</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struct"><span class="toc-text">struct</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数获取机制"><span class="toc-text">参数获取机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go白盒审计"><span class="toc-text">go白盒审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#危险函数"><span class="toc-text">危险函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件读取、下载、删除"><span class="toc-text">文件读取、下载、删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#危险库"><span class="toc-text">危险库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码执行"><span class="toc-text">代码执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#风险写法"><span class="toc-text">风险写法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整数溢出"><span class="toc-text">整数溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组越界"><span class="toc-text">数组越界</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空指针使用"><span class="toc-text">空指针使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数返回值忽略"><span class="toc-text">函数返回值忽略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误的随机数"><span class="toc-text">错误的随机数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用defer处理必须执行的模块"><span class="toc-text">使用defer处理必须执行的模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见漏洞防御方法"><span class="toc-text">常见漏洞防御方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xss"><span class="toc-text">xss</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-go白盒学习笔记" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">go白盒学习笔记</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.11.08</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="go白盒学习笔记"><a href="#go白盒学习笔记" class="headerlink" title="go白盒学习笔记"></a>go白盒学习笔记</h1><h2 id="go语言语法特征"><a href="#go语言语法特征" class="headerlink" title="go语言语法特征"></a>go语言语法特征</h2><p>个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。</p>
+<p>这里讲一些go语法上的特殊点。</p>
+<h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var 变量名 类型</span><br><span class="line">var test int //声明int型变量</span><br><span class="line">也可以var a = &quot;aaa&quot; //必须初始化，var a会报错</span><br><span class="line">i := 1 //也可以如此声明变量</span><br></pre></td></tr></table></figure>
+
+<h3 id="for"><a href="#for" class="headerlink" title="for"></a>for</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">for a=0; a&lt;10; a++ &#123;</span><br><span class="line">&#125;</span><br><span class="line">for a&lt;10&#123;//和while一样</span><br><span class="line">	a++</span><br><span class="line">&#125;</span><br><span class="line">for key, value := range oldMap &#123;//迭代器</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var balance [10] float32</span><br><span class="line">var 数组名 map[键类型]值类型//var test map[string]string</span><br></pre></td></tr></table></figure>
+
+<h3 id="struct"><a href="#struct" class="headerlink" title="struct"></a>struct</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">和其他语言不一样的是go是没有class的，所以他的面向对象特性由struct来实现。</span><br><span class="line">声明：</span><br><span class="line">type Person struct &#123;</span><br><span class="line">&#125;</span><br><span class="line">声明结构体的函数</span><br><span class="line">func (person *Person) setAge(age int) &#123;</span><br><span class="line">&#125;</span><br><span class="line">封装</span><br><span class="line">首字母小写：private</span><br><span class="line">首字母大写：public</span><br><span class="line">public和private主要是针对不同的package来说的。</span><br><span class="line"></span><br><span class="line">继承</span><br><span class="line">type Student struct &#123;</span><br><span class="line">  Person person</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">多态</span><br><span class="line">go使用接口实现多态性</span><br><span class="line">type person interface &#123;</span><br><span class="line">	test()</span><br><span class="line">&#125;</span><br><span class="line">type student struct &#123;</span><br><span class="line">&#125;</span><br><span class="line">func (student xiaoming) test() &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="异常"><a href="#异常" class="headerlink" title="异常"></a>异常</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">go的异常处理也很奇怪，不是常见的try</span><br><span class="line">正常情况发生异常是发生panic，程序退出.</span><br><span class="line">可以自定义error处理机制</span><br><span class="line">func Foo(param int) (n int,err error)&#123;</span><br><span class="line">    //</span><br><span class="line">&#125;</span><br><span class="line">defer当声明他的函数返回时才执行（包含它的函数 执行了return语句/运行到函数结尾自动返回/对应的goroutine panic）执行</span><br><span class="line">recover接受错误消息</span><br><span class="line">组合起来可以当作try来使用</span><br></pre></td></tr></table></figure>
+
+<h3 id="参数获取机制"><a href="#参数获取机制" class="headerlink" title="参数获取机制"></a>参数获取机制</h3><p>POST方法获取参数时是会获取请求中所有该参数的值</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1573461963781.png" alt="1573461963781"></p>
+<p>GET方法获取参数时只会获取GET参数的值</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1573462077405.png" alt="1573462077405"></p>
+<p>可以通过r.Form.Get(“url_long”)的方式获取第一个值,使用r.Form[“username”][0]的方式会导致服务器报错。</p>
+<h2 id="go白盒审计"><a href="#go白盒审计" class="headerlink" title="go白盒审计"></a>go白盒审计</h2><p>未找到系统的白盒审计教程，只有根据php之类的语言白盒教程来自己研究。</p>
+<h2 id="危险函数"><a href="#危险函数" class="headerlink" title="危险函数"></a>危险函数</h2><h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><p>import os/exec模块执行</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">exec.Command(&quot;ls&quot;, &quot;-l&quot;)</span><br><span class="line">cmd.Run()//run会等待命令执行完成</span><br><span class="line">cmd.Start()//不会等待执行完成</span><br></pre></td></tr></table></figure>
+
+<h3 id="文件读取、下载、删除"><a href="#文件读取、下载、删除" class="headerlink" title="文件读取、下载、删除"></a>文件读取、下载、删除</h3><p>go可以使用内置的os模块读取文件,在代码审计中对外部传入的变量filename应该进行过滤../防止任意文件读取、下载、删除</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">os.OpenFile(filename string, flag int, perm FileMode) (file *File, err error)</span><br><span class="line">os.Open(filename *File, err error)</span><br><span class="line">os.remove()</span><br><span class="line">os.RemoveAll()</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2019/11/08/go白盒学习笔记/1573964734466.png" alt="1573964734466"></p>
+<h2 id="危险库"><a href="#危险库" class="headerlink" title="危险库"></a>危险库</h2><p>因为go需要调用一些非官方的第三方库，而这些第三方库会存在危害</p>
+<h3 id="代码执行"><a href="#代码执行" class="headerlink" title="代码执行"></a>代码执行</h3><p>CVE-2018-6574由于go调用了名为cgo的工具，cgo会识别和读取Go源文件中的C元素，并将其提取后交给C编译器编译，最后与Go源码编译后的目标文件链接成一个可执行程序。</p>
+<p>由于有时候会使用外部代码，可能由于调用恶意外部代码导致代码执行</p>
+<h2 id="风险写法"><a href="#风险写法" class="headerlink" title="风险写法"></a>风险写法</h2><h3 id="整数溢出"><a href="#整数溢出" class="headerlink" title="整数溢出"></a>整数溢出</h3><p>由于go的数值大小有范围若是不检测溢出就可能发生一些意外的事</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1573566161368.png" alt="1573566161368"></p>
+<h3 id="数组越界"><a href="#数组越界" class="headerlink" title="数组越界"></a>数组越界</h3><p>go只对a[10]之类的形式越界检查不对a[s]进行越界检查，如果s过大数组越界可能直接导致程序崩溃。</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1573566856666.png" alt="1573566856666"></p>
+<h3 id="空指针使用"><a href="#空指针使用" class="headerlink" title="空指针使用"></a>空指针使用</h3><p>调用指针时加上空指针检测，否则调用空指针将导致服务崩溃。</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1573570109467.png" alt="1573570109467"></p>
+<h3 id="函数返回值忽略"><a href="#函数返回值忽略" class="headerlink" title="函数返回值忽略"></a>函数返回值忽略</h3><p>go中有很多函数是具有两个返回值的func()(int,error)，会根据不同的情况返回不同的结果，如果没有对error返回判断可能会发生访问控制绕过等。</p>
+<h3 id="错误的随机数"><a href="#错误的随机数" class="headerlink" title="错误的随机数"></a>错误的随机数</h3><p>golang的math/rand模块生成的随机数是可以预测的，他是根据种子来生成的。下图同样的种子将会生成同样的随机数</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1573615725461.png" alt="1573615725461"></p>
+<p>可以使用cryto/rand来生成随机数，rand.Seed()使用一个不可预测的变量作为随机数。</p>
+<h3 id="使用defer处理必须执行的模块"><a href="#使用defer处理必须执行的模块" class="headerlink" title="使用defer处理必须执行的模块"></a>使用defer处理必须执行的模块</h3><p>golang中defer是在函数运行中后无论什么情况在函数结束时必定会执行的模块，所以我们可以将file.close()之类的操作使用defer来执行防止发生意外。</p>
+<h2 id="常见漏洞防御方法"><a href="#常见漏洞防御方法" class="headerlink" title="常见漏洞防御方法"></a>常见漏洞防御方法</h2><h3 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h3><p>使用html.EscapeString等函数来转义</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1573480752093.png" alt="1573480752093"></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/11/06/内网渗透PTH-PTT-PTK/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
