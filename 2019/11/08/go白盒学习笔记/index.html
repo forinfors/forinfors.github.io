@@ -30,7 +30,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573570109467.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573615725461.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573480752093.png">
-<meta property="og:updated_time" content="2019-11-17T05:09:08.490Z">
+<meta property="og:updated_time" content="2019-11-18T05:25:18.510Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go白盒学习笔记">
 <meta name="twitter:description" content="go白盒学习笔记go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i := 1 //也可以如此声明变量  for1234567for a=0; a&amp;">
@@ -273,6 +273,8 @@ ga('send', 'pageview');
 <p><img src="/2019/11/08/go白盒学习笔记/1573615725461.png" alt="1573615725461"></p>
 <p>可以使用cryto/rand来生成随机数，rand.Seed()使用一个不可预测的变量作为随机数。</p>
 <h3 id="使用defer处理必须执行的模块"><a href="#使用defer处理必须执行的模块" class="headerlink" title="使用defer处理必须执行的模块"></a>使用defer处理必须执行的模块</h3><p>golang中defer是在函数运行中后无论什么情况在函数结束时必定会执行的模块，所以我们可以将file.close()之类的操作使用defer来执行防止发生意外。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例子总结:</span><br><span class="line">文件操作file.close()</span><br><span class="line">数据库操作sql.close()</span><br></pre></td></tr></table></figure>
+
 <h2 id="常见漏洞防御方法"><a href="#常见漏洞防御方法" class="headerlink" title="常见漏洞防御方法"></a>常见漏洞防御方法</h2><h3 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h3><p>使用html.EscapeString等函数来转义</p>
 <p><img src="/2019/11/08/go白盒学习笔记/1573480752093.png" alt="1573480752093"></p>
 
@@ -289,7 +291,7 @@ ga('send', 'pageview');
     <a class="show pull-left" href="/2019/11/06/内网渗透PTH-PTT-PTK/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2019/11/19/基于机器学习的自我进化型蠕虫病毒/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
