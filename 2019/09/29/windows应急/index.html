@@ -15,17 +15,19 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。 基础排查账号排查命令输入lusrmgr.msc打开账户组情况 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查 异常端口netstat -ano排查端口查看端口是否有连接一些异常">
+  <meta name="description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。  基础排查账号排查弱口令排查 询问是否存在弱口令 账号排查 检查是否存在未知的账号 命令输入lusrmgr.msc打开账户组情况 检查隐藏账号 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册">
 <meta property="og:type" content="article">
 <meta property="og:title" content="windows应急">
 <meta property="og:url" content="http://yoursite.com/2019/09/29/windows应急/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。 基础排查账号排查命令输入lusrmgr.msc打开账户组情况 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查 异常端口netstat -ano排查端口查看端口是否有连接一些异常">
+<meta property="og:description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。  基础排查账号排查弱口令排查 询问是否存在弱口令 账号排查 检查是否存在未知的账号 命令输入lusrmgr.msc打开账户组情况 检查隐藏账号 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-10-08T08:50:54.736Z">
+<meta property="og:image" content="http://yoursite.com/2019/09/29/windows应急/1575008385511.png">
+<meta property="og:updated_time" content="2019-11-29T06:33:52.389Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="windows应急">
-<meta name="twitter:description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。 基础排查账号排查命令输入lusrmgr.msc打开账户组情况 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查 异常端口netstat -ano排查端口查看端口是否有连接一些异常">
+<meta name="twitter:description" content="window应急响应应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。  基础排查账号排查弱口令排查 询问是否存在弱口令 账号排查 检查是否存在未知的账号 命令输入lusrmgr.msc打开账户组情况 检查隐藏账号 HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册">
+<meta name="twitter:image" content="http://yoursite.com/2019/09/29/windows应急/1575008385511.png">
 
   
 
@@ -184,7 +186,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#window应急响应"><span class="toc-text">window应急响应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础排查"><span class="toc-text">基础排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#账号排查"><span class="toc-text">账号排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常端口"><span class="toc-text">异常端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程检查"><span class="toc-text">进程检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查启动项"><span class="toc-text">检查启动项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查计划任务"><span class="toc-text">检查计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查服务器自启动"><span class="toc-text">检查服务器自启动</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-text">日志</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#window应急响应"><span class="toc-text">window应急响应</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#基础排查"><span class="toc-text">基础排查</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#账号排查"><span class="toc-text">账号排查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常端口"><span class="toc-text">异常端口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#进程检查"><span class="toc-text">进程检查</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查启动项"><span class="toc-text">检查启动项</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查计划任务"><span class="toc-text">检查计划任务</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查服务器自启动"><span class="toc-text">检查服务器自启动</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#检查补丁"><span class="toc-text">检查补丁</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#webshell和病毒查杀"><span class="toc-text">webshell和病毒查杀</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-text">日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#安全日志审计"><span class="toc-text">安全日志审计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见事件ID与对应事件"><span class="toc-text">常见事件ID与对应事件</span></a></li></ol></li></ol></li></ol>
   </div>
 
 
@@ -226,14 +228,30 @@ ga('send', 'pageview');
   <div class="article-content">
     
       <h1 id="window应急响应"><a href="#window应急响应" class="headerlink" title="window应急响应"></a>window应急响应</h1><p>应急响应是安全的一个非常重要的点，应急响应是为了在事故发生之后降低损失，排查攻击路径以方便修复以防被再次攻击，甚至追踪到攻击者追责。</p>
-<h2 id="基础排查"><a href="#基础排查" class="headerlink" title="基础排查"></a>基础排查</h2><h3 id="账号排查"><a href="#账号排查" class="headerlink" title="账号排查"></a>账号排查</h3><p>命令输入lusrmgr.msc打开账户组情况</p>
+<p><img src="/2019/09/29/windows应急/1575008385511.png" alt="1575008385511"></p>
+<h2 id="基础排查"><a href="#基础排查" class="headerlink" title="基础排查"></a>基础排查</h2><h3 id="账号排查"><a href="#账号排查" class="headerlink" title="账号排查"></a>账号排查</h3><p><strong>弱口令排查</strong></p>
+<p>询问是否存在弱口令</p>
+<p><strong>账号排查</strong></p>
+<p>检查是否存在未知的账号</p>
+<p>命令输入lusrmgr.msc打开账户组情况</p>
+<p><strong>检查隐藏账号</strong></p>
 <p>HKEY_LOCAL_MACHINE\SAM\SAM\Domains\Account\Users\注册表系统账号排查</p>
+<p><strong>登录日志</strong></p>
+<p>eventvwr.msc查看事件</p>
 <h3 id="异常端口"><a href="#异常端口" class="headerlink" title="异常端口"></a>异常端口</h3><p>netstat -ano排查端口查看端口是否有连接一些异常的IP</p>
 <p>tasklist  | findstr “PID”查看开启连接的文件</p>
+<p>taskkill /f /pid 进程id 杀死进程</p>
 <h3 id="进程检查"><a href="#进程检查" class="headerlink" title="进程检查"></a>进程检查</h3><p>命令行打开msinfo32，检查意外中的进程。</p>
-<h3 id="检查启动项"><a href="#检查启动项" class="headerlink" title="检查启动项"></a>检查启动项</h3><h3 id="检查计划任务"><a href="#检查计划任务" class="headerlink" title="检查计划任务"></a>检查计划任务</h3><h3 id="检查服务器自启动"><a href="#检查服务器自启动" class="headerlink" title="检查服务器自启动"></a>检查服务器自启动</h3><h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>eventvwr.msc打开日志功能</p>
-<p>常见事件ID与对应事件</p>
-<table>
+<h3 id="检查启动项"><a href="#检查启动项" class="headerlink" title="检查启动项"></a>检查启动项</h3><p>任务管理器-启动 检查启动项是否存在病毒等</p>
+<h3 id="检查计划任务"><a href="#检查计划任务" class="headerlink" title="检查计划任务"></a>检查计划任务</h3><p>控制面板-计划任务</p>
+<h3 id="检查服务器自启动"><a href="#检查服务器自启动" class="headerlink" title="检查服务器自启动"></a>检查服务器自启动</h3><p>services.msc检查服务</p>
+<h3 id="检查补丁"><a href="#检查补丁" class="headerlink" title="检查补丁"></a>检查补丁</h3><p>systeminfo查看补丁情况</p>
+<h3 id="webshell和病毒查杀"><a href="#webshell和病毒查杀" class="headerlink" title="webshell和病毒查杀"></a>webshell和病毒查杀</h3><p>使用安全工具对木马和病毒查杀</p>
+<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>windows日志分为应用程序日志、系统日志和安全日志，系统和应用程序日志主要是故障信息，安全人员主要审计安全日志，通过安全日志可以看到攻击者何时连上和连上后的行为。</p>
+<p>eventvwr.msc打开日志。</p>
+<h3 id="安全日志审计"><a href="#安全日志审计" class="headerlink" title="安全日志审计"></a>安全日志审计</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">日志存放目录</span><br><span class="line">%SystemRoot%\System32\Winevt\Logs\Security.evtx</span><br></pre></td></tr></table></figure>
+
+<h3 id="常见事件ID与对应事件"><a href="#常见事件ID与对应事件" class="headerlink" title="常见事件ID与对应事件"></a>常见事件ID与对应事件</h3><table>
 <thead>
 <tr>
 <th align="left">事件ID</th>
@@ -241,6 +259,10 @@ ga('send', 'pageview');
 </tr>
 </thead>
 <tbody><tr>
+<td align="left">4672</td>
+<td align="left">使用超级用户（如管理员）进行登录</td>
+</tr>
+<tr>
 <td align="left">1102</td>
 <td align="left">清理审计日志</td>
 </tr>
@@ -303,6 +325,60 @@ ga('send', 'pageview');
 <tr>
 <td align="left">4719</td>
 <td align="left">系统审计策略修改</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>登录类型</th>
+<th>描述</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>2</td>
+<td>交互式登录（Interactive）</td>
+<td>用户在本地进行登录。</td>
+</tr>
+<tr>
+<td>3</td>
+<td>网络（Network）</td>
+<td>最常见的情况就是连接到共享文件夹或共享打印机时。</td>
+</tr>
+<tr>
+<td>4</td>
+<td>批处理（Batch）</td>
+<td>通常表明某计划任务启动。</td>
+</tr>
+<tr>
+<td>5</td>
+<td>服务（Service）</td>
+<td>每种服务都被配置在某个特定的用户账号下运行。</td>
+</tr>
+<tr>
+<td>7</td>
+<td>解锁（Unlock）</td>
+<td>屏保解锁。</td>
+</tr>
+<tr>
+<td>8</td>
+<td>网络明文（NetworkCleartext）</td>
+<td>登录的密码在网络上是通过明文传输的，如FTP。</td>
+</tr>
+<tr>
+<td>9</td>
+<td>新凭证（NewCredentials）</td>
+<td>使用带/Netonly参数的RUNAS命令运行一个程序。</td>
+</tr>
+<tr>
+<td>10</td>
+<td>远程交互，（RemoteInteractive）</td>
+<td>通过终端服务、远程桌面或远程协助访问计算机。</td>
+</tr>
+<tr>
+<td>11</td>
+<td>缓存交互（CachedInteractive）</td>
+<td>以一个域用户登录而又没有域控制器可用</td>
 </tr>
 </tbody></table>
 

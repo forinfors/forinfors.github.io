@@ -15,12 +15,12 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="go白盒学习笔记go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i := 1 //也可以如此声明变量  for1234567for a=0; a&amp;">
+  <meta name="description" content="go白盒学习笔记这里对go的常见的可能引起安全问题的位置进行研究，列出白盒审计中需要注意的点。 go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i">
 <meta property="og:type" content="article">
 <meta property="og:title" content="go白盒学习笔记">
 <meta property="og:url" content="http://yoursite.com/2019/11/08/go白盒学习笔记/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="go白盒学习笔记go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i := 1 //也可以如此声明变量  for1234567for a=0; a&amp;">
+<meta property="og:description" content="go白盒学习笔记这里对go的常见的可能引起安全问题的位置进行研究，列出白盒审计中需要注意的点。 go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i">
 <meta property="og:locale" content="en">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573461963781.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573462077405.png">
@@ -30,10 +30,12 @@
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573570109467.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573615725461.png">
 <meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573480752093.png">
-<meta property="og:updated_time" content="2019-11-18T05:25:18.510Z">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1574522695921.png">
+<meta property="og:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1574522784416.png">
+<meta property="og:updated_time" content="2019-11-23T15:45:10.940Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="go白盒学习笔记">
-<meta name="twitter:description" content="go白盒学习笔记go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i := 1 //也可以如此声明变量  for1234567for a=0; a&amp;">
+<meta name="twitter:description" content="go白盒学习笔记这里对go的常见的可能引起安全问题的位置进行研究，列出白盒审计中需要注意的点。 go语言语法特征个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。 这里讲一些go语法上的特殊点。 变量声明1234var 变量名 类型var test int //声明int型变量也可以var a = &amp;quot;aaa&amp;quot; //必须初始化，var a会报错i">
 <meta name="twitter:image" content="http://yoursite.com/2019/11/08/go白盒学习笔记/1573461963781.png">
 
   
@@ -193,7 +195,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#go白盒学习笔记"><span class="toc-text">go白盒学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#go语言语法特征"><span class="toc-text">go语言语法特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量声明"><span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for"><span class="toc-text">for</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struct"><span class="toc-text">struct</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数获取机制"><span class="toc-text">参数获取机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go白盒审计"><span class="toc-text">go白盒审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#危险函数"><span class="toc-text">危险函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件读取、下载、删除"><span class="toc-text">文件读取、下载、删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#危险库"><span class="toc-text">危险库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码执行"><span class="toc-text">代码执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#风险写法"><span class="toc-text">风险写法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整数溢出"><span class="toc-text">整数溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组越界"><span class="toc-text">数组越界</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空指针使用"><span class="toc-text">空指针使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数返回值忽略"><span class="toc-text">函数返回值忽略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误的随机数"><span class="toc-text">错误的随机数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用defer处理必须执行的模块"><span class="toc-text">使用defer处理必须执行的模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见漏洞防御方法"><span class="toc-text">常见漏洞防御方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xss"><span class="toc-text">xss</span></a></li></ol></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#go白盒学习笔记"><span class="toc-text">go白盒学习笔记</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#go语言语法特征"><span class="toc-text">go语言语法特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#变量声明"><span class="toc-text">变量声明</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#for"><span class="toc-text">for</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组"><span class="toc-text">数组</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#struct"><span class="toc-text">struct</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#异常"><span class="toc-text">异常</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#参数获取机制"><span class="toc-text">参数获取机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#go白盒审计"><span class="toc-text">go白盒审计</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#危险函数"><span class="toc-text">危险函数</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#文件读取、下载、删除"><span class="toc-text">文件读取、下载、删除</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#危险库"><span class="toc-text">危险库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#代码执行"><span class="toc-text">代码执行</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#风险写法"><span class="toc-text">风险写法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#整数溢出"><span class="toc-text">整数溢出</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#数组越界"><span class="toc-text">数组越界</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空指针使用"><span class="toc-text">空指针使用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#函数返回值忽略"><span class="toc-text">函数返回值忽略</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#错误的随机数"><span class="toc-text">错误的随机数</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#使用defer处理必须执行的模块"><span class="toc-text">使用defer处理必须执行的模块</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见漏洞防御方法"><span class="toc-text">常见漏洞防御方法</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#xss漏洞防御"><span class="toc-text">xss漏洞防御</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SQL注入漏洞防御"><span class="toc-text">SQL注入漏洞防御</span></a></li></ol></li></ol></li></ol>
   </div>
 
 
@@ -234,7 +236,8 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h1 id="go白盒学习笔记"><a href="#go白盒学习笔记" class="headerlink" title="go白盒学习笔记"></a>go白盒学习笔记</h1><h2 id="go语言语法特征"><a href="#go语言语法特征" class="headerlink" title="go语言语法特征"></a>go语言语法特征</h2><p>个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。</p>
+      <h1 id="go白盒学习笔记"><a href="#go白盒学习笔记" class="headerlink" title="go白盒学习笔记"></a>go白盒学习笔记</h1><p>这里对go的常见的可能引起安全问题的位置进行研究，列出白盒审计中需要注意的点。</p>
+<h2 id="go语言语法特征"><a href="#go语言语法特征" class="headerlink" title="go语言语法特征"></a>go语言语法特征</h2><p>个人觉得go和c十分相似(文艺复兴。。。)，go语言简洁优雅，是十分优秀的一门语言。</p>
 <p>这里讲一些go语法上的特殊点。</p>
 <h3 id="变量声明"><a href="#变量声明" class="headerlink" title="变量声明"></a>变量声明</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">var 变量名 类型</span><br><span class="line">var test int //声明int型变量</span><br><span class="line">也可以var a = &quot;aaa&quot; //必须初始化，var a会报错</span><br><span class="line">i := 1 //也可以如此声明变量</span><br></pre></td></tr></table></figure>
 
@@ -275,8 +278,12 @@ ga('send', 'pageview');
 <h3 id="使用defer处理必须执行的模块"><a href="#使用defer处理必须执行的模块" class="headerlink" title="使用defer处理必须执行的模块"></a>使用defer处理必须执行的模块</h3><p>golang中defer是在函数运行中后无论什么情况在函数结束时必定会执行的模块，所以我们可以将file.close()之类的操作使用defer来执行防止发生意外。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">例子总结:</span><br><span class="line">文件操作file.close()</span><br><span class="line">数据库操作sql.close()</span><br></pre></td></tr></table></figure>
 
-<h2 id="常见漏洞防御方法"><a href="#常见漏洞防御方法" class="headerlink" title="常见漏洞防御方法"></a>常见漏洞防御方法</h2><h3 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h3><p>使用html.EscapeString等函数来转义</p>
+<h2 id="常见漏洞防御方法"><a href="#常见漏洞防御方法" class="headerlink" title="常见漏洞防御方法"></a>常见漏洞防御方法</h2><h3 id="xss漏洞防御"><a href="#xss漏洞防御" class="headerlink" title="xss漏洞防御"></a>xss漏洞防御</h3><p>使用html.EscapeString等函数来转义</p>
 <p><img src="/2019/11/08/go白盒学习笔记/1573480752093.png" alt="1573480752093"></p>
+<h3 id="SQL注入漏洞防御"><a href="#SQL注入漏洞防御" class="headerlink" title="SQL注入漏洞防御"></a>SQL注入漏洞防御</h3><p>golang拥有很方便的预编译处理机制，使用预编译便能预防注入。</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1574522695921.png" alt="1574522695921"></p>
+<p>如下如果使用拼接语句进行查询就会发生SQL注入漏洞。</p>
+<p><img src="/2019/11/08/go白盒学习笔记/1574522784416.png" alt="1574522784416"></p>
 
     
   </div>
