@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>java白盒审计 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="web安全，app安全，咸鱼">
+  
+
+  <meta name="description" content="java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。 filter第一次了解到这种类型的技术，的确很方便。 我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人">
+<meta property="og:type" content="article">
+<meta property="og:title" content="java白盒审计">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/java白盒审计/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。 filter第一次了解到这种类型的技术，的确很方便。 我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2019-12-31T06:12:29.483Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="java白盒审计">
+<meta name="twitter:description" content="java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。 filter第一次了解到这种类型的技术，的确很方便。 我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码特征"><span class="toc-text">java代码特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令规范"><span class="toc-text">命令规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见术语"><span class="toc-text">常见术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射机制"><span class="toc-text">反射机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码安全"><span class="toc-text">java代码安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF"><span class="toc-text">SSRF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#序列化与反序列化"><span class="toc-text">序列化与反序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xxe"><span class="toc-text">xxe</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-java白盒审计" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">java白盒审计</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.12.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="java代码特征"><a href="#java代码特征" class="headerlink" title="java代码特征"></a>java代码特征</h2><h3 id="命令规范"><a href="#命令规范" class="headerlink" title="命令规范"></a>命令规范</h3><p>java的类名和文件名应当一致。</p>
+<h3 id="常见术语"><a href="#常见术语" class="headerlink" title="常见术语"></a>常见术语</h3><p>Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。</p>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>第一次了解到这种类型的技术，的确很方便。</p>
+<p>我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人员缺发安全意识而导致的漏洞。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;url—pattern&gt;/upload/*.jsp&lt;/url-pattern&gt;//过滤上传目录下的jsp文件访问</span><br></pre></td></tr></table></figure>
+
+<h3 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h3><p>反射机制就是在运行中动态的加载类，使用编译期间未知的class，使java更具有灵活性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz ＝ Class.forName();</span><br><span class="line">Class clazz ＝ classLoader.loadClass();</span><br><span class="line">这是java类动态加载的两种方式，通过这两种方式加载类如果未对参数进行限制可能导致命令执行。</span><br></pre></td></tr></table></figure>
+
+<h2 id="java代码安全"><a href="#java代码安全" class="headerlink" title="java代码安全"></a>java代码安全</h2><h3 id="文件操作"><a href="#文件操作" class="headerlink" title="文件操作"></a>文件操作</h3><p>java有两种操作文件的模式一个是阻塞的java.io.FileSystem与非阻塞的java.nio.file.spi.FileSystemProvider，java.nio.file.spi.FileSystemProvider是java7后的特性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">File file = new File(filename);</span><br><span class="line">FileInputStream fis = new File(Input/Output)Stream(file);</span><br><span class="line"></span><br><span class="line">File file = new File(filename);</span><br><span class="line">RandomAccessFile raf = new RandomAccessFile(file, &quot;r&quot;);</span><br><span class="line"></span><br><span class="line">Path path = Paths.get(filename);</span><br><span class="line">Files.readAllBytes(path)</span><br></pre></td></tr></table></figure>
+
+<p>以上代码我们对filename如果没有过滤将会导致任意文件读取漏洞。这里总结的是任意文件读取的情况，还有任意文件删除等，在检测文件操作安全时就是看访问的文件范围是否在预计中。</p>
+<p>java在7的时候已经修复了空字节问题，这里基本不用考虑了</p>
+<h3 id="命令执行"><a href="#命令执行" class="headerlink" title="命令执行"></a>命令执行</h3><p><strong>exec执行</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Runtime.getRuntime().exec(cmd)</span><br><span class="line">jdk.jshell.JShell.builder().build().eval(cmd)</span><br></pre></td></tr></table></figure>
+
+<p>这是java执行命令的函数，非常明显的一个函数，在审计时注意cmd参数防止命令执行。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">java.lang.UNIXProcess.&lt;init&gt;(UNIXProcess.java:247)</span><br><span class="line">java.lang.ProcessImpl.start(ProcessImpl.java:134)</span><br><span class="line">java.lang.ProcessBuilder.start(ProcessBuilder.java:1029)</span><br><span class="line">java.lang.Runtime.exec(Runtime.java:620)</span><br><span class="line">java.lang.Runtime.exec(Runtime.java:450)</span><br><span class="line">java.lang.Runtime.exec(Runtime.java:347)</span><br><span class="line">org.apache.jsp.runtime_002dexec2_jsp._jspService(runtime_002dexec2_jsp.java:118)</span><br></pre></td></tr></table></figure>
+
+<p>exec()的执行链，我们可以通过执行链中途的的函数来实现命令执行。</p>
+<p><strong>ProcessBuilder执行</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">new ProcessBuilder(cmd)</span><br></pre></td></tr></table></figure>
+
+<p>ProcessBuilder使用start()函数便能执行</p>
+<p>还有一些高深方法但代码审计中用不到，在我们绕过一些waf之类的产品时很有用。在白盒审计时多注意字段Runtime.exec/ProcessBuilder/ProcessImpl。</p>
+<h3 id="SSRF"><a href="#SSRF" class="headerlink" title="SSRF"></a>SSRF</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">URL url = new URL(url);</span><br><span class="line">URLConnection connection = url.openConnection();</span><br></pre></td></tr></table></figure>
+
+<p>如果URL不进行过滤，攻击者可以通过url对内网访问嗅探</p>
+<h3 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ObjectOutputStream</span><br><span class="line">ObjectInputStream</span><br></pre></td></tr></table></figure>
+
+<p>java可以序列化来处理数据，存在反序列化漏洞，所谓反序列化漏洞就是通过ObjectInputStream对类反序列化时类中存在危险代码导致命令执行。ObjectInputStream在反序列化后通常会调用一些反序列化类的函数如反序列化类的readObject方法，如果方法中带有恶意代码将导致命令执行。<a href="https://www.cnblogs.com/studyskill/p/9207117.html" target="_blank" rel="noopener">https://www.cnblogs.com/studyskill/p/9207117.html</a></p>
+<h3 id="xxe"><a href="#xxe" class="headerlink" title="xxe"></a>xxe</h3>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/12/05/操作命令学习/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
