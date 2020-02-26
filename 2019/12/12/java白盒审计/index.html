@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>java白盒审计 | Hexo</title>
+  <title>java学习 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,17 +15,19 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。 filter第一次了解到这种类型的技术，的确很方便。 我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人">
+  <meta name="description" content="Tomcatwork目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。 java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java白盒审计">
+<meta property="og:title" content="java学习">
 <meta property="og:url" content="http://yoursite.com/2019/12/12/java白盒审计/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。 filter第一次了解到这种类型的技术，的确很方便。 我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人">
+<meta property="og:description" content="Tomcatwork目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。 java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2019-12-31T06:12:29.483Z">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java白盒审计/1582626747456.png">
+<meta property="og:updated_time" content="2020-02-25T10:49:03.270Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java白盒审计">
-<meta name="twitter:description" content="java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。 filter第一次了解到这种类型的技术，的确很方便。 我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人">
+<meta name="twitter:title" content="java学习">
+<meta name="twitter:description" content="Tomcatwork目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。 java代码特征命令规范java的类名和文件名应当一致。 常见术语Servlet是遵循Servlet规范编写的java程序，它专门">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/12/java白盒审计/1582626747456.png">
 
   
 
@@ -184,7 +186,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码特征"><span class="toc-text">java代码特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令规范"><span class="toc-text">命令规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见术语"><span class="toc-text">常见术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射机制"><span class="toc-text">反射机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码安全"><span class="toc-text">java代码安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF"><span class="toc-text">SSRF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#序列化与反序列化"><span class="toc-text">序列化与反序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xxe"><span class="toc-text">xxe</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tomcat"><span class="toc-text">Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码特征"><span class="toc-text">java代码特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令规范"><span class="toc-text">命令规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见术语"><span class="toc-text">常见术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射机制"><span class="toc-text">反射机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码安全"><span class="toc-text">java代码安全</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#文件操作"><span class="toc-text">文件操作</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#命令执行"><span class="toc-text">命令执行</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#SSRF"><span class="toc-text">SSRF</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#序列化与反序列化"><span class="toc-text">序列化与反序列化</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#xxe"><span class="toc-text">xxe</span></a></li></ol></li></ol>
   </div>
 
 
@@ -192,7 +194,7 @@ ga('send', 'pageview');
 <div class="content content-post CENTER">
    <article id="post-java白盒审计" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">java白盒审计</h1>
+    <h1 class="post-title">java学习</h1>
 
     <div class="article-meta">
       <span>
@@ -225,8 +227,9 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h2 id="java代码特征"><a href="#java代码特征" class="headerlink" title="java代码特征"></a>java代码特征</h2><h3 id="命令规范"><a href="#命令规范" class="headerlink" title="命令规范"></a>命令规范</h3><p>java的类名和文件名应当一致。</p>
-<h3 id="常见术语"><a href="#常见术语" class="headerlink" title="常见术语"></a>常见术语</h3><p>Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解。</p>
+      <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p><img src="/2019/12/12/java白盒审计/1582626747456.png" alt="1582626747456">work目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。</p>
+<h2 id="java代码特征"><a href="#java代码特征" class="headerlink" title="java代码特征"></a>java代码特征</h2><h3 id="命令规范"><a href="#命令规范" class="headerlink" title="命令规范"></a>命令规范</h3><p>java的类名和文件名应当一致。</p>
+<h3 id="常见术语"><a href="#常见术语" class="headerlink" title="常见术语"></a>常见术语</h3><p>Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解，通过调用他的一些功能来获取get，post数据和输出给浏览器。</p>
 <h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>第一次了解到这种类型的技术，的确很方便。</p>
 <p>我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人员缺发安全意识而导致的漏洞。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;url—pattern&gt;/upload/*.jsp&lt;/url-pattern&gt;//过滤上传目录下的jsp文件访问</span><br></pre></td></tr></table></figure>
