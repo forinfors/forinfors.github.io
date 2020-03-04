@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>javaEE学习一之jsp | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="web安全，app安全，咸鱼">
+  
+
+  <meta name="description" content="Tomcatwork目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。  这是webapps下的目录src放的是servlet，web下放的是jsp，这里web可能因为IDE的不同而不同。没试过教程my">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javaEE学习一之jsp">
+<meta property="og:url" content="http://yoursite.com/2019/12/12/java学习一之jsp/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="Tomcatwork目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。  这是webapps下的目录src放的是servlet，web下放的是jsp，这里web可能因为IDE的不同而不同。没试过教程my">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582626747456.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582709487660.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582773314304.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582773422385.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582773505368.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582790267022.png">
+<meta property="og:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582793910780.png">
+<meta property="og:updated_time" content="2020-02-28T02:57:00.953Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javaEE学习一之jsp">
+<meta name="twitter:description" content="Tomcatwork目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。  这是webapps下的目录src放的是servlet，web下放的是jsp，这里web可能因为IDE的不同而不同。没试过教程my">
+<meta name="twitter:image" content="http://yoursite.com/2019/12/12/java学习一之jsp/1582626747456.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Tomcat"><span class="toc-text">Tomcat</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#java代码特征"><span class="toc-text">java代码特征</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#命令规范"><span class="toc-text">命令规范</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#常见术语"><span class="toc-text">常见术语</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#反射机制"><span class="toc-text">反射机制</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JSP"><span class="toc-text">JSP</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#语法"><span class="toc-text">语法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#内置对象"><span class="toc-text">内置对象</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#JavaBeans与动作元素"><span class="toc-text">JavaBeans与动作元素</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#useBean"><span class="toc-text">useBean</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#setProperty"><span class="toc-text">setProperty</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#getProperty"><span class="toc-text">getProperty</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-java学习一之jsp" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">javaEE学习一之jsp</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2019.12.12</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h2 id="Tomcat"><a href="#Tomcat" class="headerlink" title="Tomcat"></a>Tomcat</h2><p><img src="/2019/12/12/java学习一之jsp/1582626747456.png" alt="1582626747456">work目录是存放编译好的jsp的文件夹，Java是编译型语言当我们访问一个jsp文件时需要先编译再执行，每次都编译会十分浪费时间，work便是存放这些编译好的代码的文件夹，当我们访问时tomcat会先看work目录下是否已经编译过，编译过就不用再编译了。</p>
+<p><img src="/2019/12/12/java学习一之jsp/1582709487660.png" alt="1582709487660"></p>
+<p>这是webapps下的目录src放的是servlet，web下放的是jsp，这里web可能因为IDE的不同而不同。没试过教程myecplise和我的idea是不同的。</p>
+<h2 id="java代码特征"><a href="#java代码特征" class="headerlink" title="java代码特征"></a>java代码特征</h2><h3 id="命令规范"><a href="#命令规范" class="headerlink" title="命令规范"></a>命令规范</h3><p>java的类名和文件名应当一致。</p>
+<h3 id="常见术语"><a href="#常见术语" class="headerlink" title="常见术语"></a>常见术语</h3><p>Servlet是遵循Servlet规范编写的java程序，它专门用来处理后端程序，而jsp则是与html混用(Servlet难以和html混用)，达到前后端分离，目前感觉servlet可以当作一个框架来理解，通过调用他的一些功能来获取get，post数据和输出给浏览器。</p>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>第一次了解到这种类型的技术，的确很方便。</p>
+<p>我们在filter中配置sql过滤，xss防护就可以避免由于部分开发人员缺发安全意识而导致的漏洞，但是由于业务原因也难以实现。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;url—pattern&gt;/upload/*.jsp&lt;/url-pattern&gt;//过滤上传目录下的jsp文件访问</span><br></pre></td></tr></table></figure>
+
+<h3 id="反射机制"><a href="#反射机制" class="headerlink" title="反射机制"></a>反射机制</h3><p>反射机制就是在运行中动态的加载类，使用编译期间未知的class，使java更具有灵活性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Class clazz ＝ Class.forName();</span><br><span class="line">Class clazz ＝ classLoader.loadClass();</span><br><span class="line">这是java类动态加载的两种方式，通过这两种方式加载类如果未对参数进行限制可能导致命令执行。</span><br></pre></td></tr></table></figure>
+
+<h2 id="JSP"><a href="#JSP" class="headerlink" title="JSP"></a>JSP</h2><h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><p>&lt;% 代码 %&gt;</p>
+<p>&lt;%@ 指令 %&gt;</p>
+<p>&lt;%! 声明变量 %&gt;在代码中也可以直接声明。</p>
+<p>&lt;%= 表达式 %&gt;</p>
+<p>&lt;%– 注释 %&gt;</p>
+<h3 id="内置对象"><a href="#内置对象" class="headerlink" title="内置对象"></a>内置对象</h3><p>内置对象是由web容器提供的对象</p>
+<p><strong>out对象</strong></p>
+<p><img src="/2019/12/12/java学习一之jsp/1582773314304.png" alt="1582773314304"></p>
+<p><strong>request对象</strong></p>
+<p><img src="/2019/12/12/java学习一之jsp/1582773422385.png" alt="1582773422385"></p>
+<p><strong>response对象</strong></p>
+<p><img src="/2019/12/12/java学习一之jsp/1582773505368.png" alt="1582773505368"></p>
+<p>getWriter()对象显示在out对象之前</p>
+<p><strong>session对象</strong></p>
+<p><img src="/2019/12/12/java学习一之jsp/1582790267022.png" alt="1582790267022"></p>
+<p><strong>application对象</strong>这个对象是可以理解为全局变量</p>
+<p><img src="/2019/12/12/java学习一之jsp/1582793910780.png" alt="1582793910780"></p>
+<h2 id="JavaBeans与动作元素"><a href="#JavaBeans与动作元素" class="headerlink" title="JavaBeans与动作元素"></a>JavaBeans与动作元素</h2><p>javabeans是符合某种特定规则的java类。公有类、私有属性、封装、无参公有构造方法。</p>
+<p>jsp动作元素是一个符合XML语法的标签。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:action_name attribute=&quot;value&quot; /&gt;</span><br></pre></td></tr></table></figure>
+
+<h2 id="useBean"><a href="#useBean" class="headerlink" title="useBean"></a>useBean</h2><p>用来实例化javaBeans</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:useBean id=&quot;name&quot; class=&quot;packagename.class&quot; scope=&quot;page&quot; /&gt;</span><br><span class="line">这就是直接实例化packagename.class类,name就是申明后的引用，要调用类中的方法就可以用name.function()。</span><br><span class="line">scope属性表示javaBean作用范围</span><br><span class="line">page表示当前页面</span><br><span class="line">request本次请求</span><br><span class="line">session同一个session请求</span><br><span class="line">application全局变量有效至容器关闭</span><br></pre></td></tr></table></figure>
+
+<h2 id="setProperty"><a href="#setProperty" class="headerlink" title="setProperty"></a>setProperty</h2><p>对javaBeans对象的属性进行赋值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;jsp:setProperty name=&quot;实例名&quot; property=&quot;*&quot; /&gt;与表单对应的属性一一赋值</span><br><span class="line">&lt;jsp:setProperty name=&quot;实例名&quot; property=&quot;属性名&quot; /&gt;表单与javaBeans属性名对应的那个赋值</span><br><span class="line">&lt;jsp:setproperty name=&quot;实例名&quot; property=&quot;属性名&quot; value=&quot;值&quot; /&gt;javabeans属性值为value值,不受表单影响</span><br><span class="line">&lt;jsp:setProperty name=&quot;实例名&quot; property=&quot;属性名&quot; param=&quot;表单属性名&quot; /&gt;这样就不用两个名字相同且可以接受get参数</span><br></pre></td></tr></table></figure>
+
+<h2 id="getProperty"><a href="#getProperty" class="headerlink" title="getProperty"></a>getProperty</h2><p>读取javaBeans对象的属性值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">用户名:&lt;jsp:getProperty name=&quot;users&quot; property=&quot;name&quot; /&gt;可以不使用表达式获取username的值</span><br></pre></td></tr></table></figure>
+
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2019/12/05/命令行操作学习/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2020/02/18/中间件日志分析/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

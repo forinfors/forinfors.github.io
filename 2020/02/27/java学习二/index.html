@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>中间件日志分析 | Hexo</title>
+  <title>java学习二java机制 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,17 +15,17 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="通过实践搭建常见中间件，自己分析熟悉中间件日志。 日志查看/etc/apache2/apache2.conf找到日志文件的位置，默认位于/var/log/apache2/目录下。 Get1117.175.121.169 - - [16/Feb/2020:14:15:56 +0800] &amp;quot;GET /?11=1 HTTP/1.1&amp;quot; 200 3525 &amp;quot;-&amp;quot; &amp;q">
+  <meta name="description" content="类加载机制反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.classClass.forName(&amp;quot;class&amp;quot;)class">
 <meta property="og:type" content="article">
-<meta property="og:title" content="中间件日志分析">
-<meta property="og:url" content="http://yoursite.com/2020/02/18/中间件日志分析/index.html">
+<meta property="og:title" content="java学习二java机制">
+<meta property="og:url" content="http://yoursite.com/2020/02/27/java学习二/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="通过实践搭建常见中间件，自己分析熟悉中间件日志。 日志查看/etc/apache2/apache2.conf找到日志文件的位置，默认位于/var/log/apache2/目录下。 Get1117.175.121.169 - - [16/Feb/2020:14:15:56 +0800] &amp;quot;GET /?11=1 HTTP/1.1&amp;quot; 200 3525 &amp;quot;-&amp;quot; &amp;q">
+<meta property="og:description" content="类加载机制反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.classClass.forName(&amp;quot;class&amp;quot;)class">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-02-18T09:27:20.079Z">
+<meta property="og:updated_time" content="2020-03-02T12:59:29.115Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="中间件日志分析">
-<meta name="twitter:description" content="通过实践搭建常见中间件，自己分析熟悉中间件日志。 日志查看/etc/apache2/apache2.conf找到日志文件的位置，默认位于/var/log/apache2/目录下。 Get1117.175.121.169 - - [16/Feb/2020:14:15:56 +0800] &amp;quot;GET /?11=1 HTTP/1.1&amp;quot; 200 3525 &amp;quot;-&amp;quot; &amp;q">
+<meta name="twitter:title" content="java学习二java机制">
+<meta name="twitter:description" content="类加载机制反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.classClass.forName(&amp;quot;class&amp;quot;)class">
 
   
 
@@ -184,20 +184,20 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#日志"><span class="toc-text">日志</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Get"><span class="toc-text">Get</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#POST"><span class="toc-text">POST</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#常见攻击特征总结"><span class="toc-text">常见攻击特征总结</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类加载机制"><span class="toc-text">类加载机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射"><span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java-lang-class"><span class="toc-text">java.lang.class</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RMI"><span class="toc-text">RMI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jndi"><span class="toc-text">jndi</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-中间件日志分析" class="article article-type-post" itemprop="blogPost">
+   <article id="post-java学习二" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">中间件日志分析</h1>
+    <h1 class="post-title">java学习二java机制</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2020.02.18</span>
+        <span>2020.02.27</span>
       </span>
 
       
@@ -225,18 +225,25 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <p>通过实践搭建常见中间件，自己分析熟悉中间件日志。</p>
-<h2 id="日志"><a href="#日志" class="headerlink" title="日志"></a>日志</h2><p>查看/etc/apache2/apache2.conf找到日志文件的位置，默认位于/var/log/apache2/目录下。</p>
-<h3 id="Get"><a href="#Get" class="headerlink" title="Get"></a>Get</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">117.175.121.169 - - [16/Feb/2020:14:15:56 +0800] &quot;GET /?11=1 HTTP/1.1&quot; 200 3525 &quot;-&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.62 Safari/537.36&quot;</span><br></pre></td></tr></table></figure>
+      <h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><h3 id="java-lang-class"><a href="#java-lang-class" class="headerlink" title="java.lang.class"></a>java.lang.class</h3><p>​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。</p>
+<p>​        实现反射第一步就是获取class</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class.class int.class</span><br><span class="line">Class.forName(&quot;class&quot;)class表实class的全路径</span><br><span class="line">class.getClass()这里的class是实例化后的对象</span><br><span class="line">ClassLoader.loadClass(class，false)class表实class的全路径,false表示是不链接意味着不进行包括初始化等一些列步骤，那么静态块和静态对象就不会得到执行</span><br><span class="line">this.getClass().getClassLoader.loadClass(class，false)</span><br></pre></td></tr></table></figure>
 
-<h3 id="POST"><a href="#POST" class="headerlink" title="POST"></a>POST</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">117.175.121.169 - - [16/Feb/2020:14:19:17 +0800] &quot;POST /welcome.php HTTP/1.1&quot; 404 493 &quot;http://123.56.133.239/1.php&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/76.0.3809.62 Safari/537.36&quot;</span><br></pre></td></tr></table></figure>
+<p>​        以上是获取class的方法,得到的class有几个关键方法：</p>
+<p>​        newInstance实例化class方便使用</p>
+<p>​        getMethod(方法名,参数)获取方法Method a1=a.getMethod(‘exec’,String class)获取exec方法</p>
+<p>​        invoke(对象,参数)使用方法，这里使用前面的a1，a1.invoke(calzz,”calc.exe”)第一个参数是方法所在的对象，后面是参数，参数个数与类型与getMethod所写的保持一致。</p>
+<p>​        getConstructor()当无无参构造函数时使用，使用clazz.getConstructor(构造函数参数类型.class).newInstance()来生成对象</p>
+<p>​        getDeclaredConstructor()当构造函数私有时使用。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Constructor m = clazz.getDeclaredConstructor();</span><br><span class="line">m.setAccessible(true);必须修改构造函数作用域否则无法使用。</span><br></pre></td></tr></table></figure>
 
-<p>这里用apache的日志来举例，可以看到日志只记载ip，请求的页面，get参数，User-Agent字段，在应急中如果是其他位置如cookie导致被攻击无法直接定位哪个参数存在漏洞。搭建看了下常见中间件的日志大同小异，都只记载了这些内容。</p>
-<p>这时候定位攻击者的IP应该从IP出现次数，IP出现频率，木马文件访问ip入手等。</p>
-<h2 id="常见攻击特征总结"><a href="#常见攻击特征总结" class="headerlink" title="常见攻击特征总结"></a>常见攻击特征总结</h2><p><strong>SQL攻击</strong>必定会使用脚本，基本就会是当天出现次数较多的ip，并且具有单个页面访问频率高的特点，这是扫描器等脚本没有的特点。</p>
-<p><strong>首页篡改</strong>基本也会是篡改后前几个查看这个页面的IP，这是正常人的本性肯定会访问下确定篡改成功没有。</p>
-<p><strong>XSS</strong>的特征就是IP没有访问登录页面后再访问后台的连贯性，不符合常见登录特征。</p>
-<p><strong>弱口令、爆破</strong>过多访问登录页面，也有一次就试出来的，这种询问管理员是否存在弱口令和登录后台的IP是否是他们的IP。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);</span><br><span class="line">clazz.getMethod(&quot;exec&quot;, String.class).invoke(clazz.getMethod(&quot;getRuntime&quot;).invoke(clazz), &quot;calc.exe&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>上面的是最常见的java命令执行代码，创建Runtime的class类类型，获取exec方法,通过Runtime的getRuntime()方法获取Runtime的对象(因为Runtime的构造方法是私有的)，再执行exec函数.</p>
+<h2 id="RMI"><a href="#RMI" class="headerlink" title="RMI"></a>RMI</h2><p>RMI简单来说就是一个可以将一个程序写在两个服务器，一个服务器可以调用另一个服务器的方法。</p>
+<p>引用别人的一段话：</p>
+<p>RMI由3个部分构成，第一个是rmiregistry（JDK提供的一个可以独立运行的程序，在bin目录下），第二个是server端的程序，对外提供远程对象，第三个是client端的程序，想要调用远程对象的方法。<br>首先，先启动rmiregistry服务，启动时可以指定服务监听的端口，也可以使用默认的端口（1099）。<br>其次，server端在本地先实例化一个提供服务的实现类，然后通过RMI提供的Naming/Context/Registry（下面实例用的Registry）等类的bind或rebind方法将刚才实例化好的实现类注册到rmiregistry上并对外暴露一个名称。<br>最后，client端通过本地的接口和一个已知的名称（即rmiregistry暴露出的名称）再使用RMI提供的Naming/Context/Registry等类的lookup方法从RMIService那拿到实现类。这样虽然本地没有这个类的实现类，但所有的方法都在接口里了，便可以实现远程调用对象的方法了。<a href="https://blog.csdn.net/qq_28081453/article/details/83279066" target="_blank" rel="noopener">原文</a>我觉得作者对rmi描述的很清楚了。</p>
+<h2 id="jndi"><a href="#jndi" class="headerlink" title="jndi"></a>jndi</h2><p>Java命名和目录接口（JNDI）是一种Java API，类似于一个索引中心，它允许客户端通过name发现和查找数据和对象。就是一个可以实现rmi，数据库，ladp等的api接口。</p>
 
     
   </div>
@@ -248,10 +255,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2019/12/12/java学习一之jsp/">
+    <a class="show pull-left" href="/2020/02/18/中间件日志分析/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2020/02/27/java学习二/">
+    <a class="show pull-right" href="/2020/02/28/java代码安全/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
