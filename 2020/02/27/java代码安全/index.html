@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="java代码安全文件操作java有两种操作文件的模式一个是阻塞的java.io.FileSystem与非阻塞的java.nio.file.spi.FileSystemProvider，java.nio.file.spi.FileSystemProvider是java7后的特性。 12345678File file = new File(filename);FileInputStream fis =">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-05T07:09:07.435Z">
+<meta property="og:updated_time" content="2020-03-17T09:58:00.691Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java代码安全">
 <meta name="twitter:description" content="java代码安全文件操作java有两种操作文件的模式一个是阻塞的java.io.FileSystem与非阻塞的java.nio.file.spi.FileSystemProvider，java.nio.file.spi.FileSystemProvider是java7后的特性。 12345678File file = new File(filename);FileInputStream fis =">
@@ -245,6 +245,7 @@ ga('send', 'pageview');
 <h3 id="序列化与反序列化"><a href="#序列化与反序列化" class="headerlink" title="序列化与反序列化"></a>序列化与反序列化</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ObjectOutputStream</span><br><span class="line">ObjectInputStream</span><br></pre></td></tr></table></figure>
 
 <p>java可以序列化来处理数据，存在反序列化漏洞，所谓反序列化漏洞就是通过ObjectInputStream对类反序列化时类中存在危险代码导致命令执行。ObjectInputStream在反序列化后通常会调用一些反序列化类的函数如反序列化类的readObject方法，如果方法中带有恶意代码将导致命令执行。<a href="https://www.cnblogs.com/studyskill/p/9207117.html" target="_blank" rel="noopener">https://www.cnblogs.com/studyskill/p/9207117.html</a></p>
+<p>在readObject反序列化时首先会调用resolveClass读取反序列化的类名，所以这里通过重写ObjectInputStream对象的resolveClass方法即可实现对反序列化类的校验</p>
 <h3 id="xxe"><a href="#xxe" class="headerlink" title="xxe"></a>xxe</h3><p>java有很多xxe的方式，审计的时候看代码注意就是。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">禁用DTDs (doctypes),几乎可以防御所有xml实体攻击</span><br><span class="line">a.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true);</span><br><span class="line">如果不能禁用DTDs,可以使用下两项，必须两项同时存在</span><br><span class="line">builder.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, false);	</span><br><span class="line">防止外部实体POC </span><br><span class="line">builder.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false);</span><br><span class="line">防止参数实体POC</span><br></pre></td></tr></table></figure>
 
@@ -283,10 +284,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2020/02/18/中间件日志分析/">
+    <a class="show pull-left" href="/2020/02/27/java学习二java机制/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2020/02/27/java学习二java机制/">
+    <a class="show pull-right" href="/2020/03/02/poc整理/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
