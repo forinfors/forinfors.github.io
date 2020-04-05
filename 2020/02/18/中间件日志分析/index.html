@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="通过实践搭建常见中间件，自己分析熟悉中间件日志。 日志查看/etc/apache2/apache2.conf找到日志文件的位置，默认位于/var/log/apache2/目录下。 Get1117.175.121.169 - - [16/Feb/2020:14:15:56 +0800] &amp;quot;GET /?11=1 HTTP/1.1&amp;quot; 200 3525 &amp;quot;-&amp;quot; &amp;q">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-25T04:38:55.038Z">
+<meta property="og:updated_time" content="2020-03-31T02:52:42.069Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="中间件日志分析">
 <meta name="twitter:description" content="通过实践搭建常见中间件，自己分析熟悉中间件日志。 日志查看/etc/apache2/apache2.conf找到日志文件的位置，默认位于/var/log/apache2/目录下。 Get1117.175.121.169 - - [16/Feb/2020:14:15:56 +0800] &amp;quot;GET /?11=1 HTTP/1.1&amp;quot; 200 3525 &amp;quot;-&amp;quot; &amp;q">
@@ -239,7 +239,7 @@ ga('send', 'pageview');
 <p>这里用apache的日志来举例，可以看到日志只记载ip，请求的页面，get参数，User-Agent字段，在应急中如果是其他位置如cookie导致被攻击无法直接定位哪个参数存在漏洞。搭建看了下常见中间件的日志大同小异，都只记载了这些内容。</p>
 <p>这时候定位攻击者的IP应该从IP出现次数，IP出现频率，木马文件访问ip入手等。</p>
 <h2 id="常见攻击特征总结"><a href="#常见攻击特征总结" class="headerlink" title="常见攻击特征总结"></a>常见攻击特征总结</h2><p><strong>SQL攻击</strong>必定会使用脚本，基本就会是当天出现次数较多的ip，并且具有单个页面访问频率高的特点，这是扫描器等脚本没有的特点。</p>
-<p><strong>首页篡改</strong>基本也会是篡改后前几个查看这个页面的IP，这是正常人的本性肯定会访问下确定篡改成功没有。</p>
+<p><strong>首页篡改</strong>就根据服务器显示的文件修改时间来判断。</p>
 <p><strong>XSS</strong>的特征就是IP没有访问登录页面后再访问后台的连贯性，不符合常见登录特征。</p>
 <p><strong>弱口令、爆破</strong>过多访问登录页面，也有一次就试出来的，这种询问管理员是否存在弱口令和登录后台的IP是否是他们的IP。</p>
 
@@ -256,7 +256,7 @@ ga('send', 'pageview');
     <a class="show pull-left" href="/2019/12/12/java学习一之jsp/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2020/02/27/java学习二java机制/">
+    <a class="show pull-right" href="/2020/02/27/java代码安全/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>

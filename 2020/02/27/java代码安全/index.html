@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="java代码安全文件操作java有两种操作文件的模式一个是阻塞的java.io.FileSystem与非阻塞的java.nio.file.spi.FileSystemProvider，java.nio.file.spi.FileSystemProvider是java7后的特性。 12345678File file = new File(filename);FileInputStream fis =">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-25T04:29:26.249Z">
+<meta property="og:updated_time" content="2020-03-28T15:24:28.361Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java代码安全">
 <meta name="twitter:description" content="java代码安全文件操作java有两种操作文件的模式一个是阻塞的java.io.FileSystem与非阻塞的java.nio.file.spi.FileSystemProvider，java.nio.file.spi.FileSystemProvider是java7后的特性。 12345678File file = new File(filename);FileInputStream fis =">
@@ -255,13 +255,13 @@ ga('send', 'pageview');
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">禁用DTDs (doctypes),几乎可以防御所有xml实体攻击</span><br><span class="line">a.setFeature(&quot;http://apache.org/xml/features/disallow-doctype-decl&quot;, true);</span><br><span class="line">如果不能禁用DTDs,可以使用下两项，必须两项同时存在</span><br><span class="line">builder.setFeature(&quot;http://xml.org/sax/features/external-general-entities&quot;, false);	</span><br><span class="line">防止外部实体POC </span><br><span class="line">builder.setFeature(&quot;http://xml.org/sax/features/external-parameter-entities&quot;, false);</span><br><span class="line">防止参数实体POC</span><br></pre></td></tr></table></figure>
 
 <h3 id="SSTi"><a href="#SSTi" class="headerlink" title="SSTi"></a>SSTi</h3><p>模板注入就是使用模板引擎进行攻击。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">#set ($exp = &quot;exp&quot;);</span><br><span class="line">$exp.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;whoami&quot;)</span><br><span class="line">这是一个Velocity的代码，很容易就能看懂。</span><br><span class="line">FreeMarker有点难后面研究。</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">Velocity.evaluate(velocityContext, stringWriter, &quot;test&quot;, content);//content内容可控</span><br><span class="line">#set ($exp = &quot;exp&quot;);</span><br><span class="line">$exp.getClass().forName(&quot;java.lang.Runtime&quot;).getRuntime().exec(&quot;whoami&quot;)</span><br><span class="line">这是一个Velocity的代码，很容易就能看懂。</span><br><span class="line"></span><br><span class="line">FreeMarker利用有点麻烦，需要修改模板文件。</span><br><span class="line">&lt;#assign ex=&quot;freemarker.template.utility.Execute&quot;?new()&gt;$&#123; ex(&quot;id&quot;) &#125;</span><br><span class="line">需要修改模板文件</span><br><span class="line">修复</span><br><span class="line">Velocity</span><br><span class="line">严格过滤输入</span><br><span class="line">FreeMarker</span><br><span class="line">configuration.setNewBuiltinClassResolver(TemplateClassResolver.SAFER_RESOLVER);</span><br><span class="line"></span><br><span class="line">模板注入主要是函数要加载这个模板才行，如果像django用render之类的就不行</span><br></pre></td></tr></table></figure>
 
 <h3 id="xss"><a href="#xss" class="headerlink" title="xss"></a>xss</h3><p>没有什么复杂的地方。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">content = ESAPI.encoder().encoderForJavaScript(content); 防御代码</span><br></pre></td></tr></table></figure>
 
 <h3 id="表达式注入"><a href="#表达式注入" class="headerlink" title="表达式注入"></a>表达式注入</h3><p>java有很多表达式，表达式注入就是对传入的表达式可控导致的漏洞。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#123;&apos;&apos;.getClass().forName(&apos;java.la&apos;+&apos;ng.Ru&apos;+&apos;ntime&apos;).getMethod(&apos;ex&apos;+&apos;ec&apos;,&apos;&apos;.getClass()).invoke(&apos;&apos;.getClass().forName(&apos;java.la&apos;+&apos;ng.Ru&apos;+&apos;ntime&apos;).getMethod(&apos;getRu&apos;+&apos;ntime&apos;).invoke(null),&apos;calc&apos;)&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">@value(&quot;#&#123;表达式&#125;&quot;)//注解型表达式</span><br><span class="line">Expression expression = expressionParser.parseExpression(spel);//代码中传入表达式</span><br><span class="line">xml配bean可以使用表达式</span><br><span class="line">&lt;bean id=&quot;Bean1&quot; class=&quot;com.test.xxx&quot;&gt;</span><br><span class="line">	&lt;property name=&quot;arg&quot; value=&quot;#&#123;表达式&#125;&quot;&gt;</span><br><span class="line">&lt;/bean&gt;</span><br><span class="line">#&#123;&apos;&apos;.getClass().forName(&apos;java.la&apos;+&apos;ng.Ru&apos;+&apos;ntime&apos;).getMethod(&apos;ex&apos;+&apos;ec&apos;,&apos;&apos;.getClass()).invoke(&apos;&apos;.getClass().forName(&apos;java.la&apos;+&apos;ng.Ru&apos;+&apos;ntime&apos;).getMethod(&apos;getRu&apos;+&apos;ntime&apos;).invoke(null),&apos;calc&apos;)&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="JNDI注入和RMI、ladp"><a href="#JNDI注入和RMI、ladp" class="headerlink" title="JNDI注入和RMI、ladp"></a>JNDI注入和RMI、ladp</h3><p>jndi注入就是使用jndi功能时的lookup(URI)中可控导致的攻击，因为请求了恶意的链接而造成反序列化漏洞。</p>
 <p>引用别人的描述：在<code>RMI</code>服务中引用远程对象将受本地Java环境限制即本地的<code>java.rmi.server.useCodebaseOnly</code>配置必须为<code>false(允许加载远程对象)</code>，如果该值为<code>true</code>则禁止引用远程对象。除此之外被引用的<code>ObjectFactory</code>对象还将受到<code>com.sun.jndi.rmi.object.trustURLCodebase</code>配置限制，如果该值为<code>false(不信任远程引用对象)</code>一样无法调用远程的引用对象。</p>
@@ -289,10 +289,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2020/02/27/java学习二java机制/">
+    <a class="show pull-left" href="/2020/02/18/中间件日志分析/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2020/03/03/主机安全/">
+    <a class="show pull-right" href="/2020/02/27/java学习二java机制/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>
