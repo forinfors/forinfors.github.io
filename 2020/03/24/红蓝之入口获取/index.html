@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>红蓝之入口获取 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="白帽子，咸鱼">
+  
+
+  <meta name="description" content="信息收集在对web的渗透时，信息收集很重要，做了那么多安服项目，除了骚思路和深入利用外，常见的渗透目前感觉也就那样，但往往信息收集能发现很多有用的东西，特别是那种体量很大而公司对安全不重视的，经常能在网上发现一些公司重要信息，这里对信息收集的手段进行总结，不全面后面会补全。 域名信息收集项目开始首先给我们一个目标，如果是安服的话可能就是指定域名，红蓝的话就是哪个公司了，这里先对公司的信息进行收集。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红蓝之入口获取">
+<meta property="og:url" content="http://yoursite.com/2020/03/24/红蓝之入口获取/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="信息收集在对web的渗透时，信息收集很重要，做了那么多安服项目，除了骚思路和深入利用外，常见的渗透目前感觉也就那样，但往往信息收集能发现很多有用的东西，特别是那种体量很大而公司对安全不重视的，经常能在网上发现一些公司重要信息，这里对信息收集的手段进行总结，不全面后面会补全。 域名信息收集项目开始首先给我们一个目标，如果是安服的话可能就是指定域名，红蓝的话就是哪个公司了，这里先对公司的信息进行收集。">
+<meta property="og:locale" content="en">
+<meta property="og:updated_time" content="2020-06-14T09:08:56.822Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="红蓝之入口获取">
+<meta name="twitter:description" content="信息收集在对web的渗透时，信息收集很重要，做了那么多安服项目，除了骚思路和深入利用外，常见的渗透目前感觉也就那样，但往往信息收集能发现很多有用的东西，特别是那种体量很大而公司对安全不重视的，经常能在网上发现一些公司重要信息，这里对信息收集的手段进行总结，不全面后面会补全。 域名信息收集项目开始首先给我们一个目标，如果是安服的话可能就是指定域名，红蓝的话就是哪个公司了，这里先对公司的信息进行收集。">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/atom.xml"
+            rel="noopener noreferrer"
+            target="_blank"
+            >
+            RSS
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/search/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#信息收集"><span class="toc-text">信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#域名信息收集"><span class="toc-text">域名信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目标旗下主域名查询"><span class="toc-text">目标旗下主域名查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真实IP查询"><span class="toc-text">真实IP查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子域名查询"><span class="toc-text">子域名查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网站信息收集"><span class="toc-text">网站信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#后台、端口信息"><span class="toc-text">后台、端口信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网站信息检测"><span class="toc-text">网站信息检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#敏感信息泄露"><span class="toc-text">敏感信息泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#敏感文件泄露"><span class="toc-text">敏感文件泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后台泄露"><span class="toc-text">后台泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端信息泄露"><span class="toc-text">前端信息泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github信息泄露"><span class="toc-text">github信息泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他信息收集"><span class="toc-text">其他信息收集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#入口获取"><span class="toc-text">入口获取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常规漏洞"><span class="toc-text">常规漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件Nday"><span class="toc-text">中间件Nday</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#weblogic"><span class="toc-text">weblogic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jboss"><span class="toc-text">Jboss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tomcat"><span class="toc-text">tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solr"><span class="toc-text">solr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jenkins"><span class="toc-text">Jenkins</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Websphere"><span class="toc-text">Websphere</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件Nday"><span class="toc-text">组件Nday</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#struct2"><span class="toc-text">struct2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shiro"><span class="toc-text">shiro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fastjson"><span class="toc-text">fastjson</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#端口漏洞"><span class="toc-text">端口漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#钓鱼"><span class="toc-text">钓鱼</span></a></li></ol></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-红蓝之入口获取" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">红蓝之入口获取</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.03.24</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/渗透/">渗透</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="信息收集"><a href="#信息收集" class="headerlink" title="信息收集"></a>信息收集</h1><p>在对web的渗透时，信息收集很重要，做了那么多安服项目，除了骚思路和深入利用外，常见的渗透目前感觉也就那样，但往往信息收集能发现很多有用的东西，特别是那种体量很大而公司对安全不重视的，经常能在网上发现一些公司重要信息，这里对信息收集的手段进行总结，不全面后面会补全。</p>
+<h2 id="域名信息收集"><a href="#域名信息收集" class="headerlink" title="域名信息收集"></a>域名信息收集</h2><p>项目开始首先给我们一个目标，如果是安服的话可能就是指定域名，红蓝的话就是哪个公司了，这里先对公司的信息进行收集。</p>
+<h3 id="目标旗下主域名查询"><a href="#目标旗下主域名查询" class="headerlink" title="目标旗下主域名查询"></a>目标旗下主域名查询</h3><p>首先我们访问官网，知道他的主要域名，然后whois查询。</p>
+<p><a href="http://whois.chinaz.com/" target="_blank" rel="noopener">http://whois.chinaz.com/</a></p>
+<p><a href="https://x.threatbook.cn/" target="_blank" rel="noopener">微步</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">whois反查(这里网上可以通过邮箱等方式来反查，可能是代理商买的，一堆无用的域名，需要自己人工确认)</span><br><span class="line">证书反查，很多组织共用一个证书或者这个证书有另一个二级域名的信息，然后再去看另一个二级域名的证书又能知道新的二级域名，这样一步一步建立完整的域名资料</span><br><span class="line">攻击中收集</span><br><span class="line">app、小程序、前端源代码。</span><br></pre></td></tr></table></figure>
+
+<h3 id="真实IP查询"><a href="#真实IP查询" class="headerlink" title="真实IP查询"></a>真实IP查询</h3><p>真实IP是绕过云waf的很好的方法，很多厂商以为自己被攻击是waf不行，其实不知道是自己未配置waf白名单，人家不走waf直接访问。</p>
+<p><a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a>  //通过多地的ping测试可能绕过cdn直接访问ip。或者通过国外的域名解析记录商查看</p>
+<p>子域名ip，子域名和主域名可能在同一ip。</p>
+<p><a href="https://toolbar.netcraft.com/site_report" target="_blank" rel="noopener">查看历史解析记录法</a>，可能历史解析记录会存放之前的未上waf的ip。</p>
+<p>邮箱，服务器有发邮件的功能那么可以通过邮件获取对方ip。</p>
+<p>漏洞法，ssrf等漏洞也可以获取ip。</p>
+<h3 id="子域名查询"><a href="#子域名查询" class="headerlink" title="子域名查询"></a>子域名查询</h3><p><a href="http://tools.bugscaner.com/subdomain/" target="_blank" rel="noopener">http://tools.bugscaner.com/subdomain/</a></p>
+<p>site:xx.com</p>
+<p>DNS域传送漏洞</p>
+<p>fofa</p>
+<p>有真实IP的话就可以试试C段，有些有钱的公司域名很多都在一个C段</p>
+<p>子域名这种首先去寻找网站被搜索引擎，服务商收录的域名，然后再使用子域名爆破工具爆破，这里的爆破能力取决于字典的强度。</p>
+<h2 id="网站信息收集"><a href="#网站信息收集" class="headerlink" title="网站信息收集"></a>网站信息收集</h2><h3 id="后台、端口信息"><a href="#后台、端口信息" class="headerlink" title="后台、端口信息"></a>后台、端口信息</h3><p>使用工具扫描后台，端口信息</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -Pn -p 1-65535 -iL url.txt</span><br><span class="line">御剑</span><br><span class="line">DirBuster</span><br><span class="line">jsFinder</span><br><span class="line">nessus端口漏洞扫描</span><br></pre></td></tr></table></figure>
+
+<h3 id="网站信息检测"><a href="#网站信息检测" class="headerlink" title="网站信息检测"></a>网站信息检测</h3><p>wappalyzer</p>
+<p><a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener">cms识别</a></p>
+<p>抓包报错信息。</p>
+<h2 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h2><h3 id="敏感文件泄露"><a href="#敏感文件泄露" class="headerlink" title="敏感文件泄露"></a>敏感文件泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">site:xxx.com (filetype:doc OR filetype:ppt OR filetype:pps OR filetype:xls OR filetype:docx OR filetype:pptx OR filetype:ppsx OR filetype:xlsx OR filetype:odt OR filetype:ods OR filetype:odg OR filetype:odp OR filetype:pdf OR filetype:wpd OR filetype:svg OR filetype:svgz OR filetype:indd OR filetype:rdp OR filetype:sql OR filetype:xml OR filetype:db OR filetype:mdb OR filetype:sqlite)</span><br><span class="line"></span><br><span class="line">网盘</span><br><span class="line">http://www.pansou.com/</span><br><span class="line">http://www.daysou.com/</span><br><span class="line">这里多找几个试试，多试试说不定就有希望。</span><br><span class="line"></span><br><span class="line">目录扫描器。</span><br><span class="line">可以扫描如www.zip、.git等文件泄露。</span><br><span class="line"></span><br><span class="line">技术文档之类的也可能有些信息。</span><br></pre></td></tr></table></figure>
+
+<h3 id="后台泄露"><a href="#后台泄露" class="headerlink" title="后台泄露"></a>后台泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">robots.txt</span><br><span class="line">site:xxx.xxx admin|login|system|管理|登录|内部|系统|邮件|email|mail|qq|群|微信|腾讯|</span><br><span class="line">site:xxx.com inurl:login|admin|manage|admin_login|system|user|auth|dev|test</span><br><span class="line">site:xxx.com intitle:后台|管理|内部|登录|系统</span><br></pre></td></tr></table></figure>
+
+<h3 id="前端信息泄露"><a href="#前端信息泄露" class="headerlink" title="前端信息泄露"></a>前端信息泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">前端html、jss的信息泄露</span><br><span class="line"></span><br><span class="line">浏览网站收集上面的电话、邮箱等信息，然后去库里面查密码，虽然不一定对当前测试的网站有用，但在红蓝时可能可以</span><br><span class="line">登录vpn</span><br></pre></td></tr></table></figure>
+
+<h3 id="github信息泄露"><a href="#github信息泄露" class="headerlink" title="github信息泄露"></a>github信息泄露</h3><p>这里是信息泄露的重点，很可能在上面找到密码等信息。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xxx in:file,path //在文件名和路径中包含xxx</span><br><span class="line">xxx repo:yyy //在yyy项目中包含xxx</span><br><span class="line">xxx in:email //邮箱中包含xxx的用户</span><br><span class="line"></span><br><span class="line">##在搜索中in关键字能很好的帮助我们限定范围</span><br><span class="line">in:name //在名称中</span><br><span class="line">in:description //在描述中</span><br><span class="line">in:readme //在readme中</span><br></pre></td></tr></table></figure>
+
+<p>多搜索一下很可能会有收获。</p>
+<p>还有码云等等。</p>
+<h3 id="其他信息收集"><a href="#其他信息收集" class="headerlink" title="其他信息收集"></a>其他信息收集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">社工产品的提供商、外包人员，想办法弄一份源码来审计什么的。</span><br><span class="line">内部群</span><br><span class="line">制作字典</span><br></pre></td></tr></table></figure>
+
+<h1 id="入口获取"><a href="#入口获取" class="headerlink" title="入口获取"></a>入口获取</h1><h2 id="常规漏洞"><a href="#常规漏洞" class="headerlink" title="常规漏洞"></a>常规漏洞</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">SQL注入</span><br><span class="line">文件上传(前台基本传不上去，没遇到过)</span><br><span class="line">端口漏洞</span><br></pre></td></tr></table></figure>
+
+<h2 id="中间件Nday"><a href="#中间件Nday" class="headerlink" title="中间件Nday"></a>中间件Nday</h2><h3 id="weblogic"><a href="#weblogic" class="headerlink" title="weblogic"></a>weblogic</h3><p>端口:7001</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">weblogic scan https://github.com/rabbitmask/WeblogicScan</span><br></pre></td></tr></table></figure>
+
+<h3 id="Jboss"><a href="#Jboss" class="headerlink" title="Jboss"></a>Jboss</h3><p>端口:8080</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/joaomatosf/jexboss</span><br></pre></td></tr></table></figure>
+
+<h3 id="tomcat"><a href="#tomcat" class="headerlink" title="tomcat"></a>tomcat</h3><p>端口:8080</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/zhzyker/exphub/tree/master/tomcat</span><br><span class="line">CVE-2020-1938 8009</span><br></pre></td></tr></table></figure>
+
+<h3 id="solr"><a href="#solr" class="headerlink" title="solr"></a>solr</h3><p>用于大数据的，主要用于查询数据，相比于数据库他的搜索性能更高</p>
+<p>端口:8983</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/zhzyker/exphub/tree/master/solr</span><br></pre></td></tr></table></figure>
+
+<h3 id="Jenkins"><a href="#Jenkins" class="headerlink" title="Jenkins"></a>Jenkins</h3><p>用于自动部署项目</p>
+<p>未授权、弱口令部署webshell</p>
+<h3 id="Websphere"><a href="#Websphere" class="headerlink" title="Websphere"></a>Websphere</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Java 反序列化</span><br><span class="line">控制台弱口令,部署webshell</span><br></pre></td></tr></table></figure>
+
+<h2 id="组件Nday"><a href="#组件Nday" class="headerlink" title="组件Nday"></a>组件Nday</h2><h3 id="struct2"><a href="#struct2" class="headerlink" title="struct2"></a>struct2</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/x51/STS2G(go语言写的)</span><br><span class="line">https://github.com/HatBoy/Struts2-Scan</span><br></pre></td></tr></table></figure>
+
+<h3 id="shiro"><a href="#shiro" class="headerlink" title="shiro"></a>shiro</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://github.com/sv3nbeast/ShiroScan</span><br></pre></td></tr></table></figure>
+
+<h3 id="fastjson"><a href="#fastjson" class="headerlink" title="fastjson"></a>fastjson</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fastjson &lt;= 1.2.47 反序列化利用</span><br></pre></td></tr></table></figure>
+
+<p>这里总结的都是一些我觉得能经常见到的，还有各种cms什么的太多了具体事件具体弄。</p>
+<h2 id="端口漏洞"><a href="#端口漏洞" class="headerlink" title="端口漏洞"></a>端口漏洞</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">Mssql 	  [ 默认工作在tcp 1433端口, 弱口令, 敏感账号密码泄露, 提权, 远程执行, 后门植入 ]</span><br><span class="line">SMB       [ 默认工作在tcp 445端口, 弱口令, 远程执行, 后门植入 ]</span><br><span class="line">WMI       [ 默认工作在tcp 135端口, 弱口令, 远程执行, 后门植入 ]</span><br><span class="line">WinRM	  [ 默认工作在tcp 5985端口, 此项主要针对某些高版本Windows, 弱口令, 远程执行, 后门植入 ]</span><br><span class="line">RDP       [ 默认工作在tcp 3389端口, 弱口令, 远程执行, 别人留的shift类后门 ]</span><br><span class="line">SSH       [ 默认工作在tcp 22端口, 弱口令, 远程执行, 后门植入 ]</span><br><span class="line">ORACLE    [ 默认工作在tcp 1521端口, 弱口令, 敏感账号密码泄露, 提权, 远程执行, 后门植入 ]</span><br><span class="line">Mysql     [ 默认工作在tcp 3306端口, 弱口令, 敏感账号密码泄露, 提权(只适用于部分老系统) ]</span><br><span class="line">REDIS	  [ 默认工作在tcp 6379端口, 弱口令, 未授权访问, 写文件(webshell,启动项,计划任务), 提权 ]</span><br><span class="line">POSTGRESQL[ 默认工作在tcp 5432端口, 弱口令, 敏感信息泄露 ]</span><br><span class="line">LDAP      [ 默认工作在tcp 389端口, 未授权访问, 弱口令, 敏感账号密码泄露 ]</span><br><span class="line">SMTP      [ 默认工作在tcp 25端口, 服务错误配置导致的用户名枚举漏洞, 弱口令, 敏感信息泄露 ]</span><br><span class="line">POP3      [ 默认工作在tcp 110端口, 弱口令, 敏感信息泄露 ]</span><br><span class="line">IMAP      [ 默认工作在tcp 143端口, 弱口令, 敏感信息泄露 ]</span><br><span class="line">Exchange  [ 默认工作在tcp 443端口, 接口弱口令爆破 eg: Owa,ews,oab,AutoDiscover... pth脱邮件, 敏感信息泄露 ... ]</span><br><span class="line">VNC       [ 默认工作在tcp 5900端口, 弱口令 ]</span><br><span class="line">FTP       [ 默认工作在tcp 21端口, 弱口令, 匿名访问/可写, 敏感信息泄露 ]</span><br><span class="line">Rsync     [ 默认工作在tcp 873端口, 未授权, 弱口令, 敏感信息泄露 ]</span><br><span class="line">Mongodb   [ 默认工作在tcp 27017端口, 未授权, 弱口令 ]</span><br><span class="line">TELNET    [ 默认工作在tcp 23端口, 弱口令, 后门植入 ]</span><br><span class="line">SVN       [ 默认工作在tcp 3690端口, 弱口令, 敏感信息泄露 ]</span><br><span class="line">JAVA RMI  [ 默认工作在tcp 1099端口, 可能存在反序列化利用 ]</span><br><span class="line">CouchDB   [ 默认工作在tcp 5984端口, 未授权访问 ]</span><br></pre></td></tr></table></figure>
+
+<h2 id="钓鱼"><a href="#钓鱼" class="headerlink" title="钓鱼"></a>钓鱼</h2><p>不会</p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/03/13/bypass-disable-func/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2020/04/05/sql注入/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/atom.xml"
+              rel="noopener noreferrer"
+              target="_blank"
+              >
+              RSS
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/search/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              搜索
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
