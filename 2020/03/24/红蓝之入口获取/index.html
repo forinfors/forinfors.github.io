@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="信息收集在对web的渗透时，信息收集很重要，做了那么多安服项目，除了骚思路和深入利用外，常见的渗透目前感觉也就那样，但往往信息收集能发现很多有用的东西，特别是那种体量很大而公司对安全不重视的，经常能在网上发现一些公司重要信息，这里对信息收集的手段进行总结，不全面后面会补全。 域名信息收集项目开始首先给我们一个目标，如果是安服的话可能就是指定域名，红蓝的话就是哪个公司了，这里先对公司的信息进行收集。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-07-08T08:15:44.657Z">
+<meta property="og:updated_time" content="2020-07-27T05:27:14.974Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="红蓝之入口获取">
 <meta name="twitter:description" content="信息收集在对web的渗透时，信息收集很重要，做了那么多安服项目，除了骚思路和深入利用外，常见的渗透目前感觉也就那样，但往往信息收集能发现很多有用的东西，特别是那种体量很大而公司对安全不重视的，经常能在网上发现一些公司重要信息，这里对信息收集的手段进行总结，不全面后面会补全。 域名信息收集项目开始首先给我们一个目标，如果是安服的话可能就是指定域名，红蓝的话就是哪个公司了，这里先对公司的信息进行收集。">
@@ -153,28 +153,6 @@ ga('send', 'pageview');
           </a>
         </li>
       
-        <li class="item-toolbox">
-          <a
-            class="CIRCLE"
-            href="/atom.xml"
-            rel="noopener noreferrer"
-            target="_blank"
-            >
-            RSS
-          </a>
-        </li>
-      
-        <li class="item-toolbox">
-          <a
-            class="CIRCLE"
-            href="/search/"
-            rel="noopener noreferrer"
-            target="_self"
-            >
-            搜索
-          </a>
-        </li>
-      
     </ul>
   </div>
 
@@ -184,7 +162,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#信息收集"><span class="toc-text">信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#域名信息收集"><span class="toc-text">域名信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目标旗下主域名查询"><span class="toc-text">目标旗下主域名查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真实IP查询"><span class="toc-text">真实IP查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子域名查询"><span class="toc-text">子域名查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网站信息收集"><span class="toc-text">网站信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#后台、端口信息"><span class="toc-text">后台、端口信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网站信息检测"><span class="toc-text">网站信息检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#敏感信息泄露"><span class="toc-text">敏感信息泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#敏感文件泄露"><span class="toc-text">敏感文件泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#后台泄露"><span class="toc-text">后台泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端信息泄露"><span class="toc-text">前端信息泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github信息泄露"><span class="toc-text">github信息泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他信息收集"><span class="toc-text">其他信息收集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#入口获取"><span class="toc-text">入口获取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常规漏洞"><span class="toc-text">常规漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#端口"><span class="toc-text">端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件Nday"><span class="toc-text">中间件Nday</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#weblogic"><span class="toc-text">weblogic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jboss"><span class="toc-text">Jboss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tomcat"><span class="toc-text">tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Websphere"><span class="toc-text">Websphere</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件Nday"><span class="toc-text">组件Nday</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#struct2"><span class="toc-text">struct2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shiro"><span class="toc-text">shiro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fastjson"><span class="toc-text">fastjson</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solr"><span class="toc-text">solr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jenkins"><span class="toc-text">Jenkins</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cms漏洞"><span class="toc-text">cms漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#钓鱼"><span class="toc-text">钓鱼</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#信息收集"><span class="toc-text">信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#域名信息收集"><span class="toc-text">域名信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#目标旗下主域名查询"><span class="toc-text">目标旗下主域名查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#真实IP查询"><span class="toc-text">真实IP查询</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#子域名查询"><span class="toc-text">子域名查询</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#网站信息收集"><span class="toc-text">网站信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#后台、端口信息"><span class="toc-text">后台、端口信息</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#网站信息检测"><span class="toc-text">网站信息检测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#敏感信息泄露"><span class="toc-text">敏感信息泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#敏感文件泄露"><span class="toc-text">敏感文件泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#前端信息泄露"><span class="toc-text">前端信息泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#github信息泄露"><span class="toc-text">github信息泄露</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#其他信息收集"><span class="toc-text">其他信息收集</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#入口获取"><span class="toc-text">入口获取</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#常规漏洞"><span class="toc-text">常规漏洞</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#端口"><span class="toc-text">端口</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#中间件Nday"><span class="toc-text">中间件Nday</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#weblogic"><span class="toc-text">weblogic</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jboss"><span class="toc-text">Jboss</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#tomcat"><span class="toc-text">tomcat</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Websphere"><span class="toc-text">Websphere</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#组件Nday"><span class="toc-text">组件Nday</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#struct2"><span class="toc-text">struct2</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#shiro"><span class="toc-text">shiro</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#fastjson"><span class="toc-text">fastjson</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#solr"><span class="toc-text">solr</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Jenkins"><span class="toc-text">Jenkins</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#cms漏洞"><span class="toc-text">cms漏洞</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#钓鱼"><span class="toc-text">钓鱼</span></a></li></ol></li></ol>
   </div>
 
 
@@ -234,8 +212,8 @@ ga('send', 'pageview');
 <h2 id="域名信息收集"><a href="#域名信息收集" class="headerlink" title="域名信息收集"></a>域名信息收集</h2><p>项目开始首先给我们一个目标，如果是安服的话可能就是指定域名，红蓝的话就是哪个公司了，这里先对公司的信息进行收集。</p>
 <h3 id="目标旗下主域名查询"><a href="#目标旗下主域名查询" class="headerlink" title="目标旗下主域名查询"></a>目标旗下主域名查询</h3><p>首先我们访问官网，知道他的主要域名，然后whois查询。</p>
 <p><a href="http://whois.chinaz.com/" target="_blank" rel="noopener">http://whois.chinaz.com/</a></p>
-<p><a href="https://x.threatbook.cn/" target="_blank" rel="noopener">微步</a></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">whois反查(这里网上可以通过邮箱等方式来反查，可能是代理商买的，一堆无用的域名，需要自己人工确认)</span><br><span class="line">证书反查，很多组织共用一个证书或者这个证书有另一个二级域名的信息，然后再去看另一个二级域名的证书又能知道新的二级域名，这样一步一步建立完整的域名资料</span><br><span class="line">攻击中收集</span><br><span class="line">app、小程序、前端源代码。</span><br></pre></td></tr></table></figure>
+<p>查公司关系小蓝本/天眼查/<a href="http://www.beianbeian.com" target="_blank" rel="noopener">备案查询</a></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">whois反查(这里网上可以通过邮箱等方式来反查，可能是代理商买的，一堆无用的域名，需要自己人工确认)</span><br><span class="line">证书反查，很多组织共用一个证书或者这个证书有另一个二级域名的信息，然后再去看另一个二级域名的证书又能知道新的二级域名，这样一步一步建立完整的域名资料</span><br><span class="line">攻击中收集</span><br><span class="line">app、小程序、前端源代码。</span><br><span class="line"></span><br><span class="line">搜索文件中域名和ip</span><br><span class="line">grep -E “([0-9]&#123;1,3&#125;[.])&#123;3&#125;[0-9]&#123;1,3&#125;” -r wudawei —color=auto</span><br><span class="line">grep -E “https?://[a-zA-Z0-9.\/_&amp;=@$%?~#-]*” -r wudawei —color=auto</span><br></pre></td></tr></table></figure>
 
 <h3 id="真实IP查询"><a href="#真实IP查询" class="headerlink" title="真实IP查询"></a>真实IP查询</h3><p>真实IP是绕过云waf的很好的方法，很多厂商以为自己被攻击是waf不行，其实不知道是自己未配置waf白名单，人家不走waf直接访问。</p>
 <p><a href="http://ping.chinaz.com/" target="_blank" rel="noopener">http://ping.chinaz.com/</a>  //通过多地的ping测试可能绕过cdn直接访问ip。或者通过国外的域名解析记录商查看</p>
@@ -244,25 +222,24 @@ ga('send', 'pageview');
 <p>邮箱，服务器有发邮件的功能那么可以通过邮件获取对方ip。</p>
 <p>漏洞法，ssrf等漏洞也可以获取ip。</p>
 <h3 id="子域名查询"><a href="#子域名查询" class="headerlink" title="子域名查询"></a>子域名查询</h3><p><a href="http://tools.bugscaner.com/subdomain/" target="_blank" rel="noopener">http://tools.bugscaner.com/subdomain/</a></p>
+<p><a href="https://github.com/shmilylty/OneForAll" target="_blank" rel="noopener">oneforall</a>推荐</p>
 <p>site:xx.com</p>
 <p>DNS域传送漏洞</p>
 <p>fofa</p>
-<p>有真实IP的话就可以试试C段，有些有钱的公司域名很多都在一个C段</p>
+<p>有真实IP的话就可以试试C段，公司域名很多都在一个C段。</p>
 <p>子域名这种首先去寻找网站被搜索引擎，服务商收录的域名，然后再使用子域名爆破工具爆破，这里的爆破能力取决于字典的强度。</p>
 <h2 id="网站信息收集"><a href="#网站信息收集" class="headerlink" title="网站信息收集"></a>网站信息收集</h2><h3 id="后台、端口信息"><a href="#后台、端口信息" class="headerlink" title="后台、端口信息"></a>后台、端口信息</h3><p>使用工具扫描后台，端口信息</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -Pn -p 1-65535 -iL url.txt</span><br><span class="line">御剑</span><br><span class="line">DirBuster</span><br><span class="line">jsFinder</span><br><span class="line">nessus端口漏洞扫描</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">nmap -sS -Pn -p 1-65535 -iL url.txt</span><br><span class="line">nessus端口漏洞扫描</span><br><span class="line"></span><br><span class="line">robots.txt</span><br><span class="line">site:xxx.xxx admin|login|system|管理|登录|内部|系统|邮件|email|mail|qq|群|微信|腾讯|</span><br><span class="line">site:xxx.com inurl:login|admin|manage|admin_login|system|user|auth|dev|test</span><br><span class="line">site:xxx.com intitle:后台|管理|内部|登录|系统</span><br><span class="line">site:xxx.xxx 管理后台/登陆/管理员/系统</span><br><span class="line">site:xxx.xxx inurl:login|admin|system|guanli|denglu</span><br><span class="line">测试环境系统较为脆弱</span><br><span class="line">site:xxx.xxx inurl:test/ceshi</span><br><span class="line">site:xxx.xxx intitle:测试</span><br><span class="line"></span><br><span class="line">御剑扫描</span><br><span class="line">DirBuster</span><br></pre></td></tr></table></figure>
 
 <h3 id="网站信息检测"><a href="#网站信息检测" class="headerlink" title="网站信息检测"></a>网站信息检测</h3><p>wappalyzer</p>
 <p><a href="http://whatweb.bugscaner.com/look/" target="_blank" rel="noopener">cms识别</a></p>
 <p>抓包报错信息。</p>
-<h2 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h2><h3 id="敏感文件泄露"><a href="#敏感文件泄露" class="headerlink" title="敏感文件泄露"></a>敏感文件泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">site:xxx.com (filetype:doc OR filetype:ppt OR filetype:pps OR filetype:xls OR filetype:docx OR filetype:pptx OR filetype:ppsx OR filetype:xlsx OR filetype:odt OR filetype:ods OR filetype:odg OR filetype:odp OR filetype:pdf OR filetype:wpd OR filetype:svg OR filetype:svgz OR filetype:indd OR filetype:rdp OR filetype:sql OR filetype:xml OR filetype:db OR filetype:mdb OR filetype:sqlite)</span><br><span class="line"></span><br><span class="line">网盘</span><br><span class="line">http://www.pansou.com/</span><br><span class="line">http://www.daysou.com/</span><br><span class="line">这里多找几个试试，多试试说不定就有希望。</span><br><span class="line"></span><br><span class="line">目录扫描器。</span><br><span class="line">可以扫描如www.zip、.git等文件泄露。</span><br><span class="line"></span><br><span class="line">技术文档之类的也可能有些信息。</span><br></pre></td></tr></table></figure>
+<h2 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h2><h3 id="敏感文件泄露"><a href="#敏感文件泄露" class="headerlink" title="敏感文件泄露"></a>敏感文件泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">site:xxx.xxx filetype:pdf/doc/xls/txt</span><br><span class="line">site:xxx.xxx filetype:log/sql/conf</span><br><span class="line"></span><br><span class="line">网盘</span><br><span class="line">http://www.pansou.com/</span><br><span class="line">http://www.daysou.com/</span><br><span class="line">这里多找几个试试，多试试说不定就有希望。</span><br><span class="line"></span><br><span class="line">目录扫描器。</span><br><span class="line">可以扫描如www.zip、.git等文件泄露。</span><br><span class="line"></span><br><span class="line">技术文档之类的也可能有些信息。</span><br></pre></td></tr></table></figure>
 
-<h3 id="后台泄露"><a href="#后台泄露" class="headerlink" title="后台泄露"></a>后台泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">robots.txt</span><br><span class="line">site:xxx.xxx admin|login|system|管理|登录|内部|系统|邮件|email|mail|qq|群|微信|腾讯|</span><br><span class="line">site:xxx.com inurl:login|admin|manage|admin_login|system|user|auth|dev|test</span><br><span class="line">site:xxx.com intitle:后台|管理|内部|登录|系统</span><br></pre></td></tr></table></figure>
-
-<h3 id="前端信息泄露"><a href="#前端信息泄露" class="headerlink" title="前端信息泄露"></a>前端信息泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">前端html、jss的信息泄露</span><br><span class="line"></span><br><span class="line">浏览网站收集上面的电话、邮箱等信息，然后去库里面查密码，虽然不一定对当前测试的网站有用，但在红蓝时可能可以</span><br><span class="line">登录vpn</span><br></pre></td></tr></table></figure>
+<h3 id="前端信息泄露"><a href="#前端信息泄露" class="headerlink" title="前端信息泄露"></a>前端信息泄露</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">前端html、jss的信息泄露</span><br><span class="line"></span><br><span class="line">浏览网站收集上面的电话、邮箱等信息，然后去库里面查密码，虽然不一定对当前测试的网站有用，但在红蓝时可能可以</span><br><span class="line">登录vpn</span><br><span class="line">jsFinder</span><br></pre></td></tr></table></figure>
 
 <h3 id="github信息泄露"><a href="#github信息泄露" class="headerlink" title="github信息泄露"></a>github信息泄露</h3><p>这里是信息泄露的重点，很可能在上面找到密码等信息。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">xxx in:file,path //在文件名和路径中包含xxx</span><br><span class="line">xxx repo:yyy //在yyy项目中包含xxx</span><br><span class="line">xxx in:email //邮箱中包含xxx的用户</span><br><span class="line"></span><br><span class="line">##在搜索中in关键字能很好的帮助我们限定范围</span><br><span class="line">in:name //在名称中</span><br><span class="line">in:description //在描述中</span><br><span class="line">in:readme //在readme中</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">xxx in:file,path //在文件名和路径中包含xxx</span><br><span class="line">xxx repo:yyy //在yyy项目中包含xxx</span><br><span class="line">xxx in:email //邮箱中包含xxx的用户</span><br><span class="line">@xxx.xxx password/secret/credentials/token/config/pass/login/ftp/pwd</span><br><span class="line">@xxx.xxx security_credentials/connetionstring/JDBC/ssh2_auth_password/send_keys</span><br><span class="line"></span><br><span class="line">##在搜索中in关键字能很好的帮助我们限定范围</span><br><span class="line">in:name //在名称中</span><br><span class="line">in:description //在描述中</span><br><span class="line">in:readme //在readme中</span><br></pre></td></tr></table></figure>
 
 <p>多搜索一下很可能会有收获。</p>
 <p>还有码云等等。</p>
@@ -391,28 +368,6 @@ ga('send', 'pageview');
               target="_self"
               >
               友链
-            </a>
-          </li>
-        
-          <li class="item-toolbox">
-            <a
-              class="CIRCLE"
-              href="/atom.xml"
-              rel="noopener noreferrer"
-              target="_blank"
-              >
-              RSS
-            </a>
-          </li>
-        
-          <li class="item-toolbox">
-            <a
-              class="CIRCLE"
-              href="/search/"
-              rel="noopener noreferrer"
-              target="_self"
-              >
-              搜索
             </a>
           </li>
         

