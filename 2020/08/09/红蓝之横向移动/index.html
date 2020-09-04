@@ -15,17 +15,17 @@
     <meta name="keywords" content="白帽子，咸鱼">
   
 
-  <meta name="description" content="横向移动在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 密码抓取主机发现这里主要是通过C段、B段的扫描来获取有哪些主机">
+  <meta name="description" content="横向移动上一章是说明了如何定位域控和域管账号，在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 服务探测和常见漏洞利用主机发现这里主要是通过C段、B段的扫描来获取有哪些主机， 根据条件使用全端口、敏感端口。这">
 <meta property="og:type" content="article">
 <meta property="og:title" content="红蓝之横向移动">
 <meta property="og:url" content="http://yoursite.com/2020/08/09/红蓝之横向移动/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="横向移动在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 密码抓取主机发现这里主要是通过C段、B段的扫描来获取有哪些主机">
+<meta property="og:description" content="横向移动上一章是说明了如何定位域控和域管账号，在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 服务探测和常见漏洞利用主机发现这里主要是通过C段、B段的扫描来获取有哪些主机， 根据条件使用全端口、敏感端口。这">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-08-09T06:48:29.039Z">
+<meta property="og:updated_time" content="2020-08-31T10:00:56.862Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="红蓝之横向移动">
-<meta name="twitter:description" content="横向移动在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 密码抓取主机发现这里主要是通过C段、B段的扫描来获取有哪些主机">
+<meta name="twitter:description" content="横向移动上一章是说明了如何定位域控和域管账号，在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 服务探测和常见漏洞利用主机发现这里主要是通过C段、B段的扫描来获取有哪些主机， 根据条件使用全端口、敏感端口。这">
 
   
 
@@ -162,7 +162,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#横向移动"><span class="toc-text">横向移动</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#密码抓取"><span class="toc-text">密码抓取</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#主机发现"><span class="toc-text">主机发现</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#横向移动"><span class="toc-text">横向移动</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#服务探测和常见漏洞利用"><span class="toc-text">服务探测和常见漏洞利用</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#主机发现"><span class="toc-text">主机发现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#定位域管"><span class="toc-text">定位域管</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域横向移动手段"><span class="toc-text">域横向移动手段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#IPC管道"><span class="toc-text">IPC管道</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#PTH-amp-amp-PTT"><span class="toc-text">PTH&amp;&amp;PTT</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#工作组横向移动手段"><span class="toc-text">工作组横向移动手段</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#常见漏洞"><span class="toc-text">常见漏洞</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域信任"><span class="toc-text">域信任</span></a></li></ol></li></ol>
   </div>
 
 
@@ -203,9 +203,22 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <h1 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h1><p>在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。</p>
-<h2 id="密码抓取"><a href="#密码抓取" class="headerlink" title="密码抓取"></a>密码抓取</h2><h2 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h2><p>这里主要是通过C段、B段的扫描来获取有哪些主机</p>
+      <h1 id="横向移动"><a href="#横向移动" class="headerlink" title="横向移动"></a>横向移动</h1><p>上一章是说明了如何定位域控和域管账号，在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。</p>
+<h2 id="服务探测和常见漏洞利用"><a href="#服务探测和常见漏洞利用" class="headerlink" title="服务探测和常见漏洞利用"></a>服务探测和常见漏洞利用</h2><h3 id="主机发现"><a href="#主机发现" class="headerlink" title="主机发现"></a>主机发现</h3><p>这里主要是通过C段、B段的扫描来获取有哪些主机，</p>
+<p>根据条件使用全端口、敏感端口。这里可以自己写个脚本使用masscan探测开放，nmap探测服务。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">icmp内网扫描</span><br><span class="line">for /l %i in (1,1,255) do @ ping 10.0.0.%i -w 1 -n 1|find /i &quot;ttl=&quot;</span><br><span class="line">@for /l %i in (1,1,255) do @ping -n 1 -w 40 192.168.0.%i &amp; if errorlevel 1 (echo 192.168.0.%i &gt;&gt; ip.txt) else (echo 192.168.0.%i &gt;&gt; ip.txt)</span><br></pre></td></tr></table></figure>
 
+<h3 id="定位域管"><a href="#定位域管" class="headerlink" title="定位域管"></a>定位域管</h3><p>查找哪台主机域管在线</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">PsLoggedon.exe 用户名 定位该用户</span><br><span class="line">powershell.exe -exec bypass -Command &quot;&amp; &#123;Import-Module C:\PowerView.ps1; Invoke-UserHunter&#125;&quot;</span><br><span class="line">powerview命令</span><br><span class="line">Invoke-UserHunter -UserName &quot;win7user（域用户名）&quot;</span><br><span class="line">其他命令</span><br><span class="line">Get-NetDomain  # 获取当前的域名称</span><br><span class="line">Get-Netuser # 返回所有域内成员的详细信息</span><br><span class="line">Get-NetDomainController # 获取所有的域内的控制器信息</span><br><span class="line">Get-NetComputer  # 获取所有域内机器的名称</span><br><span class="line">Get-Netshare  # 获取域内的所有的网络共享</span><br><span class="line">Get-NetRDPSESSION  # 获取指定服务的远程连接信息 </span><br><span class="line">Get-NetProcess  # 获取进程的详细信息</span><br><span class="line">Get-ADOPJECT  # 获取活动目录的信息</span><br><span class="line">Invoke-ProcessHunter # 获取登陆计算机且判断用户是否有管理员权限</span><br></pre></td></tr></table></figure>
+
+<h2 id="域横向移动手段"><a href="#域横向移动手段" class="headerlink" title="域横向移动手段"></a>域横向移动手段</h2><h3 id="IPC管道"><a href="#IPC管道" class="headerlink" title="IPC管道"></a>IPC管道</h3><p>net use 可以查看当前ipc连接，通过ipc可以直接执行命令</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\ip\c$</span><br></pre></td></tr></table></figure>
+
+<h3 id="PTH-amp-amp-PTT"><a href="#PTH-amp-amp-PTT" class="headerlink" title="PTH&amp;&amp;PTT"></a>PTH&amp;&amp;PTT</h3><p>先了解Kerberos协议和ntlm认证，这两种方式总得来说就是得到了域控或者成员的hash，而hash在内网中作为了认证的密钥，得到了hash就可以伪造成对应的身份，详细<a href="https://www.cnblogs.com/bmjoker/p/10723432.html" target="_blank" rel="noopener">协议机制</a></p>
+<h2 id="工作组横向移动手段"><a href="#工作组横向移动手段" class="headerlink" title="工作组横向移动手段"></a>工作组横向移动手段</h2><p>工作组就和普通外网的一样，而且能看到的端口更多，利用常见漏洞、相同密码、窃听手段来渗透。</p>
+<h3 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a>常见漏洞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis未授权 常见端口6379 16379 26379</span><br><span class="line">ms17-010</span><br><span class="line">cve-2019-0708</span><br></pre></td></tr></table></figure>
+
+<h2 id="域信任"><a href="#域信任" class="headerlink" title="域信任"></a>域信任</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nltest  /domain_trusts查看域信任关系</span><br></pre></td></tr></table></figure>
     
   </div>
 
@@ -219,7 +232,7 @@ ga('send', 'pageview');
     <a class="show pull-left" href="/2020/07/09/红蓝之隧道搭建与主机信息搜集/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="hide pull-right" href="/">
+    <a class="show pull-right" href="/2020/08/29/powershell学习/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>

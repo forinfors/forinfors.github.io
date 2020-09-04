@@ -7,7 +7,7 @@
 <head><meta name="generator" content="Hexo 3.9.0">
   <meta charset="utf-8">
   
-  <title>内网渗透PTH+PTT | Hexo</title>
+  <title>powershell学习 | Hexo</title>
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
@@ -15,17 +15,17 @@
     <meta name="keywords" content="白帽子，咸鱼">
   
 
-  <meta name="description" content="这两种攻击手法都是收集到足够的信息不使用密码便能构造认证。 PTH说到PTH就先说NTLM。 早期SMB协议在网络上传递是明文的username和password，后来出现了简称为LM的局域网管理挑战应答机制（LAN Manager Challenge/Response），后来微软又开发了WinNT LAN Manager Challenge/Response，简称NTLM。 1234简单认证过程">
+  <meta name="description" content="powershellpowershell是cmd的加强版本可以进行编程，是后渗透的利器。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="内网渗透PTH+PTT">
-<meta property="og:url" content="http://yoursite.com/2019/11/06/内网渗透PTH-PTT-PTK/index.html">
+<meta property="og:title" content="powershell学习">
+<meta property="og:url" content="http://yoursite.com/2020/08/29/powershell学习/index.html">
 <meta property="og:site_name" content="Hexo">
-<meta property="og:description" content="这两种攻击手法都是收集到足够的信息不使用密码便能构造认证。 PTH说到PTH就先说NTLM。 早期SMB协议在网络上传递是明文的username和password，后来出现了简称为LM的局域网管理挑战应答机制（LAN Manager Challenge/Response），后来微软又开发了WinNT LAN Manager Challenge/Response，简称NTLM。 1234简单认证过程">
+<meta property="og:description" content="powershellpowershell是cmd的加强版本可以进行编程，是后渗透的利器。">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-25T04:42:48.945Z">
+<meta property="og:updated_time" content="2020-08-29T03:56:50.547Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="内网渗透PTH+PTT">
-<meta name="twitter:description" content="这两种攻击手法都是收集到足够的信息不使用密码便能构造认证。 PTH说到PTH就先说NTLM。 早期SMB协议在网络上传递是明文的username和password，后来出现了简称为LM的局域网管理挑战应答机制（LAN Manager Challenge/Response），后来微软又开发了WinNT LAN Manager Challenge/Response，简称NTLM。 1234简单认证过程">
+<meta name="twitter:title" content="powershell学习">
+<meta name="twitter:description" content="powershellpowershell是cmd的加强版本可以进行编程，是后渗透的利器。">
 
   
 
@@ -162,20 +162,20 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#PTH"><span class="toc-text">PTH</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PTT"><span class="toc-text">PTT</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#powershell"><span class="toc-text">powershell</span></a></li></ol>
   </div>
 
 
 
 <div class="content content-post CENTER">
-   <article id="post-内网渗透PTH-PTT-PTK" class="article article-type-post" itemprop="blogPost">
+   <article id="post-powershell学习" class="article article-type-post" itemprop="blogPost">
   <header class="article-header">
-    <h1 class="post-title">内网渗透PTH+PTT</h1>
+    <h1 class="post-title">powershell学习</h1>
 
     <div class="article-meta">
       <span>
         <i class="icon-calendar"></i>
-        <span>2019.11.06</span>
+        <span>2020.08.29</span>
       </span>
 
       
@@ -186,11 +186,6 @@ ga('send', 'pageview');
       
 
       
-  <span class="article-category">
-    <i class="icon-list"></i>
-    <a class="article-category-link" href="/categories/渗透/">渗透</a>
-  </span>
-
 
 
       
@@ -208,16 +203,7 @@ ga('send', 'pageview');
 
   <div class="article-content">
     
-      <p>这两种攻击手法都是收集到足够的信息不使用密码便能构造认证。</p>
-<h2 id="PTH"><a href="#PTH" class="headerlink" title="PTH"></a>PTH</h2><p>说到PTH就先说NTLM。</p>
-<p>早期SMB协议在网络上传递是明文的username和password，后来出现了简称为LM的局域网管理挑战应答机制（LAN Manager Challenge/Response），后来微软又开发了WinNT LAN Manager Challenge/Response，简称NTLM。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">简单认证过程：</span><br><span class="line">客户端发起认证请求</span><br><span class="line">服务端收到认证请求，向客户端发送随机数（chanlleng/挑战）</span><br><span class="line">客户端使用NTLM Hash打乱该随机数，生成Net-NTLM Hash，发送回服务端 （这里会造成pth攻击）</span><br></pre></td></tr></table></figure>
-
-<p>说白了就是hash当作密码的作用，我们不需要费劲心机的先碰撞出明文密码。</p>
-<h2 id="PTT"><a href="#PTT" class="headerlink" title="PTT"></a>PTT</h2><p>PTT是基于Kerberos协议的攻击</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">Kerberos过程</span><br><span class="line">身份认证</span><br><span class="line">客户端使用hash加密时间戳给AS身份认证服务</span><br><span class="line">AS接收到客户端发来的请求包后，会使用客户端的hash解密出timestamp，times&lt;5min</span><br><span class="line">KDC会生成一个使用user1的hash加密的logon session key和krbtgt的hash加密的TGT</span><br><span class="line"></span><br><span class="line">获取权限</span><br><span class="line">客户端向TGS发送TGT与logon session key加密的认证信息</span><br><span class="line">使用krbtgt的hash解密TGT得到logon session key再解密认证信息</span><br><span class="line">logon session key加密session key，和server hash加密的session key</span><br><span class="line"></span><br><span class="line">交互</span><br><span class="line">客户端获得logon session key加密的session key后解密，再将server hash加密的session key发给服务器</span><br><span class="line">双方使用session key通信</span><br></pre></td></tr></table></figure>
-
-<p>黄金票据就是获得krbtgt的HASH冒充任何人，白银票据就是获得服务器HASH再将server hash加密的任意session key给服务器。</p>
+      <h1 id="powershell"><a href="#powershell" class="headerlink" title="powershell"></a>powershell</h1><p>powershell是cmd的加强版本可以进行编程，是后渗透的利器。</p>
 
     
   </div>
@@ -229,10 +215,10 @@ ga('send', 'pageview');
 
    
   <div class="box-prev-next clearfix">
-    <a class="show pull-left" href="/2019/10/28/内网渗透基础篇/">
+    <a class="show pull-left" href="/2020/08/09/红蓝之横向移动/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2019/11/08/go白盒学习笔记/">
+    <a class="show pull-right" href="/2020/08/31/养活安全人员的weblogic和Fastjson/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>

