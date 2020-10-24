@@ -26,7 +26,7 @@
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565924892380.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935108396.png">
 <meta property="og:image" content="http://yoursite.com/2019/08/15/xss研究之浏览器编码探究/1565935142519.png">
-<meta property="og:updated_time" content="2020-03-25T04:41:41.182Z">
+<meta property="og:updated_time" content="2020-09-11T11:19:32.570Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="xss研究之浏览器编码探究">
 <meta name="twitter:description" content="以下是根据网上文章字节理解整理的一篇文章，可能存在错误，&amp;lt;__&amp;gt;有错你也打不到我 浏览器解码规则 说到浏览器规则便用这一张图来简单阐述。 首先生成html和css的DOM树和CSSOM树，当遇到script时会中断DOM树的创建。了解浏览器渲染流程可以参考链接html渲染。 html解析器html渲染生成DOM树时&amp;lt;且后面无/就进入”标签开始状态“，然后匹配到标签转变到“标签名状">
@@ -167,7 +167,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#浏览器解码规则"><span class="toc-text">浏览器解码规则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html解析器"><span class="toc-text">html解析器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js解析器"><span class="toc-text">js解析器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#script"><span class="toc-text">script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#on-事件"><span class="toc-text">on*事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪协议"><span class="toc-text">伪协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#浏览器解码规则"><span class="toc-text">浏览器解码规则</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#html解析器"><span class="toc-text">html解析器</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#js解析器"><span class="toc-text">js解析器</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#script"><span class="toc-text">script</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#on-事件"><span class="toc-text">on*事件</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#伪协议"><span class="toc-text">伪协议</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#DOM型XSS研究"><span class="toc-text">DOM型XSS研究</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#触发点"><span class="toc-text">触发点</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#innerHtml"><span class="toc-text">innerHtml</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#eval"><span class="toc-text">eval()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#document-write"><span class="toc-text">document.write()</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#herf"><span class="toc-text">.herf</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#append"><span class="toc-text">.append</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#setTimeout"><span class="toc-text">setTimeout</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#总结"><span class="toc-text">总结</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#参考文章"><span class="toc-text">参考文章</span></a></li></ol></li></ol>
   </div>
 
 
@@ -230,6 +230,14 @@ ga('send', 'pageview');
 <p>%5c%75%30%30%36%31%5c%75%30%30%36%63%5c%75%30%30%36%35%5c%75%30</p>
 <p>%30%37%32%5c%75%30%30%37%34</p>
 <p>再由js解析器解析。</p>
+<h1 id="DOM型XSS研究"><a href="#DOM型XSS研究" class="headerlink" title="DOM型XSS研究"></a>DOM型XSS研究</h1><p>DOM型XSS是一个不需要服务器处理的XSS，它的恶意代码来源于URL等，前端代码调用这些恶意代码触发了XSS。</p>
+<h2 id="触发点"><a href="#触发点" class="headerlink" title="触发点"></a>触发点</h2><h3 id="innerHtml"><a href="#innerHtml" class="headerlink" title="innerHtml"></a>innerHtml</h3><p>这个属性用来修改js内容的,可以直接把某个标签修改为恶意代码。</p>
+<h3 id="eval"><a href="#eval" class="headerlink" title="eval()"></a>eval()</h3><p>eval(alert(1))，eval可以直接执行其中js代码。</p>
+<h3 id="document-write"><a href="#document-write" class="headerlink" title="document.write()"></a>document.write()</h3><p>直接重写网页同样可以写入恶意js。</p>
+<h3 id="herf"><a href="#herf" class="headerlink" title=".herf"></a>.herf</h3><p>localhost.herf=”javascript:alert(1)”herf可以使用伪协议触发。</p>
+<h3 id="append"><a href="#append" class="headerlink" title=".append"></a>.append</h3><p>插入元素</p>
+<h3 id="setTimeout"><a href="#setTimeout" class="headerlink" title="setTimeout"></a>setTimeout</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(&quot;alert(1)&quot;,1000)1000毫秒后执行alert()</span><br></pre></td></tr></table></figure>
+
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>对于html标签属性进行了编码便不会被识别。</p>
 <p>&#60;script&#62;标签不能使用js编码外的其他js解释器不识别的编码，script标签中的内容会原封不动的给js去执行。</p>
 <p>on*事件是调用的js函数，html编码处理发生在给JS解析器之前。</p>

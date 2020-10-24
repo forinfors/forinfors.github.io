@@ -22,7 +22,7 @@
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.class,com.aa.classClass.forName(&amp;quot;classpath">
 <meta property="og:locale" content="en">
-<meta property="og:updated_time" content="2020-03-25T04:35:05.073Z">
+<meta property="og:updated_time" content="2020-10-19T03:47:47.719Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java学习二java机制">
 <meta name="twitter:description" content="反射java.lang.class​        Class类是反射中的核心类，Java中每个类都有一个相对应的Class类的对象，类是class类的实例对象，JVM加载类时会创建一个该类的Class类对象。 ​        实现反射第一步就是获取class 12345class.class int.class,com.aa.classClass.forName(&amp;quot;classpath">
@@ -162,7 +162,7 @@ ga('send', 'pageview');
 
   <div id="toc" class="toc-article">
     <strong class="toc-title">Posts List</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射"><span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java-lang-class"><span class="toc-text">java.lang.class</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RMI"><span class="toc-text">RMI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jndi"><span class="toc-text">jndi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解"><span class="toc-text">注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk默认注解"><span class="toc-text">jdk默认注解</span></a></li></ol></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#反射"><span class="toc-text">反射</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#java-lang-class"><span class="toc-text">java.lang.class</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#RMI"><span class="toc-text">RMI</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#jndi"><span class="toc-text">jndi</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#注解"><span class="toc-text">注解</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jdk默认注解"><span class="toc-text">jdk默认注解</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#数据库"><span class="toc-text">数据库</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#jdbc"><span class="toc-text">jdbc</span></a></li></ol></li></ol>
   </div>
 
 
@@ -238,7 +238,10 @@ ga('send', 'pageview');
 <p>@Documented - 标记这些注解是否包含在用户文档中。</p>
 <p>@Target - 标记这个注解应该是哪种 Java 成员。</p>
 <p>@Inherited - 标记这个注解是继承于哪个注解类(默认 注解并没有继承于任何子类)</p>
+<h2 id="数据库"><a href="#数据库" class="headerlink" title="数据库"></a>数据库</h2><h3 id="jdbc"><a href="#jdbc" class="headerlink" title="jdbc"></a>jdbc</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Class.forName(&quot;com.myql.jdbc.Driver&quot;);</span><br><span class="line">con = DriverManager.getConnection(&quot;jdbc://mysql://localhost:3306/student&quot;, &quot;root&quot;, &quot;root&quot;);</span><br></pre></td></tr></table></figure>
 
+<p>在拿下一个站时也</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">org.springframework.jdbc.datasource</span><br><span class="line">MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQClUz1RYtWpOMdwF/XYqU2GVoGj6MYC3tLbmZPNqt0HeIsLV9hF3XtW++lw9ClHmF05ZwBcXQLRS0OYvIj+pssGc8o1y72r+29Kf/+MZb22kkn56YhB9Zxk+cMwAvehCeeQrQakaMAIAJ0zBC9LRfXJgSANm4PVXo/pnvn49iwFwQIDAQAB</span><br></pre></td></tr></table></figure>
     
   </div>
 
